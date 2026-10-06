@@ -33,17 +33,16 @@
     "pg": "^8.13.3",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.2",
-    "swagger-ui-express": "^5.0.1"
-  },
-  "devDependencies": {
     "@nestjs/cli": "^11.0.5",
-    "@nestjs/schematics": "^11.0.2",
     "@types/express": "^5.0.0",
     "@types/node": "^22.13.9",
     "@types/passport-jwt": "^4.0.1",
     "@types/pg": "^8.11.11",
-    "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.8.2"
+  },
+  "devDependencies": {
+    "@nestjs/schematics": "^11.0.2",
+    "ts-node": "^10.9.2"
   }
 }
