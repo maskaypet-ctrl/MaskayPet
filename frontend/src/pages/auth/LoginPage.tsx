@@ -96,7 +96,7 @@ export const LoginPage: React.FC = () => {
           {/* Mobile Brand Header */}
           <div className={styles.mobileBrandHeader}>
             <div className={styles.mobileLogoBox}>
-              <img src="/logo-circle.jpg" alt="MaskayPet Logo" className={styles.logoImg} />
+              <img src="/logo-circle.png" alt="MaskayPet Logo" className={styles.logoImg} />
             </div>
             <div className={styles.mobileBrandText}>
               <span className={styles.mobileBrandTitle}>MaskayPet</span>

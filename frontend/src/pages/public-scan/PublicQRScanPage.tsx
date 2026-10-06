@@ -111,7 +111,7 @@ export const PublicQRScanPage: React.FC = () => {
       {/* Platform Public Branding Header */}
       <div className={styles.publicHeader}>
         <div className={styles.publicLogoBox}>
-          <img src="/logo-circle.jpg" alt="MaskayPet Logo" className={styles.publicLogoImg} />
+          <img src="/logo-circle.png" alt="MaskayPet Logo" className={styles.publicLogoImg} />
         </div>
         <div className={styles.publicHeaderText}>
           <span className={styles.publicBrandName}>MaskayPet</span>

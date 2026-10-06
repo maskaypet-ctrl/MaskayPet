@@ -9,7 +9,7 @@ export const PrivacyPage: React.FC = () => {
         <div className={styles.headerInner}>
           <Link to="/" className={styles.brandLink}>
             <div className={styles.logoIcon}>
-              <img src="/logo-circle.jpg" alt="MaskayPet Logo" className={styles.logoImg} />
+              <img src="/logo-circle.png" alt="MaskayPet Logo" className={styles.logoImg} />
             </div>
             <div>
               <span className={styles.brandName}>MaskayPet</span>
