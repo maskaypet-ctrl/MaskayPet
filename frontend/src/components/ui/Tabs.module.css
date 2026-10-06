@@ -1,0 +1,97 @@
+.tabs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.pills {
+  background: var(--surface-container-low);
+  padding: 6px;
+  border-radius: var(--radius-lg);
+  width: fit-content;
+  max-width: 100%;
+}
+
+.tabBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--on-surface-variant);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.tabBtn:hover {
+  color: var(--on-surface);
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.pills .active {
+  background: var(--surface-container-lowest) !important;
+  color: var(--primary) !important;
+  box-shadow: var(--shadow-sm);
+}
+
+.underline {
+  border-bottom: 1px solid var(--outline-variant);
+  gap: 16px;
+}
+
+.underline .tabBtn {
+  border-radius: 0;
+  padding: 12px 4px;
+  border-bottom: 2px solid transparent;
+}
+
+.underline .active {
+  color: var(--primary) !important;
+  border-bottom-color: var(--primary);
+}
+
+.tabIcon {
+  font-size: 18px;
+}
+
+.tabBadge {
+  background: var(--primary-fixed);
+  color: var(--on-primary-container);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: var(--radius-full);
+}
+
+@media (max-width: 640px) {
+  .pills {
+    width: 100%;
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 4px;
+    gap: 4px;
+  }
+  .pills::-webkit-scrollbar {
+    display: none;
+  }
+  .tabBtn {
+    padding: 8px 12px;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+}

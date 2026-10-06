@@ -1,0 +1,15 @@
+NODE_ENV=production
+API_PREFIX=api/v1
+CORS_ORIGIN=*
+DATABASE_URL=postgresql://postgres.dxyjivzfdbvszfqoppyk:Angelascona38022-@aws-0-us-east-1.pooler.supabase.com:6543/postgres
+DB_MAX_CONNECTIONS=20
+DB_IDLE_TIMEOUT_MILLIS=30000
+DB_CONNECTION_TIMEOUT_MILLIS=5000
+JWT_SECRET=super-secret-jwt-key-change-this-in-production-at-least-32-chars-long!
+JWT_ACCESS_EXPIRATION=15m
+JWT_REFRESH_EXPIRATION_DAYS=7
+SUPABASE_URL=https://dxyjivzfdbvszfqoppyk.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR4eWppdnpmZGJ2c3pmcW9wcHlrIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4OTI2NzI2NSwiZXhwIjoyMTA0ODQzMjY1fQ.7Ilu56s053TgymgglFYVV6z_JLpPqWw-FFLM8g3ITRo
+SUPABASE_STORAGE_BUCKET_PETS=pet-photos
+SUPABASE_STORAGE_BUCKET_DOCS=medical-documents
+PUBLIC_APP_URL=*

@@ -1,0 +1,156 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.title {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--on-surface);
+}
+
+.subtitle {
+  font-size: 14px;
+  color: var(--on-surface-variant);
+  margin-top: 4px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 24px;
+}
+
+.generatorCard, .auditCard {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.cardTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.cardTitleRow span { font-size: 24px; }
+.cardTitleRow h3 {
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.generatedBox {
+  background: var(--surface-container-low);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  margin-top: 8px;
+  border: 1.5px solid var(--primary-fixed);
+}
+
+.generatedBox h4 {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+
+.codeList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.codeItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--surface-container-lowest);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-family: monospace;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.copyBtn, .smallCopy {
+  color: var(--primary);
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  border-radius: var(--radius-xs);
+}
+.copyBtn:hover, .smallCopy:hover {
+  background: var(--surface-container);
+}
+.copyBtn span, .smallCopy span { font-size: 16px; }
+
+/* Table */
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 13px;
+}
+
+.table th {
+  padding: 10px 14px;
+  background: var(--surface-container-low);
+  font-weight: 700;
+  color: var(--on-surface-variant);
+  border-bottom: 1px solid var(--surface-container);
+}
+
+.table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--surface-container);
+  color: var(--on-surface);
+}
+
+.codeRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tableNotes {
+  font-size: 11px;
+  color: var(--outline);
+  display: block;
+  margin-top: 2px;
+}
+
+.mutedText {
+  color: var(--outline);
+  font-style: italic;
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

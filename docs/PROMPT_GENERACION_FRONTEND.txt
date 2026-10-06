@@ -1,0 +1,217 @@
+================================================================================
+PROMPT MAESTRO PARA GENERAR EL FRONTEND COMPLETO DE MASCOTAS QR
+(Copiar y pegar directamente en cualquier generador de codigo o LLM)
+================================================================================
+
+[INSTRUCCION PRINCIPAL]
+Actua como un Desarrollador Frontend Senior experto en Next.js (App Router), TypeScript y Tailwind CSS. Tu tarea es construir la aplicacion web completa y responsive de "Mascotas QR", una plataforma de identificacion inteligente de mascotas mediante chapas QR, pasaporte de salud y sistema de rescate de emergencia en tiempo real. La aplicacion debe conectarse a un backend NestJS que ya se encuentra corriendo en: http://localhost:4000/api/v1.
+
+--------------------------------------------------------------------------------
+1. DIRECTRICES DE DISENO, ESTILO Y UX (DESIGN SYSTEM)
+--------------------------------------------------------------------------------
+- Estetica: "Modern Clean Care" con toques de Glassmorphism sutil. Confiable, calido, ultra-legible y mobile-first (prioridad absoluta en pantallas de 375px a 430px de ancho).
+- Paleta de Colores Tailwind:
+  * Primario / Salud: Emerald 500 (#10B981) y Teal 600 (#0D9488)
+  * Fondo Claro: Slate 50 (#F8FAFC) y Blanco Puro (#FFFFFF)
+  * Fondo Oscuro / Elementos Tecnologicos: Slate 900 (#0F172A) y Slate 800 (#1E293B)
+  * Alerta / Modo Perdido (Urgente): Red 500 (#EF4444) y Amber 500 (#F59E0B) con efecto pulso.
+  * Texto: Slate 900 (Titulos) y Slate 600 (Secundario).
+- Tipografia: Inter o Plus Jakarta Sans.
+- Iconografia: Lucide React.
+- Componentes Base: Botones con micro-interacciones hover/active, tarjetas con bordes suaves (rounded-2xl) y sombras ligeras (shadow-sm a shadow-lg), badges de estado tipo pastilla (pill badges).
+
+--------------------------------------------------------------------------------
+2. ESPECIFICACION DETALLADA DE VISTAS Y ARBOL DE COMPONENTES
+--------------------------------------------------------------------------------
+
+================================================================================
+VISTA 1: PERFIL PUBLICO DE ESCANEO QR Y RESCATE (PAGINA MAS CRITICA)
+Ruta: /p/[publicCode]
+Acceso: Publico (Sin autenticacion)
+Consumo API: GET /api/v1/qr/public/:publicCode  |  POST /api/v1/lost-mode/ping
+================================================================================
+Proposito: Esta pantalla se abre instantaneamente cuando un transeunte escanea la chapa QR del collar de una mascota con la camara de su celular.
+
+Arbol de Componentes de la Vista:
+1. <PublicScanLayout>:
+   - Contenedor centrado max-w-md en movil con padding tactil comodo.
+2. <EmergencyAlertBanner>:
+   - Condicion: Se muestra solo si `isLostMode === true`.
+   - Diseno: Fondo rojo degradado con icono de sirena animado y texto parpadeante: "¡ESTA MASCOTA SE ENCUENTRA EXTRAVIADA!".
+   - Contenido: Mensaje urgente del propietario ("Por favor ayudame a volver a casa...") y monto de recompensa (si aplica).
+3. <PetHeroCard>:
+   - Avatar grande redondeado con la foto de la mascota.
+   - Nombre de la mascota en tipografia destacada.
+   - Badge de especie y raza (ej: "Perro • Golden Retriever").
+   - Indicadores secundarios: Sexo, color y numero de microchip (segun privacidad).
+4. <QuickActionBar> (Acciones Inmediatas de Rescate):
+   - <CallOwnerButton>: Boton grande verde con enlace `tel:+51XXXXXXXXX`.
+   - <WhatsAppButton>: Boton verde esmeralda con enlace `https://wa.me/51XXXXXXXXX?text=Hola,%20encontre%20a%20tu%20mascota...`.
+   - <SendGpsLocationButton>:
+     * Boton con icono de pin GPS: "📍 Compartir mi ubicacion con el dueno".
+     * Al hacer clic: Ejecuta `navigator.geolocation.getCurrentPosition()`.
+     * Envia latitud, longitud y precision a `POST /api/v1/lost-mode/ping`.
+     * Muestra estado de carga y confirmacion con toast animado: "¡Ubicacion enviada al dueno! Muchas gracias por ayudar."
+5. <EmergencyContactsList>:
+   - Lista desplegable de contactos alternativos (familiares, veterinario) si estan autorizados.
+6. <MedicalInfoAccordion>:
+   - Acordeon colapsable con alergias, tratamientos activos y vacunas recientes (solo si el dueno habilito la visibilidad medica).
+7. <UnassignedTagFallback>:
+   - Condicion: Si la chapa esta en estado "unassigned".
+   - Muestra ilustracion amigable con mensaje: "Esta placa QR aun no esta vinculada a ninguna mascota" + Boton "Iniciar sesion para activarla".
+
+
+================================================================================
+VISTA 2: LANDING PAGE Y TIENDA DE PLACAS QR
+Ruta: /
+Acceso: Publico
+Consumo API: GET /api/v1/commerce/products
+================================================================================
+Arbol de Componentes:
+1. <Navbar>: Logo Mascotas QR, links (Inicio, Como Funciona, Tienda, Planes), boton "Iniciar Sesion" y "Mi Cuenta".
+2. <HeroSection>:
+   - Titulo: "El Pasaporte Digital y Collar Inteligente que Protege a tu Mascota".
+   - Subtitulo descriptivo.
+   - Mockup interactivo 3D/animado de una chapa QR siendo escaneada por un smartphone.
+   - CTA principal: "Comprar Placa QR" y "Registrarme Gratis".
+3. <FeaturesGrid>:
+   - 4 Tarjetas de caracteristicas: Escaneo QR sin Apps, Modo Perdido con GPS, Carnet de Vacunas Digital, Alertas y Recordatorios.
+4. <ProductCatalogSection>:
+   - Grid de productos obtenidos desde la API:
+     * Chapa de Aluminio Anodizado (S/. 29.90)
+     * Chapa de Acero Inoxidable Premium (S/. 49.90)
+     * Collar con Chapa Integrada (S/. 59.90)
+   - Boton "Comprar Ahora" con modal de checkout simple.
+5. <TestimonialsSection>: Resenas de duenos que recuperaron a sus mascotas.
+6. <Footer>: Links de ayuda, terminos de privacidad y contacto.
+
+
+================================================================================
+VISTA 3: AUTENTICACION (LOGIN Y REGISTRO)
+Rutas: /login y /register
+Acceso: Publico
+Consumo API: POST /api/v1/auth/login  |  POST /api/v1/auth/register
+================================================================================
+Arbol de Componentes:
+1. <AuthCardLayout>: Contenedor centrado con ilustracion y logo.
+2. <LoginForm>: Inputs de Correo Electronico, Contrasena (con toggle ver/ocultar), checkbox "Recordarme", boton submit "Entrar" y link a "¿Olvidaste tu contrasena?".
+3. <RegisterForm>: Inputs de Nombre, Apellido, Correo, Telefono (+51), Contrasena (con medidor de seguridad visual), boton "Crear Cuenta".
+4. Manejo de estado: Guarda `accessToken` y `refreshToken` en Cookies/localStorage y redirige a `/dashboard`.
+
+
+================================================================================
+VISTA 4: PANEL GENERAL DEL PROPIETARIO (HOME DASHBOARD)
+Ruta: /dashboard
+Acceso: Protegido (Requiere JWT)
+Consumo API: GET /api/v1/pets  |  GET /api/v1/notifications/reminders
+================================================================================
+Arbol de Componentes:
+1. <DashboardLayout>: Sidebar de navegacion lateral (desktop) + Bottom Bar fija (movil).
+2. <DashboardHeader>: Saludo personalizado ("¡Hola, [Nombre]!"), notificaciones no leidas y selector de perfil.
+3. <PanicButtonWidget>:
+   - Banner de emergencia destacado con boton rojo "🚨 Activar Modo Perdido".
+   - Al pulsar: Abre modal para seleccionar que mascota esta extraviada y activa la alerta de inmediato.
+4. <MyPetsCarousel / Grid>:
+   - Tarjeta por cada mascota (<PetCard>):
+     * Foto, nombre, raza, edad calculada.
+     * Badge de estado de chapa: "QR Activo: [CODIGO]" en verde, o "Sin Placa QR" en gris con boton "Vincular".
+     * Badge si esta en Modo Perdido (rojo parpadeante).
+     * Boton "Ver Ficha Completa" que navega a `/dashboard/mascotas/[id]`.
+   - Tarjeta final: "+ Registrar Nueva Mascota".
+5. <UpcomingRemindersWidget>:
+   - Lista de recordatorios proximos: Vacunas por vencer en los proximos 15 dias, antiparasitarios y citas veterinarias con fecha y boton de marcar como cumplido.
+6. <RecentScansFeed>:
+   - Historial de ultimos escaneos recibidos con fecha, hora y tipo de dispositivo.
+
+
+================================================================================
+VISTA 5: FICHA INTEGRAL DE LA MASCOTA Y PASAPORTE DE SALUD
+Ruta: /dashboard/mascotas/[id]
+Acceso: Protegido
+Consumo API: GET /api/v1/pets/:id  |  GET/POST /api/v1/health/*  |  PATCH /api/v1/pets/:id/public-profile
+================================================================================
+Arbol de Componentes:
+1. <PetProfileHeader>:
+   - Foto de perfil con boton para cambiar avatar.
+   - Datos basicos: Nombre, especie, raza, fecha de nacimiento, microchip, estado de esterilizacion.
+   - Boton "Editar Informacion" (abre modal de edicion).
+   - Boton "Activar / Desactivar Modo Perdido".
+2. <PetTabsNavigation>: Barra de 5 pestanas con iconos:
+   
+   - PESTANA 1: PASAPORTE DE SALUD (<HealthPassportTab>)
+     * <VaccinesSection>: Tabla de vacunas aplicadas, fecha, veterinario, proximo refuerzo y boton "+ Agregar Vacuna".
+     * <DewormingSection>: Historial de antiparasitarios y proxima dosis.
+     * <TreatmentsSection>: Tarjetas de tratamientos medicos en curso con frecuencia y dosis.
+     * <WeightTrackerSection>: Grafico de lineas interactivo con el historico de peso (kg) y boton "+ Registrar Pesaje".
+     * <MedicalDocumentsSection>: Galeria de recetas, analisis clinicos y carnets escaneados en PDF/imagenes.
+     * <AppointmentsSection>: Lista de citas veterinarias agendadas.
+
+   - PESTANA 2: PRIVACIDAD DEL QR PUBLICO (<QRPrivacyTab>)
+     * Switches interactivos para configurar que ve un tercero al escanear la chapa:
+       [Toggle] Mostrar nombre de la mascota
+       [Toggle] Mostrar foto
+       [Toggle] Mostrar telefono del dueno
+       [Toggle] Mostrar nombre del dueno
+       [Toggle] Mostrar contactos de emergencia secundarios
+       [Toggle] Mostrar informacion medica de emergencia
+     * Textarea para mensaje personalizado de rescate.
+     * Boton "Guardar Cambios de Privacidad" (consume PATCH /api/v1/pets/:id/public-profile).
+     * <LivePreviewQRCard>: Previsualizador en vivo que simula exactamente como se vera el perfil publico segun los switches activos.
+
+   - PESTANA 3: CONTACTOS DE EMERGENCIA (<EmergencyContactsTab>)
+     * Lista de contactos con indicador de "Contacto Principal" y "Puede recibir alertas de extravio".
+     * Boton "+ Agregar Contacto de Emergencia" (Nombre, Parentesco, Celular, WhatsApp).
+
+   - PESTANA 4: CUIDADORES Y COLABORADORES (<CollaboratorsTab>)
+     * Lista de personas con acceso compartido (Cuidadores / Paseadores) y boton para invitar por correo.
+
+   - PESTANA 5: RADAR GPS Y HISTORIAL DE ESCANEOS (<GpsRadarTab>)
+     * Mapa interactivo (Leaflet / OpenStreetMap) que renderiza marcadores en cada punto donde se registro un ping GPS de la mascota.
+     * Tabla cronologica de escaneos y pings recibidos con hora y precision.
+
+
+================================================================================
+VISTA 6: ASISTENTE PARA VINCULAR PLACA QR
+Ruta: /dashboard/vincular-qr
+Acceso: Protegido
+Consumo API: POST /api/v1/qr/assign
+================================================================================
+Arbol de Componentes:
+1. <PairingWizardContainer>:
+   - Paso 1: Selector de la mascota que recibira la placa (dropdown con fotos de las mascotas del dueno).
+   - Paso 2: Escanear QR o Digitar Codigo:
+     * Componente <CameraScanner>: Utiliza la camara para leer el codigo de la chapa fisica al instante.
+     * Componente <ManualCodeInput>: Input estilizado con mascara tipo `PET-QR-XXXXXX`.
+   - Paso 3: Boton de confirmacion "Vincular y Activar Proteccion".
+   - Mensaje de exito con animacion de confeti y redireccion al perfil de la mascota.
+
+
+================================================================================
+VISTA 7: MI CUENTA, PLANES Y PREFERENCIAS
+Ruta: /dashboard/mi-cuenta
+Acceso: Protegido
+Consumo API: GET /api/v1/subscriptions/me  |  PATCH /api/v1/notifications/preferences
+================================================================================
+Arbol de Componentes:
+1. <UserProfileSection>: Edicion de nombre, telefono y correo.
+2. <SubscriptionStatusCard>:
+   - Muestra el plan activo: "Plan Free" o "Plan Premium".
+   - Cuadro comparativo de limites consumidos (Mascotas registradas / Limite del plan).
+   - Boton "Mejorar a Plan Premium (S/. 19.90/mes)" con modal de pago.
+3. <NotificationPreferencesCard>:
+   - Switches para activar/desactivar canales:
+     [Toggle] Notificaciones Push en el navegador/celular
+     [Toggle] Alertas por Correo Electronico
+     [Toggle] Alertas Criticas de Modo Perdido por SMS
+
+
+--------------------------------------------------------------------------------
+3. CLIENTE HTTP Y MANEJO DE ESTADO GLOBAL
+--------------------------------------------------------------------------------
+- Crear un archivo `src/lib/api.ts` que centralice todas las peticiones con Fetch/Axios.
+- Inyectar automaticamente el header `Authorization: Bearer <accessToken>`.
+- Interceptar respuestas 401 para intentar renovar el token con `/api/v1/auth/refresh` y reintentar la peticion antes de desloguear.
+- Store de Zustand o React Context para:
+  * `authStore`: Estado del usuario autenticado, roles y tokens.
+  * `petStore`: Cache local de mascotas seleccionadas y recordatorios.
+================================================================================

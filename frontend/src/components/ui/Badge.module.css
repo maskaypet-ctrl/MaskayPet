@@ -1,0 +1,65 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: var(--radius-full);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.sm {
+  padding: 4px 8px;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+}
+.sm .icon {
+  font-size: 12px;
+}
+
+.md {
+  padding: 6px 12px;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+}
+.md .icon {
+  font-size: 14px;
+}
+
+/* Variants */
+.primary {
+  background: rgba(0, 108, 73, 0.12);
+  color: var(--primary);
+}
+
+.secondary {
+  background: var(--surface-container-high);
+  color: var(--on-surface-variant);
+}
+
+.success {
+  background: var(--success-bg);
+  color: var(--success);
+}
+
+.warning {
+  background: var(--warning-bg);
+  color: var(--warning);
+}
+
+.emergency {
+  background: var(--tertiary-container);
+  color: var(--on-tertiary-container);
+}
+
+.neutral {
+  background: var(--surface-container);
+  color: var(--on-surface);
+}
+
+.outline {
+  background: transparent;
+  border: 1px solid var(--outline-variant);
+  color: var(--on-surface-variant);
+}

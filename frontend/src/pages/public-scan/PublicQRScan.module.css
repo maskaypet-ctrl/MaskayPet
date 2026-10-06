@@ -1,0 +1,301 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 540px;
+  margin: 0 auto;
+  padding: 16px;
+  min-height: 100vh;
+  background: var(--background);
+}
+
+.loadingWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+}
+
+/* Emergency Banner */
+.emergencyTopBanner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 20px;
+  background: var(--tertiary);
+  color: #fff;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-emergency);
+  animation: pulse 2s infinite;
+}
+
+.emergencyIconPulse {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.emergencyIconPulse span { font-size: 26px; color: #fff; }
+
+.emergencyText h2 {
+  font-size: 16px;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.emergencyText p {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.9);
+  margin-top: 4px;
+  line-height: 1.3;
+}
+
+/* GPS Card */
+.gpsCard {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border: 2px solid rgba(0, 108, 73, 0.2);
+  background: #f0fdf4;
+}
+
+.gpsHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.gpsHeader span { font-size: 24px; }
+.gpsHeader h3 {
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.gpsDesc {
+  font-size: 12px;
+  color: var(--on-surface-variant);
+  margin-top: 2px;
+}
+
+/* Pet Card */
+.petCard {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.petHead {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.petPhoto {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-xl);
+  object-fit: cover;
+  border: 3px solid var(--primary-fixed);
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+}
+
+.petTitles {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.petName {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--on-surface);
+  line-height: 1.1;
+}
+
+.petBreed {
+  font-size: 13px;
+  color: var(--on-surface-variant);
+  font-weight: 600;
+}
+
+.badgeRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.ownerEmergencyMessage {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  background: var(--tertiary-container);
+  color: var(--on-tertiary-container);
+  border-radius: var(--radius-md);
+  font-size: 13px;
+}
+.ownerEmergencyMessage span { font-size: 22px; color: var(--tertiary); flex-shrink: 0; }
+
+.petDescBox {
+  padding: 12px;
+  background: var(--surface-container-low);
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  color: var(--on-surface-variant);
+  line-height: 1.4;
+}
+
+/* Contacts Card */
+.contactsCard {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.cardHeaderWithIcon {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.cardHeaderWithIcon span { font-size: 22px; }
+.cardHeaderWithIcon h3 {
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.contactsList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contactItem {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  background: var(--surface-container-low);
+  border-radius: var(--radius-md);
+}
+
+.contactPhoneText {
+  font-size: 12px;
+  color: var(--outline);
+}
+
+.contactButtons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.callBtn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: var(--primary);
+  color: #fff;
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.callBtn span { font-size: 16px; }
+
+.whatsappBtn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: #25d366;
+  color: #fff;
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.whatsappBtn span { font-size: 16px; }
+
+/* Medical Card */
+.medicalCard {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.medSection {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+}
+
+.medSubTitle {
+  font-size: 12px;
+  color: var(--outline);
+  text-transform: uppercase;
+}
+
+.medList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: var(--on-surface);
+}
+
+/* Footer */
+.scanFooter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  padding: 24px 0 12px;
+  color: var(--outline);
+}
+
+.footerBrand {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--primary);
+}
+.footerBrand span { font-size: 16px; }
+
+.footerNote {
+  font-size: 11px;
+  max-width: 320px;
+  line-height: 1.4;
+}
+
+.errorCard, .unassignedCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  padding: 40px 24px;
+}
+
+.alertIcon { font-size: 48px; color: var(--error); }
+.qrIcon { font-size: 48px; color: var(--primary); }
+
+.loginLink {
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 13px;
+}

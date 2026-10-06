@@ -1,0 +1,131 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+  gap: 8px;
+  position: relative;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+/* Sizes */
+.sm {
+  padding: 6px 14px;
+  font-size: 12px;
+  gap: 6px;
+}
+.sm .icon {
+  font-size: 16px;
+}
+
+.md {
+  padding: 10px 20px;
+  font-size: 14px;
+  gap: 8px;
+}
+.md .icon {
+  font-size: 18px;
+}
+
+.lg {
+  padding: 14px 28px;
+  font-size: 16px;
+  gap: 10px;
+}
+.lg .icon {
+  font-size: 22px;
+}
+
+/* Variants */
+.primary {
+  background: var(--primary);
+  color: var(--on-primary);
+  box-shadow: 0 4px 12px rgba(0, 108, 73, 0.2);
+}
+.primary:hover:not(:disabled) {
+  background: var(--primary-hover);
+  box-shadow: 0 6px 16px rgba(0, 108, 73, 0.3);
+}
+
+.secondary {
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+}
+.secondary:hover:not(:disabled) {
+  filter: brightness(1.05);
+  box-shadow: var(--shadow-sm);
+}
+
+.emergency {
+  background: var(--tertiary);
+  color: var(--on-tertiary);
+  box-shadow: var(--shadow-emergency);
+}
+.emergency:hover:not(:disabled) {
+  background: var(--tertiary-hover);
+  box-shadow: 0 10px 24px rgba(185, 26, 36, 0.35);
+}
+
+.outline {
+  background: transparent;
+  color: var(--on-surface);
+  border: 1px solid var(--outline-variant);
+}
+.outline:hover:not(:disabled) {
+  background: var(--surface-container-high);
+  border-color: var(--outline);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--on-surface-variant);
+}
+.ghost:hover:not(:disabled) {
+  background: var(--surface-container);
+  color: var(--on-surface);
+}
+
+.surface {
+  background: var(--surface-container-high);
+  color: var(--on-surface);
+}
+.surface:hover:not(:disabled) {
+  background: var(--surface-container-highest);
+}
+
+/* Spinner for loading state */
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

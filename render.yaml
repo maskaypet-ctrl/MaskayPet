@@ -1,0 +1,40 @@
+services:
+  - type: web
+    name: maskaypet-api
+    runtime: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm install && npm run build
+    startCommand: npm run start:prod
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: API_PREFIX
+        value: api/v1
+      - key: CORS_ORIGIN
+        value: "*"
+      - key: DATABASE_URL
+        sync: false
+      - key: DB_MAX_CONNECTIONS
+        value: "20"
+      - key: DB_IDLE_TIMEOUT_MILLIS
+        value: "30000"
+      - key: DB_CONNECTION_TIMEOUT_MILLIS
+        value: "5000"
+      - key: JWT_SECRET
+        sync: false
+      - key: JWT_ACCESS_EXPIRATION
+        value: 15m
+      - key: JWT_REFRESH_EXPIRATION_DAYS
+        value: "7"
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: SUPABASE_STORAGE_BUCKET_PETS
+        value: pet-photos
+      - key: SUPABASE_STORAGE_BUCKET_DOCS
+        value: medical-documents
+      - key: PUBLIC_APP_URL
+        value: "*"

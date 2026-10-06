@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "primary": "#006c49", "tertiary-fixed-dim": "#ffb3ad", "on-error-container": "#93000a", "surface": "#faf8ff", "primary-fixed": "#6ffbbe", "secondary": "#006a61", "inverse-primary": "#4edea3", "inverse-on-surface": "#eef0ff", "on-surface": "#131b2e", "surface-container": "#eaedff", "on-tertiary-container": "#79000e", "outline": "#6c7a71", "on-secondary-fixed-variant": "#005049", "background": "#faf8ff", "on-tertiary-fixed-variant": "#930013", "on-primary-fixed-variant": "#005236", "on-secondary-fixed": "#00201d", "on-secondary": "#ffffff", "surface-bright": "#faf8ff", "surface-container-highest": "#dae2fd", "surface-container-high": "#e2e7ff", "on-surface-variant": "#3c4a42", "on-tertiary-fixed": "#410004", "on-primary-container": "#00422b", "error-container": "#ffdad6", "surface-tint": "#006c49", "primary-container": "#10b981", "surface-variant": "#dae2fd", "surface-container-low": "#f2f3ff", "secondary-container": "#86f2e4", "secondary-fixed": "#89f5e7", "primary-fixed-dim": "#4edea3", "surface-dim": "d2d9f4", "secondary-fixed-dim": "#6bd8cb", "on-secondary-container": "#006f66", "on-tertiary": "#ffffff", "inverse-surface": "#283044", "tertiary": "#b91a24", "on-error": "#ffffff", "tertiary-container": "#ff7a73", "tertiary-fixed": "#ffdad7", "error": "#ba1a1a", "outline-variant": "#bbcabf", "on-background": "#131b2e", "on-primary-fixed": "#002113", "surface-container-lowest": "#ffffff", "on-primary": "#ffffff" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "margin": "1rem", "space-sm": "0.5rem", "space-xl": "2.5rem", "gutter": "1rem", "gutter-desktop": "1.5rem", "margin-desktop": "2.5rem", "space-md": "1rem", "space-xs": "0.25rem", "space-lg": "1.5rem" }, "fontFamily": { "headline-lg": [ "Plus Jakarta Sans" ], "headline-sm": [ "Plus Jakarta Sans" ], "body-md": [ "Inter" ], "body-sm": [ "Inter" ], "label-lg": [ "Plus Jakarta Sans" ], "headline-xl": [ "Plus Jakarta Sans" ], "label-sm": [ "Plus Jakarta Sans" ], "label-md": [ "Plus Jakarta Sans" ], "headline-md": [ "Plus Jakarta Sans" ], "headline-lg-mobile": [ "Plus Jakarta Sans" ], "headline-xl-mobile": [ "Plus Jakarta Sans" ], "body-lg": [ "Inter" ] }, "fontSize": { "headline-lg": [ "32px", { "lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "700" } ], "headline-sm": [ "18px", { "lineHeight": "24px", "fontWeight": "600" } ], "body-md": [ "14px", { "lineHeight": "20px", "fontWeight": "400" } ], "body-sm": [ "12px", { "lineHeight": "16px", "fontWeight": "400" } ], "label-lg": [ "14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" } ], "headline-xl": [ "40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800" } ], "label-sm": [ "10px", { "lineHeight": "12px", "letterSpacing": "0.04em", "fontWeight": "700" } ], "label-md": [ "12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" } ], "headline-md": [ "22px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "headline-lg-mobile": [ "24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "700" } ], "headline-xl-mobile": [ "30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "800" } ], "body-lg": [ "16px", { "lineHeight": "24px", "fontWeight": "400" } ] } } } };</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased min-h-screen"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between"><div class="flex flex-col"><div class="h-16 flex items-center gap-3 px-6 bg-surface-container-lowest"><img alt="Mascotas QR Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcPK85SznLgNaols-Pb6XSUZGQepOelkGG_rAtGDY6WF1ZtQeHuWolK01I411kmGE4JTAWOafoVLJvvAkPp4a_FBikumjvFiS4N2-X-lMvkZVTq4pKoaGtBSqPGobOHdoHlQBXDuJg4dcu0U6uJDoovhwb2Nl4alizJ3uM903kjcI9OBfh7VSEYm8YyfjHkptIMA1qNZiluwHMoJOiI3FjCJwq52ZMIhLUvzuqoGaVhk_RM48j2Ye5"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight leading-none">Mascotas QR</span><span class="font-label-sm text-label-sm text-primary tracking-wider uppercase mt-1">Care &amp; Rescue</span></div></div><div class="px-4 py-6"><p class="font-label-sm text-label-sm text-outline uppercase px-3 mb-3">Plataforma</p><nav class="flex flex-col gap-1" data-active-classes="bg-primary-container text-on-primary-container font-label-lg text-label-lg shadow-sm"><a aria-current="page" class="flex items-center gap-3 px-3 py-3 rounded-xl transition-all bg-primary-container text-on-primary-container font-label-lg text-label-lg shadow-sm" data-path="resumen" href="#"><span class="material-symbols-outlined text-[20px]">grid_view</span><span>Resumen</span></a><a class="flex items-center gap-3 px-3 py-3 rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="mis-mascotas" href="#"><span class="material-symbols-outlined text-[20px]">pets</span><span>Mis Mascotas</span></a><a class="flex items-center gap-3 px-3 py-3 rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="vincular-placa-qr" href="#"><span class="material-symbols-outlined text-[20px]">qr_code_scanner</span><span>Vincular Placa QR</span></a><a class="flex items-center gap-3 px-3 py-3 rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="tienda-de-placas" href="#"><span class="material-symbols-outlined text-[20px]">shopping_bag</span><span>Tienda de Placas</span></a><a class="flex items-center gap-3 px-3 py-3 rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="mi-cuenta-y-planes" href="#"><span class="material-symbols-outlined text-[20px]">manage_accounts</span><span>Mi Cuenta y Planes</span></a></nav></div></div><div class="p-4 mx-4 mb-6 rounded-2xl bg-surface-container-low"><div class="flex items-center gap-2 mb-2"><span class="material-symbols-outlined text-secondary text-[20px]">verified_user</span><span class="font-label-md text-label-md text-on-surface">Protección Activa</span></div><p class="font-body-sm text-body-sm text-on-surface-variant mb-3">Placas conectadas y geolocalización de emergencia habilitada.</p><div class="flex items-center justify-between"><span class="font-label-sm text-label-sm text-outline">Plan Premium</span><span class="font-label-sm text-label-sm text-primary font-bold">Al Día</span></div></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 px-8 flex items-center justify-between"><div class="flex items-center gap-3"><div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container"><span class="w-2 h-2 rounded-full bg-primary-container"></span><span class="font-label-sm text-label-sm text-on-surface-variant">Red de Rescate Nacional Operativa</span></div></div><div class="flex items-center gap-4"><button class="flex items-center gap-2 px-4 py-2 rounded-full bg-tertiary text-on-tertiary font-label-md text-label-md shadow-[0_4px_12px_rgba(185,26,36,0.25)] hover:bg-error transition-all" type="button"><span class="material-symbols-outlined text-[18px] animate-pulse">e911_emergency</span><span>Modo Rescate</span></button><div class="relative"><button class="w-10 h-10 rounded-full flex items-center justify-center bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span></button><span class="absolute top-1.5 right-1.5 w-2.5 h-2.5 rounded-full bg-tertiary ring-2 ring-surface"></span></div><div class="flex items-center gap-3 pl-2"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-primary/20" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCj96eVESND53is01LZzVHe5tnkSfozcw7EmnTo4GHxpln_AuTV6NZr7Ib3lgVYMyRcCIlNlGIJzTHpCzntTDG2V-zNQABHTz7-sYb46kJL7oxakkcH3Ntdx5tzggJr4RuXeOCVV-5EK8uU6DXzYHQYF36T3dELhkUjARVpOWCVkTbhkrxYNMYa8L9cT0Dn00CNP0uo2lGmCoyLf-KDfm0mQiYycXUyts3jWD2tCm5nRpzT55I8LrI9"/><div class="flex flex-col text-left"><span class="font-label-md text-label-md text-on-surface leading-tight">Dra. Valeria Ramos</span><span class="font-body-sm text-body-sm text-on-surface-variant leading-none">Tutor Responsable</span></div></div></div></header><main class="w-full pt-16 bg-surface min-h-screen px-8 py-8"><div class="flex flex-col w-full">
+<!-- Top Bar de Emergencia Mascotas QR -->
+<header class="w-full bg-surface-container-lowest shadow-sm px-4 py-3 rounded-2xl mb-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[24px]">verified_user</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface leading-none flex items-center gap-1.5">
+          Mascotas QR
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-primary/15 text-primary">OFICIAL</span>
+</span>
+<span class="font-body-sm text-body-sm text-outline">Red Nacional de Rescate Animal</span>
+</div>
+</div>
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container font-label-md text-label-md text-on-surface hover:bg-surface-container-high transition-colors" onclick="document.getElementById('infoModal').classList.toggle('hidden')" type="button">
+<span class="material-symbols-outlined text-[18px] text-secondary">help</span>
+<span class="hidden sm:inline">¿Cómo funciona?</span>
+</button>
+</header>
+<!-- Modal explicativo "¿Cómo funciona este collar?" -->
+<div class="hidden mb-4 p-4 rounded-2xl bg-surface-container-high shadow-md transition-all" id="infoModal">
+<div class="flex items-start justify-between gap-3">
+<div class="flex gap-3">
+<span class="material-symbols-outlined text-secondary text-[26px]">info</span>
+<div>
+<h4 class="font-label-lg text-label-lg text-on-surface mb-1">Has escaneado una placa oficial Mascotas QR</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Esta página conecta de manera directa y segura con la familia registrada de la mascota. Al presionar los botones de llamada o enviar tu ubicación GPS, el tutor recibe avisos de alta prioridad de forma inmediata.
+          </p>
+</div>
+</div>
+<button class="p-1 text-outline hover:text-on-surface" onclick="document.getElementById('infoModal').classList.add('hidden')" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+</div>
+<!-- Layout Principal Centrado Responsive (Móvil First / Clean Slate) -->
+<div class="w-full max-w-3xl mx-auto flex flex-col gap-5 pb-12">
+<!-- EmergencyAlertBanner: Urgencia Máxima con Halo Pulsante -->
+<section class="relative overflow-hidden rounded-2xl bg-tertiary text-on-tertiary p-5 sm:p-6 shadow-[0_8px_30px_rgba(185,26,36,0.25)]">
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-surface-container-lowest text-tertiary flex items-center justify-center shadow-md">
+<span class="material-symbols-outlined text-[28px] animate-pulse">crisis_alert</span>
+</div>
+<div class="flex-1">
+<div class="flex flex-wrap items-center gap-2 mb-2">
+<span class="px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-on-tertiary text-tertiary font-bold tracking-wide uppercase shadow-sm">
+              MODO PERDIDO ACTIVO
+            </span>
+<span class="font-label-sm text-label-sm text-tertiary-fixed font-medium flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-on-tertiary animate-ping"></span>
+              Alerta emitida hace 45m
+            </span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-tertiary tracking-tight leading-tight mb-2">
+            ¡ESTA MASCOTA SE ENCUENTRA EXTRAVIADA!
+          </h1>
+<p class="font-body-md text-body-md text-on-tertiary/95 leading-relaxed mb-3">
+            Por favor ayúdame a volver con mi familia. Max necesita medicación diaria para una condición leve.
+          </p>
+<div class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-surface-container-lowest/15 backdrop-blur-md">
+<span class="material-symbols-outlined text-tertiary-fixed text-[20px]">monetization_on</span>
+<span class="font-label-lg text-label-lg text-on-tertiary font-bold tracking-wide">
+              RECOMPENSA OFRECIDA: S/. 500
+            </span>
+</div>
+</div>
+</div>
+</section>
+<!-- PetHeroCard: Tarjeta de Identidad y Biometría -->
+<article class="bg-surface-container-lowest rounded-2xl shadow-sm overflow-hidden flex flex-col md:flex-row">
+<!-- Foto de la Mascota -->
+<div class="relative md:w-5/12 min-h-[300px] md:min-h-full bg-surface-container">
+<img alt="Max - Golden Retriever extraviado" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCj96eVESND53is01LZzVHe5tnkSfozcw7EmnTo4GHxpln_AuTV6NZr7Ib3lgVYMyRcCIlNlGIJzTHpCzntTDG2V-zNQABHTz7-sYb46kJL7oxakkcH3Ntdx5tzggJr4RuXeOCVV-5EK8uU6DXzYHQYF36T3dELhkUjARVpOWCVkTbhkrxYNMYa8L9cT0Dn00CNP0uo2lGmCoyLf-KDfm0mQiYycXUyts3jWD2tCm5nRpzT55I8LrI9"/>
+<div class="absolute top-3 left-3 flex flex-col gap-1.5">
+<span class="px-3 py-1 rounded-full font-label-sm text-label-sm bg-surface-container-lowest/90 backdrop-blur-md text-on-surface shadow-sm font-semibold flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+            Placa: PET-QR-78291
+          </span>
+</div>
+<div class="absolute bottom-3 right-3">
+<span class="px-2.5 py-1 rounded-md font-label-sm text-label-sm bg-inverse-surface text-inverse-on-surface font-mono shadow-md">
+            CHIP: 9810982348123
+          </span>
+</div>
+</div>
+<!-- Datos Principales -->
+<div class="p-6 md:w-7/12 flex flex-col justify-between gap-4">
+<div>
+<div class="flex items-start justify-between gap-2 mb-1">
+<h2 class="font-headline-xl text-headline-xl text-on-surface font-extrabold tracking-tight">Max</h2>
+<span class="px-3 py-1 rounded-full font-label-sm text-label-sm bg-secondary-container text-on-secondary-container font-semibold">
+              Macho • 3 Años
+            </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">Golden Retriever de pelaje dorado claro y carácter dócil.</p>
+<div class="flex flex-wrap gap-2 mb-4">
+<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full font-label-sm text-label-sm bg-surface-container text-on-surface">
+<span class="material-symbols-outlined text-[16px] text-primary">pets</span>
+              Golden Retriever Puro
+            </span>
+<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full font-label-sm text-label-sm bg-surface-container text-on-surface">
+<span class="material-symbols-outlined text-[16px] text-primary">health_and_safety</span>
+              Castrado / Esterilizado
+            </span>
+<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full font-label-sm text-label-sm bg-surface-container text-on-surface">
+<span class="material-symbols-outlined text-[16px] text-secondary">verified</span>
+              Reniec Animal Verificado
+            </span>
+</div>
+</div>
+<div class="p-3.5 rounded-xl bg-surface-container-low flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary text-[24px]">favorite</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Comportamiento</span>
+<span class="font-body-sm text-body-sm text-on-surface font-medium">Muy sociable con niños y adultos. Responde a su nombre y a silbidos suaves.</span>
+</div>
+</div>
+</div>
+</article>
+<!-- QuickActionBar: ACCIONES INMEDIATAS DE RESCATE (Prioridad Táctica) -->
+<section class="flex flex-col gap-3">
+<div class="flex items-center justify-between px-1">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Acciones de Rescate Directo</span>
+<span class="font-label-sm text-label-sm text-primary font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">bolt</span> Contacto Directo Sin Registro
+        </span>
+</div>
+<!-- Botón Gigante de Llamada Telefónica -->
+<a class="w-full min-h-[58px] px-6 py-3.5 rounded-2xl bg-primary text-on-primary shadow-md hover:bg-on-primary-container transition-all flex items-center justify-between group active:scale-[0.99]" href="tel:+51987654321">
+<div class="flex items-center gap-3.5">
+<div class="w-11 h-11 rounded-full bg-on-primary/15 flex items-center justify-center">
+<span class="material-symbols-outlined text-[26px]">call</span>
+</div>
+<div class="flex flex-col text-left">
+<span class="font-headline-sm text-headline-sm leading-tight">Llamar al Dueño (Carlos A.)</span>
+<span class="font-body-sm text-body-sm text-primary-fixed leading-none mt-0.5">+51 987 654 321 • Enlace Telefónico Inmediato</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-[24px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+<!-- Botón Gigante de WhatsApp con mensaje prefijado -->
+<a class="w-full min-h-[58px] px-6 py-3.5 rounded-2xl bg-[#25D366] text-white shadow-md hover:bg-[#1EBE5D] transition-all flex items-center justify-between group active:scale-[0.99]" href="https://wa.me/51987654321?text=Hola%20Carlos,%20acabo%20de%20escanear%20la%20placa%20de%20Max%20y%20lo%20tengo%20conmigo." rel="noopener noreferrer" target="_blank">
+<div class="flex items-center gap-3.5">
+<div class="w-11 h-11 rounded-full bg-white/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-[26px]">chat</span>
+</div>
+<div class="flex flex-col text-left">
+<span class="font-headline-sm text-headline-sm leading-tight text-white">Enviar WhatsApp Inmediato</span>
+<span class="font-body-sm text-body-sm text-white/90 leading-none mt-0.5">Mensaje precargado con confirmación de hallazgo</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-[24px] text-white group-hover:translate-x-1 transition-transform">send</span>
+</a>
+<!-- SendGpsLocationButton: Módulo de Ubicación GPS interactivo -->
+<div class="bg-surface-container-lowest rounded-2xl p-5 shadow-sm flex flex-col gap-3">
+<div class="flex items-start justify-between gap-4">
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary/10 text-secondary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[24px]">my_location</span>
+</div>
+<div>
+<h3 class="font-label-lg text-label-lg text-on-surface">Compartir Coordenadas GPS con el Dueño</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                Enviará la posición exacta donde te encuentras con Max al smartphone del tutor por SMS y notificación prioritaria push.
+              </p>
+</div>
+</div>
+</div>
+<!-- Botón de Envío GPS -->
+<button class="w-full py-3.5 px-4 rounded-xl bg-surface-container-high text-on-surface font-label-lg text-label-lg hover:bg-surface-container-highest transition-colors flex items-center justify-center gap-2" id="gpsTriggerBtn" onclick="simularEnvioGPS()" type="button">
+<span class="material-symbols-outlined text-secondary text-[20px]" id="gpsIcon">near_me</span>
+<span id="gpsBtnText">Enviar Mi Ubicación Actual Ahora</span>
+</button>
+<!-- Estado de éxito simulado y último reporte -->
+<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 pt-2 px-1" id="gpsStatusCard">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="font-body-sm text-body-sm text-on-surface font-medium" id="gpsStatusText">
+              Último ping de ubicación recibido: Hace 2 minutos en Av. Dos de Mayo, San Isidro
+            </span>
+</div>
+<span class="font-label-sm text-label-sm text-outline">Precisión ±5m</span>
+</div>
+</div>
+</section>
+<!-- Mapa Simulado de Radio de Seguridad / Último Avistamiento -->
+<section class="bg-surface-container-lowest rounded-2xl p-5 shadow-sm flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">map</span>
+<h3 class="font-label-lg text-label-lg text-on-surface">Zona de Pérdida y Perímetro Estimado</h3>
+</div>
+<span class="font-label-sm text-label-sm text-tertiary font-bold flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
+          San Isidro / Magdalena
+        </span>
+</div>
+<!-- Contenedor de Mapa con data-location -->
+<div class="w-full h-48 sm:h-56 rounded-xl bg-surface-container relative overflow-hidden flex items-center justify-center shadow-inner" data-location="Av. Dos de Mayo, San Isidro, Lima, Peru" style="">
+<!-- Overlay del radar -->
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/80 via-transparent to-transparent pointer-events-none"></div>
+<div class="relative z-10 flex flex-col items-center text-center p-4">
+<div class="w-12 h-12 rounded-full bg-tertiary/20 text-tertiary flex items-center justify-center mb-2 animate-bounce">
+<span class="material-symbols-outlined text-[28px]">location_on</span>
+</div>
+<span class="font-label-lg text-label-lg text-on-surface font-bold bg-surface-container-lowest/90 px-3 py-1 rounded-full shadow-sm">
+            Av. Dos de Mayo cdra. 11 (Último reporte)
+          </span>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+            Radio de búsqueda activo: 1.5 km a la redonda
+          </span>
+</div>
+</div>
+</section>
+<!-- EmergencyContactsList: Lista Completa de Contactos de Emergencia -->
+<section class="bg-surface-container-lowest rounded-2xl p-5 shadow-sm flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">contact_phone</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Contactos de Respaldo Autorizados</h3>
+</div>
+<span class="font-label-sm text-label-sm text-outline">3 Registrados</span>
+</div>
+<div class="flex flex-col gap-2.5">
+<!-- Contacto 1: Dueño Principal -->
+<div class="p-4 rounded-xl bg-surface-container-low flex items-center justify-between gap-3">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[20px]">person</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-label-lg text-label-lg text-on-surface">Carlos Alberto Ruiz</span>
+<span class="px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-primary/15 text-primary font-semibold">Dueño Principal</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">+51 987 654 321</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<a class="w-9 h-9 rounded-full bg-surface-container-lowest text-primary flex items-center justify-center shadow-sm hover:bg-primary hover:text-on-primary transition-colors" href="tel:+51987654321" title="Llamar">
+<span class="material-symbols-outlined text-[18px]">call</span>
+</a>
+<a class="w-9 h-9 rounded-full bg-surface-container-lowest text-[#25D366] flex items-center justify-center shadow-sm hover:bg-[#25D366] hover:text-white transition-colors" href="https://wa.me/51987654321" rel="noopener noreferrer" target="_blank" title="WhatsApp">
+<span class="material-symbols-outlined text-[18px]">chat</span>
+</a>
+</div>
+</div>
+<!-- Contacto 2: Veterinario de Cabecera -->
+<div class="p-4 rounded-xl bg-surface-container-low flex items-center justify-between gap-3">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary/10 text-secondary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[20px]">medical_services</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-label-lg text-label-lg text-on-surface">Dra. Andrea Morales</span>
+<span class="px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-secondary/15 text-secondary font-semibold">Clínica VetSur</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">+51 912 345 678 • Emergencias 24h</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<a class="w-9 h-9 rounded-full bg-surface-container-lowest text-secondary flex items-center justify-center shadow-sm hover:bg-secondary hover:text-on-secondary transition-colors" href="tel:+51912345678" title="Llamar a Clínica">
+<span class="material-symbols-outlined text-[18px]">call</span>
+</a>
+</div>
+</div>
+<!-- Contacto 3: Familiar Alternativo -->
+<div class="p-4 rounded-xl bg-surface-container-low flex items-center justify-between gap-3">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container text-outline flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[20px]">group</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-label-lg text-label-lg text-on-surface">María Ruiz</span>
+<span class="px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-surface-container-high text-on-surface-variant font-semibold">Familiar Alternativo</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">+51 998 765 432</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<a class="w-9 h-9 rounded-full bg-surface-container-lowest text-on-surface flex items-center justify-center shadow-sm hover:bg-surface-container-high transition-colors" href="tel:+51998765432" title="Llamar">
+<span class="material-symbols-outlined text-[18px]">call</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- MedicalInfoAccordion: Información Veterinaria y Cuidados Especiales -->
+<section class="bg-surface-container-lowest rounded-2xl p-5 shadow-sm flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-[20px]">vital_signs</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Historial Médico &amp; Cuidados Especiales</h3>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-semibold">Carnet Digital Activo</span>
+</div>
+<!-- Tarjeta de Alergia Crítica -->
+<div class="p-4 rounded-xl bg-error-container text-on-error-container flex items-start gap-3">
+<span class="material-symbols-outlined text-tertiary text-[22px] flex-shrink-0">warning</span>
+<div>
+<span class="font-label-lg text-label-lg font-bold">ALERGIA ALIMENTARIA SEVERA</span>
+<p class="font-body-md text-body-md mt-0.5">
+            Max es alérgico al <strong>pollo</strong> y derivados aviares. No proporcionarle premios ni comida casera con aves para prevenir reacción dérmica y gástrica.
+          </p>
+</div>
+</div>
+<!-- Cuadrícula de Vacunas y Estado Fisiológico -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-1">
+<div class="p-3.5 rounded-xl bg-surface-container-low flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline uppercase">Vacuna Antirrábica</span>
+<span class="px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-primary/15 text-primary font-bold">VIGENTE</span>
+</div>
+<span class="font-body-md text-body-md text-on-surface font-medium">Lote Nobivac Rabies 2024</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Próximo refuerzo: Noviembre 2025</span>
+</div>
+<div class="p-3.5 rounded-xl bg-surface-container-low flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline uppercase">Vacuna Séxtuple (DHPPi+L)</span>
+<span class="px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-primary/15 text-primary font-bold">AL DÍA</span>
+</div>
+<span class="font-body-md text-body-md text-on-surface font-medium">Refuerzo Anual Completo</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Desparasitación interna hace 15 días</span>
+</div>
+</div>
+</section>
+<!-- Footer de Rescate Amigable -->
+<footer class="text-center p-6 rounded-2xl bg-surface-container-low flex flex-col items-center gap-2 mt-2">
+<div class="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[24px]">volunteer_activism</span>
+</div>
+<p class="font-headline-sm text-headline-sm text-on-surface">
+        Gracias por ser un héroe y ayudar a Max a regresar a casa.
+      </p>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-md">
+        Mascotas QR • Tecnología satelital e identificación inteligente para la seguridad y bienestar integral de tu mascota.
+      </p>
+<div class="flex items-center gap-4 mt-2">
+<span class="font-label-sm text-label-sm text-outline">ID Registro: PER-2024-MAX-782</span>
+<span class="text-outline">•</span>
+<a class="font-label-sm text-label-sm text-primary hover:underline" href="#">Políticas de Privacidad y Rescate</a>
+</div>
+</footer>
+</div>
+<!-- Micro-interacción: Simulación de Envío de Coordenadas GPS -->
+<script>
+    function simularEnvioGPS() {
+      const btn = document.getElementById('gpsTriggerBtn');
+      const icon = document.getElementById('gpsIcon');
+      const text = document.getElementById('gpsBtnText');
+      const statusText = document.getElementById('gpsStatusText');
+
+      btn.classList.remove('bg-surface-container-high', 'text-on-surface');
+      btn.classList.add('bg-primary', 'text-on-primary');
+      icon.innerText = 'sync';
+      icon.classList.add('animate-spin');
+      text.innerText = 'Obteniendo satélites y transmitiendo...';
+
+      setTimeout(() => {
+        icon.classList.remove('animate-spin');
+        icon.innerText = 'check_circle';
+        btn.classList.remove('bg-primary');
+        btn.classList.add('bg-primary-container', 'text-on-primary-container');
+        text.innerText = '¡Ubicación enviada con éxito al dueño!';
+        statusText.innerHTML = '<strong>✓ Coordenadas enviadas ahora mismo</strong> desde tu dispositivo al teléfono de Carlos.';
+      }, 1200);
+    }
+  </script>
+</div></main></div></body></html>

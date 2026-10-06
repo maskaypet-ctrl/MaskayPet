@@ -1,0 +1,474 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* 1. Welcome Banner */
+.welcomeBanner {
+  background: var(--surface-container-lowest);
+  border-radius: var(--radius-xl);
+  padding: 32px;
+  box-shadow: var(--shadow-xs);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.welcomeText {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 680px;
+  z-index: 2;
+}
+
+.greetingRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.greetingTitle {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--on-surface);
+  line-height: 1.2;
+}
+
+.waveEmoji {
+  font-size: 28px;
+}
+
+.greetingSubtitle {
+  font-size: 14px;
+  color: var(--on-surface-variant);
+  line-height: 1.5;
+}
+
+.highlightText {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.welcomeActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  z-index: 2;
+}
+
+/* 2. Emergency Banner */
+.emergencyBanner {
+  background: var(--surface-container-lowest);
+  border-radius: var(--radius-xl);
+  padding: 24px 28px 24px 28px;
+  box-shadow: var(--shadow-xs);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-normal);
+}
+
+.emergencyBanner::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  background: var(--tertiary);
+}
+
+.lostModeActive {
+  background: #fff5f5;
+  border-color: rgba(185, 26, 36, 0.25);
+}
+
+.emergencyLeft {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.emergencyIconBox {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-lg);
+  background: var(--tertiary-container);
+  color: var(--tertiary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.emergencyIconBox span { font-size: 26px; }
+
+.emergencyInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.emergencyTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.emergencyTitle {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--tertiary);
+}
+
+.emergencyDescription {
+  font-size: 13px;
+  color: var(--on-surface-variant);
+  max-width: 720px;
+}
+
+/* 3. Stats Grid */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+/* 4. Section Block */
+.sectionBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sectionTitleWrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.titleBar {
+  width: 4px;
+  height: 20px;
+  background: var(--primary);
+  border-radius: var(--radius-full);
+}
+
+.sectionTitle {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--on-surface);
+}
+
+/* Pets Grid */
+.petsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.petCard {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.petCard.isLost {
+  border: 2px solid #ef4444;
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.15);
+}
+
+.lostPetBadge {
+  margin: -20px -20px 4px -20px;
+  background: #dc2626;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 0;
+  letter-spacing: 0.05em;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+.lostPetBadge span { font-size: 14px; }
+
+.petCardTop {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.petAvatarWrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.avatarCheck {
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-full);
+  background: var(--primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--surface-container-lowest);
+  box-shadow: var(--shadow-xs);
+}
+.avatarCheck span { font-size: 13px; }
+
+.avatarCheck.lostAvatarCheck {
+  background: #dc2626;
+}
+
+.petMeta {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.petNameRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.petName {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--on-surface);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.petBreed {
+  font-size: 12px;
+  color: var(--on-surface-variant);
+  margin-top: 2px;
+}
+
+.petQrStatus {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--secondary);
+  margin-top: 6px;
+}
+.petQrStatus span { font-size: 14px; }
+
+.biometricsStrip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  padding: 10px;
+  background: var(--surface-container-low);
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+
+.bioCol {
+  display: flex;
+  flex-direction: column;
+}
+
+.bioLbl {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--outline);
+}
+
+.bioVal {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--on-surface);
+  margin-top: 2px;
+}
+
+.greenVal {
+  color: var(--primary);
+}
+
+.cardActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 6px;
+}
+
+.publicViewBtn {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  background: var(--surface-container-high);
+  color: var(--on-surface-variant);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all var(--transition-fast);
+}
+
+.publicViewBtn:hover {
+  background: var(--surface-container-highest);
+  color: var(--on-surface);
+}
+.publicViewBtn span { font-size: 18px; }
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  color: var(--on-surface-variant);
+}
+
+.emptyIcon {
+  font-size: 48px;
+  color: var(--primary);
+}
+
+/* Reminders Strip */
+.remindersList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 12px;
+}
+
+.reminderCard {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.reminderIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  background: var(--warning-bg);
+  color: var(--warning);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.reminderIcon span { font-size: 20px; }
+
+.reminderInfo {
+  flex: 1;
+}
+
+.reminderTitle {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.reminderMessage {
+  font-size: 12px;
+  color: var(--on-surface-variant);
+}
+
+@media (max-width: 1024px) {
+  .welcomeBanner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .emergencyBanner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .welcomeBanner {
+    padding: 20px 16px;
+    gap: 16px;
+  }
+
+  .greetingTitle {
+    font-size: 22px;
+  }
+
+  .welcomeActions {
+    width: 100%;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .welcomeActions button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .emergencyBanner {
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .emergencyLeft {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .emergencyBanner button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .petsGrid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .remindersList {
+    grid-template-columns: 1fr;
+  }
+
+  .cardActions {
+    flex-wrap: wrap;
+  }
+
+  .cardActions button,
+  .cardActions a {
+    flex: 1;
+    justify-content: center;
+  }
+}

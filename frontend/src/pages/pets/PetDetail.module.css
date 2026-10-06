@@ -1,0 +1,683 @@
+.petDetailPage {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.backBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--outline);
+  transition: color var(--transition-fast);
+  width: fit-content;
+}
+.backBtn:hover {
+  color: var(--primary);
+}
+.backBtn span { font-size: 18px; }
+
+/* Hero Card */
+.heroCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.heroLeft {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.avatarLargeWrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.avatarLarge {
+  width: 96px;
+  height: 96px;
+  border-radius: var(--radius-xl);
+  object-fit: cover;
+  box-shadow: var(--shadow-md);
+  border: 3px solid var(--primary-fixed);
+}
+
+.heroLostBadge {
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-full);
+  background: var(--tertiary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #fff;
+}
+.heroLostBadge span { font-size: 16px; }
+
+.heroInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.heroTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.heroName {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--on-surface);
+}
+
+.heroMeta {
+  font-size: 14px;
+  color: var(--on-surface-variant);
+  font-weight: 500;
+}
+
+.heroTags {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.tagPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  background: var(--surface-container-high);
+  color: var(--on-surface-variant);
+  border-radius: var(--radius-full);
+}
+.tagPill span { font-size: 14px; }
+
+.heroActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+/* Tab Content */
+.tabContent {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 8px;
+}
+
+.sectionCard {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sectionHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sectionTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.sectionTitleRow span { font-size: 24px; }
+.sectionTitleRow h3 {
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.emptyNote {
+  font-size: 13px;
+  color: var(--outline);
+  padding: 12px 0;
+}
+
+/* Tables */
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 13px;
+}
+
+.table th {
+  padding: 10px 14px;
+  background: var(--surface-container-low);
+  font-weight: 700;
+  color: var(--on-surface-variant);
+  border-bottom: 1px solid var(--surface-container);
+}
+
+.table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--surface-container);
+  color: var(--on-surface);
+}
+
+.twoColGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.recordList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.recordItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: var(--surface-container-low);
+  border-radius: var(--radius-md);
+  font-size: 13px;
+}
+
+.recordSub {
+  font-size: 11px;
+  color: var(--outline);
+  margin-top: 2px;
+}
+
+.weightValue {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+/* General tab details */
+.subHeading {
+  font-size: 18px;
+  font-weight: 800;
+  margin-bottom: 16px;
+}
+
+.generalGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.detailItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: var(--surface-container-low);
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+}
+
+.detailLbl {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--outline);
+}
+
+.detailVal {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--on-surface);
+}
+
+.descriptionBox {
+  margin-top: 16px;
+  padding: 16px;
+  background: var(--surface-container-low);
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* Contacts Tab */
+.tabHeaderRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.tabHeaderRow h3 {
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.contactsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.contactCard {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contactCardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.contactName {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.contactRel {
+  font-size: 12px;
+  color: var(--outline);
+}
+
+.contactDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.contactLine {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--on-surface-variant);
+}
+.contactLine span:first-child { font-size: 18px; color: var(--primary); }
+
+.contactActions {
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid var(--surface-container);
+  padding-top: 10px;
+}
+
+/* Privacy Tab */
+.privacyHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.privacyToggles {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.toggleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  background: var(--surface-container-low);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.toggleRow input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+
+.toggleDesc {
+  font-size: 12px;
+  color: var(--outline);
+  margin-top: 2px;
+}
+
+.emergencyMsgSection {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.textarea {
+  width: 100%;
+  padding: 12px 14px;
+  background: var(--surface-container-low);
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  color: var(--on-surface);
+  outline: none;
+  resize: vertical;
+}
+.textarea:focus {
+  background: var(--surface-container-lowest);
+  border-color: var(--primary);
+}
+
+.modalForm {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+@media (max-width: 1024px) {
+  .heroCard {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .twoColGrid {
+    grid-template-columns: 1fr;
+  }
+  .generalGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Radar & GPS Map Styles */
+.radarContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.radarStatusBanner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 20px;
+  border-radius: var(--radius-lg);
+  background: var(--surface-container-high);
+}
+
+.radarStatusBanner.activeSearch {
+  background: #fef2f2;
+  border: 1.5px solid #fecaca;
+}
+
+.radarStatusLeft {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.radarPulseIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fee2e2;
+  color: #dc2626;
+  font-size: 24px;
+}
+
+.radarPulseIcon.normalRadar {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.mapSectionCard {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow: hidden;
+}
+
+.mapFrameWrap {
+  width: 100%;
+  height: 420px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 2px solid var(--outline-variant);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  background: #f1f5f9;
+}
+
+.mapIframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.mapToolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-top: 4px;
+}
+
+.mapCoordsText {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--on-surface-variant);
+  font-family: monospace;
+}
+
+.mapActions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.pingsListCard {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.pingsListHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pingsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+}
+
+.pingCard {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px;
+  border-radius: var(--radius-md);
+  background: var(--surface-container-low);
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.pingCard:hover {
+  background: var(--surface-container-lowest);
+  border-color: var(--primary-fixed);
+  box-shadow: var(--shadow-xs);
+}
+
+.pingCard.selectedPing {
+  border-color: var(--primary);
+  background: var(--surface-container-lowest);
+  box-shadow: 0 0 0 2px var(--primary-fixed);
+}
+
+.pingTopRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.pingTime {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--on-surface);
+}
+
+.pingCoords {
+  font-family: monospace;
+  font-size: 12px;
+  color: var(--on-surface-variant);
+}
+
+.pingAccuracy {
+  font-size: 11px;
+  color: var(--outline);
+}
+
+.emptyRadarCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  padding: 48px 24px;
+}
+
+.emptyRadarIcon {
+  font-size: 56px;
+  color: var(--primary);
+  background: var(--primary-fixed);
+  width: 90px;
+  height: 90px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+/* Mobile Responsive Media Queries */
+@media (max-width: 900px) {
+  .heroCard {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .heroLeft {
+    width: 100%;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .heroActions {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .heroActions button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .cardsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .mapToolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .mapActions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .mapActions a,
+  .mapActions button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .pingsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .sectionCardHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .sectionCardHeader button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .heroLeft {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .heroTitleRow {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .heroTags {
+    justify-content: center;
+  }
+
+  .heroName {
+    font-size: 24px;
+  }
+
+  .mapFrameWrap {
+    height: 300px;
+  }
+
+  .mapActions {
+    grid-template-columns: 1fr;
+  }
+}

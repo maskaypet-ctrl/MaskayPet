@@ -1,0 +1,354 @@
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.headerRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.pageHeading {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--on-surface);
+  line-height: 1.2;
+}
+
+.pageSubheading {
+  font-size: 14px;
+  color: var(--on-surface-variant);
+  margin-top: 4px;
+}
+
+.searchBarWrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.searchInputBox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface-container-lowest);
+  border: 1px solid var(--outline-variant);
+  border-radius: var(--radius-full);
+  padding: 0 16px;
+  max-width: 480px;
+  width: 100%;
+  box-shadow: var(--shadow-xs);
+}
+
+.searchInputBox span {
+  color: var(--outline);
+  font-size: 20px;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 10px 0;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 14px;
+  color: var(--on-surface);
+}
+
+.clearSearchBtn {
+  color: var(--outline);
+  display: flex;
+  align-items: center;
+}
+.clearSearchBtn:hover { color: var(--on-surface); }
+
+.resultsCount {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--outline);
+}
+
+.petsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 20px;
+}
+
+.petCard {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: relative;
+  overflow: hidden;
+}
+
+.petCard.isLost {
+  border: 2px solid #ef4444;
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.15);
+}
+
+.lostBanner {
+  margin: -20px -20px 6px -20px;
+  background: #dc2626;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 0;
+  letter-spacing: 0.05em;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+.lostBanner span { font-size: 14px; }
+
+.petTop {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.avatarWrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.statusDot {
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-full);
+  background: var(--primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--surface-container-lowest);
+  box-shadow: var(--shadow-xs);
+}
+.statusDot span { font-size: 13px; }
+
+.statusDot.lostDot {
+  background: #dc2626;
+}
+
+.petMainInfo {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.titleWithBadge {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.petCardName {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--on-surface);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.petDetails {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--on-surface-variant);
+  margin-top: 2px;
+}
+
+.sexAge {
+  font-size: 12px;
+  color: var(--outline);
+  margin-top: 2px;
+}
+
+.tagStrip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  font-size: 12px;
+  font-weight: 600;
+}
+.tagStrip span { font-size: 18px; }
+
+.tagActive {
+  background: rgba(0, 108, 73, 0.08);
+  color: var(--primary);
+}
+
+.tagPending {
+  background: var(--surface-container-high);
+  color: var(--on-surface-variant);
+}
+
+.cardBtnRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.qrActionBtn {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  background: var(--surface-container-high);
+  color: var(--on-surface-variant);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+.qrActionBtn:hover {
+  background: var(--surface-container-highest);
+  color: var(--on-surface);
+}
+.qrActionBtn span { font-size: 18px; }
+
+.emptyCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  padding: 48px;
+  color: var(--on-surface-variant);
+}
+
+.bigIcon {
+  font-size: 52px;
+  color: var(--primary);
+}
+
+/* Modal Form Styles */
+.modalForm {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.checkboxRow {
+  display: flex;
+  align-items: center;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.fieldFull {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--on-surface);
+}
+
+.textarea {
+  width: 100%;
+  padding: 12px 14px;
+  background: var(--surface-container-low);
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  color: var(--on-surface);
+  outline: none;
+  resize: vertical;
+}
+
+.textarea:focus {
+  background: var(--surface-container-lowest);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(0, 108, 73, 0.12);
+}
+
+.modalActions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+  .headerRow {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+  }
+
+  .headerRow button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .searchBarWrap {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .searchInputBox {
+    max-width: 100%;
+  }
+
+  .petsGrid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .cardBtnRow {
+    flex-wrap: wrap;
+  }
+
+  .cardBtnRow button,
+  .cardBtnRow a {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .modalActions {
+    flex-direction: column-reverse;
+    width: 100%;
+  }
+
+  .modalActions button {
+    width: 100%;
+    justify-content: center;
+  }
+}

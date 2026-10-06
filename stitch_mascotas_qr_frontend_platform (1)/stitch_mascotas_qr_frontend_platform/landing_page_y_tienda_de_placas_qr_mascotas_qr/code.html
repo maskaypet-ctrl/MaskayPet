@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "primary": "#006c49", "tertiary-fixed-dim": "#ffb3ad", "on-error-container": "#93000a", "surface": "#faf8ff", "primary-fixed": "#6ffbbe", "secondary": "#006a61", "inverse-primary": "#4edea3", "inverse-on-surface": "#eef0ff", "on-surface": "#131b2e", "surface-container": "#eaedff", "on-tertiary-container": "#79000e", "outline": "#6c7a71", "on-secondary-fixed-variant": "#005049", "background": "#faf8ff", "on-tertiary-fixed-variant": "#930013", "on-primary-fixed-variant": "#005236", "on-secondary-fixed": "#00201d", "on-secondary": "#ffffff", "surface-bright": "#faf8ff", "surface-container-highest": "#dae2fd", "surface-container-high": "#e2e7ff", "on-surface-variant": "#3c4a42", "on-tertiary-fixed": "#410004", "on-primary-container": "#00422b", "error-container": "#ffdad6", "surface-tint": "#006c49", "primary-container": "#10b981", "surface-variant": "#dae2fd", "surface-container-low": "#f2f3ff", "secondary-container": "#86f2e4", "secondary-fixed": "#89f5e7", "primary-fixed-dim": "#4edea3", "surface-dim": "d2d9f4", "secondary-fixed-dim": "#6bd8cb", "on-secondary-container": "#006f66", "on-tertiary": "#ffffff", "inverse-surface": "#283044", "tertiary": "#b91a24", "on-error": "#ffffff", "tertiary-container": "#ff7a73", "tertiary-fixed": "#ffdad7", "error": "#ba1a1a", "outline-variant": "#bbcabf", "on-background": "#131b2e", "on-primary-fixed": "#002113", "surface-container-lowest": "#ffffff", "on-primary": "#ffffff" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "margin": "1rem", "space-sm": "0.5rem", "space-xl": "2.5rem", "gutter": "1rem", "gutter-desktop": "1.5rem", "margin-desktop": "2.5rem", "space-md": "1rem", "space-xs": "0.25rem", "space-lg": "1.5rem" }, "fontFamily": { "headline-lg": [ "Plus Jakarta Sans" ], "headline-sm": [ "Plus Jakarta Sans" ], "body-md": [ "Inter" ], "body-sm": [ "Inter" ], "label-lg": [ "Plus Jakarta Sans" ], "headline-xl": [ "Plus Jakarta Sans" ], "label-sm": [ "Plus Jakarta Sans" ], "label-md": [ "Plus Jakarta Sans" ], "headline-md": [ "Plus Jakarta Sans" ], "headline-lg-mobile": [ "Plus Jakarta Sans" ], "headline-xl-mobile": [ "Plus Jakarta Sans" ], "body-lg": [ "Inter" ] }, "fontSize": { "headline-lg": [ "32px", { "lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "700" } ], "headline-sm": [ "18px", { "lineHeight": "24px", "fontWeight": "600" } ], "body-md": [ "14px", { "lineHeight": "20px", "fontWeight": "400" } ], "body-sm": [ "12px", { "lineHeight": "16px", "fontWeight": "400" } ], "label-lg": [ "14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" } ], "headline-xl": [ "40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800" } ], "label-sm": [ "10px", { "lineHeight": "12px", "letterSpacing": "0.04em", "fontWeight": "700" } ], "label-md": [ "12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" } ], "headline-md": [ "22px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "headline-lg-mobile": [ "24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "700" } ], "headline-xl-mobile": [ "30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "800" } ], "body-lg": [ "16px", { "lineHeight": "24px", "fontWeight": "400" } ] } } } };</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased min-h-screen"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between"><div class="flex flex-col"><div class="h-16 flex items-center gap-3 px-6 bg-surface-container-lowest"><img alt="Mascotas QR Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcPK85SznLgNaols-Pb6XSUZGQepOelkGG_rAtGDY6WF1ZtQeHuWolK01I411kmGE4JTAWOafoVLJvvAkPp4a_FBikumjvFiS4N2-X-lMvkZVTq4pKoaGtBSqPGobOHdoHlQBXDuJg4dcu0U6uJDoovhwb2Nl4alizJ3uM903kjcI9OBfh7VSEYm8YyfjHkptIMA1qNZiluwHMoJOiI3FjCJwq52ZMIhLUvzuqoGaVhk_RM48j2Ye5"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight leading-none">Mascotas QR</span><span class="font-label-sm text-label-sm text-primary tracking-wider uppercase mt-1">Care &amp; Rescue</span></div></div><div class="px-4 py-6"><p class="font-label-sm text-label-sm text-outline uppercase px-3 mb-3">Plataforma</p><nav class="flex flex-col gap-1" data-active-classes="bg-primary-container text-on-primary-container font-label-lg text-label-lg shadow-sm"><a aria-current="page" class="flex items-center gap-3 px-3 py-3 rounded-xl transition-all bg-primary-container text-on-primary-container font-label-lg text-label-lg shadow-sm" data-path="resumen" href="#"><span class="material-symbols-outlined text-[20px]">grid_view</span><span>Resumen</span></a><a class="flex items-center gap-3 px-3 py-3 rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="mis-mascotas" href="#"><span class="material-symbols-outlined text-[20px]">pets</span><span>Mis Mascotas</span></a><a class="flex items-center gap-3 px-3 py-3 rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="vincular-placa-qr" href="#"><span class="material-symbols-outlined text-[20px]">qr_code_scanner</span><span>Vincular Placa QR</span></a><a class="flex items-center gap-3 px-3 py-3 rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="tienda-de-placas" href="#"><span class="material-symbols-outlined text-[20px]">shopping_bag</span><span>Tienda de Placas</span></a><a class="flex items-center gap-3 px-3 py-3 rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="mi-cuenta-y-planes" href="#"><span class="material-symbols-outlined text-[20px]">manage_accounts</span><span>Mi Cuenta y Planes</span></a></nav></div></div><div class="p-4 mx-4 mb-6 rounded-2xl bg-surface-container-low"><div class="flex items-center gap-2 mb-2"><span class="material-symbols-outlined text-secondary text-[20px]">verified_user</span><span class="font-label-md text-label-md text-on-surface">Protección Activa</span></div><p class="font-body-sm text-body-sm text-on-surface-variant mb-3">Placas conectadas y geolocalización de emergencia habilitada.</p><div class="flex items-center justify-between"><span class="font-label-sm text-label-sm text-outline">Plan Premium</span><span class="font-label-sm text-label-sm text-primary font-bold">Al Día</span></div></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 px-8 flex items-center justify-between"><div class="flex items-center gap-3"><div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container"><span class="w-2 h-2 rounded-full bg-primary-container"></span><span class="font-label-sm text-label-sm text-on-surface-variant">Red de Rescate Nacional Operativa</span></div></div><div class="flex items-center gap-4"><button class="flex items-center gap-2 px-4 py-2 rounded-full bg-tertiary text-on-tertiary font-label-md text-label-md shadow-[0_4px_12px_rgba(185,26,36,0.25)] hover:bg-error transition-all" type="button"><span class="material-symbols-outlined text-[18px] animate-pulse">e911_emergency</span><span>Modo Rescate</span></button><div class="relative"><button class="w-10 h-10 rounded-full flex items-center justify-center bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span></button><span class="absolute top-1.5 right-1.5 w-2.5 h-2.5 rounded-full bg-tertiary ring-2 ring-surface"></span></div><div class="flex items-center gap-3 pl-2"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-primary/20" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCj96eVESND53is01LZzVHe5tnkSfozcw7EmnTo4GHxpln_AuTV6NZr7Ib3lgVYMyRcCIlNlGIJzTHpCzntTDG2V-zNQABHTz7-sYb46kJL7oxakkcH3Ntdx5tzggJr4RuXeOCVV-5EK8uU6DXzYHQYF36T3dELhkUjARVpOWCVkTbhkrxYNMYa8L9cT0Dn00CNP0uo2lGmCoyLf-KDfm0mQiYycXUyts3jWD2tCm5nRpzT55I8LrI9"/><div class="flex flex-col text-left"><span class="font-label-md text-label-md text-on-surface leading-tight">Dra. Valeria Ramos</span><span class="font-body-sm text-body-sm text-on-surface-variant leading-none">Tutor Responsable</span></div></div></div></header><main class="w-full pt-16 bg-surface min-h-screen px-8 py-8"><div class="flex flex-col w-full">
+<!-- Top Ambient Glow Aura -->
+<div class="relative w-full overflow-hidden">
+<div class="absolute -top-24 left-1/2 -translate-x-1/2 w-[700px] h-[360px] bg-gradient-to-tr from-primary-fixed/30 via-secondary-container/20 to-transparent blur-3xl pointer-events-none rounded-full"></div>
+<!-- 1. HERO SECTION -->
+<section class="relative w-full pb-16 pt-2">
+<div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-8">
+<!-- Left: Copy & Value Proposition -->
+<div class="flex-1 flex flex-col items-start text-left max-w-2xl">
+<div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface-container-high shadow-sm mb-6">
+<span class="inline-block w-2 h-2 rounded-full bg-primary-container animate-ping"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Sistema de Rescate 4.0 Activo</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="font-label-sm text-label-sm text-primary font-bold">Perú &amp; LATAM</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight mb-5 leading-tight">
+            El Pasaporte Digital y Collar Inteligente que Protege a tu Mascota
+          </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-8 leading-relaxed">
+            Identificación inteligente con chapas QR resistentes al agua, carnet médico en la nube y geolocalización satelital inmediata en caso de extravío. Sin baterías, sin apps requeridas para quien lo escanee.
+          </p>
+<!-- CTAs -->
+<div class="flex flex-wrap items-center gap-4 w-full sm:w-auto mb-10">
+<a class="flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-full bg-primary-container text-on-primary font-label-lg text-label-lg shadow-md hover:bg-primary transition-all duration-200" href="#tienda-catalogo">
+<span class="material-symbols-outlined text-[20px]">shopping_bag</span>
+<span>Comprar Placa Inteligente</span>
+</a>
+<a class="flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-surface-container-lowest text-on-surface font-label-lg text-label-lg shadow-sm hover:bg-surface-container-high transition-all duration-200" href="#como-funciona">
+<span class="material-symbols-outlined text-[20px] text-primary">play_circle</span>
+<span>Explorar Cómo Funciona</span>
+</a>
+</div>
+<!-- Trust Badges -->
+<div class="grid grid-cols-3 gap-4 w-full pt-4">
+<div class="flex flex-col p-3 rounded-2xl bg-surface-container-lowest shadow-sm">
+<span class="font-headline-sm text-headline-sm text-primary font-bold">+15,000</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Mascotas Protegidas</span>
+</div>
+<div class="flex flex-col p-3 rounded-2xl bg-surface-container-lowest shadow-sm">
+<span class="font-headline-sm text-headline-sm text-secondary font-bold">99.4%</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Tasa de Reencuentro</span>
+</div>
+<div class="flex flex-col p-3 rounded-2xl bg-surface-container-lowest shadow-sm">
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">120+</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Veterinarias Aliadas</span>
+</div>
+</div>
+</div>
+<!-- Right: Stylized Mockup of Tag + Rescuer UI Card -->
+<div class="flex-1 relative w-full flex items-center justify-center min-h-[460px]">
+<!-- Background decorative circle -->
+<div class="absolute w-80 h-80 rounded-full bg-gradient-to-br from-primary-fixed-dim/40 via-secondary-container/30 to-surface-container-highest blur-2xl"></div>
+<!-- Main Composition Container -->
+<div class="relative z-10 w-full max-w-md">
+<!-- Hero Pet Imagery with Collar Tag -->
+<div class="relative w-full h-80 rounded-3xl overflow-hidden shadow-xl bg-surface-container-high">
+<img class="w-full h-full object-cover" data-alt="A happy golden retriever wearing an elegant teal smart QR collar tag sitting in a sunlit modern living room, warm sunlight, shallow depth of field, high-end commercial pet lifestyle photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAm6ZJ-Mejub7vLHWEAJozR9nhiXKRqLZeviT3L8SRl2bExYFYPJKlWVQiVs1-fIeB_9KZU0LDcTYd08fTyLmkFclFKUmfveGftuKP_PkjeZuhooEHdTD8Fjmv6XtwNVaoCNZiXMfVSY6y_eDMAv4-_Y6LgAzA3857q7E_crL3Xw0IU9VnWcBeYU0eRSJWtOlSoZPmq_fN8TeNYgxjR91pmOhn6zpLAAgr47ORUbhFYrgT8TBygs50C"/>
+<div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/80 via-transparent to-transparent"></div>
+<!-- Floating QR Tag Visual Badge -->
+<div class="absolute bottom-4 left-4 right-4 flex items-center justify-between p-3 rounded-2xl bg-surface-container-lowest/90 backdrop-blur-md shadow-lg">
+<div class="flex items-center gap-3">
+<div class="w-11 h-11 rounded-xl bg-inverse-surface flex items-center justify-center text-primary-fixed shadow-inner">
+<span class="material-symbols-outlined text-[26px]">qr_code_2</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Placa QR Pro #PET-8842</span>
+<span class="font-body-sm text-body-sm text-primary font-semibold">Resistente al Agua IP68 • GPS Link</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary-container text-[24px]">verified</span>
+</div>
+</div>
+<!-- Overlapping Float Card: Rescue Simulated Screen -->
+<div class="absolute -bottom-10 -right-4 sm:-right-8 w-72 sm:w-80 rounded-2xl p-4 bg-surface-container-lowest shadow-2xl z-20">
+<div class="flex items-center justify-between pb-3 mb-3">
+<div class="flex items-center gap-2">
+<span class="flex h-2.5 w-2.5 relative">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-tertiary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-tertiary"></span>
+</span>
+<span class="font-label-sm text-label-sm text-tertiary font-bold uppercase tracking-wide">Alerta GPS Enviada</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Hace 1 min</span>
+</div>
+<div class="flex items-center gap-3 mb-3">
+<div class="w-12 h-12 rounded-xl overflow-hidden bg-surface-container shrink-0">
+<img class="w-full h-full object-cover" data-alt="Close up face portrait of a friendly golden retriever dog looking at camera with warm expressive eyes, soft studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0ls3XjXL8TrdQiSqApEITd3WDO550006IUbrkBG_LZzAjo2PqvE_Qpv302oOP1oG2734ZLYrMzoCk1BeU-ds0W8woqyTpj3loVajKrTzNBBeC1Ystv7eJpCQ1LYyb1Y8SCYzAZ4L1ILLSzJy0INEfcd7naP4H2VPKeNHrNIXMe7k-olzDnXCX7dKLx7kUKjVCn4Jtl94YxVrOsFMNSgCqjV916uuZS0bSFk4dVIu8h1hNfIY4F0m-"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-sm text-headline-sm text-on-surface truncate">Max (Golden)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Tutor: Dra. Valeria R.</span>
+</div>
+</div>
+<!-- Quick action dispatch simulated for rescuer -->
+<div class="grid grid-cols-2 gap-2">
+<div class="flex items-center justify-center gap-1.5 py-2 px-2 rounded-xl bg-primary-container text-on-primary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">call</span>
+<span>Llamar Tutor</span>
+</div>
+<div class="flex items-center justify-center gap-1.5 py-2 px-2 rounded-xl bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">chat</span>
+<span>WhatsApp</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 2. CÓMO FUNCIONA EN 3 PASOS -->
+<section class="w-full py-16" id="como-funciona">
+<div class="flex flex-col items-center text-center max-w-2xl mx-auto mb-12">
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-widest font-bold mb-2">Simplicidad Salva Vidas</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface tracking-tight mb-3">
+          ¿Cómo funciona en caso de extravío?
+        </h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+          Diseñado para que cualquier transeúnte o rescatista pueda ayudarte a recuperar a tu compañero en cuestión de minutos, sin fricción técnica.
+        </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Paso 1 -->
+<div class="relative flex flex-col p-6 rounded-3xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all duration-300">
+<div class="flex items-center justify-between mb-6">
+<div class="w-12 h-12 rounded-2xl bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[28px]">link</span>
+</div>
+<span class="font-headline-xl text-headline-xl text-surface-container-highest font-extrabold select-none">01</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2">
+            1. Coloca y Vincula en Segundos
+          </h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 flex-1">
+            Engancha la placa al collar de tu peludo y asóciala a tu perfil digital Mascotas QR desde tu teléfono escaneándola por primera vez.
+          </p>
+<div class="w-full h-32 rounded-2xl overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Hands fastening an anodized teal pet identification tag to a dog's collar strap, detailed macro shot, natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmFnQf5v9gVBTwooGnbHEk7qIwkFjnJ0QOwWLkaeOfTyF0q3gTchdAIpVvdAXaD2XgcoIRDKiGzKuhpeMlQlNipiELAMsZyUnYWf-U-c-8fduykzxbhF-5EWDAOFVk_rjNKAMi7boUSKqMCu888ZAZ-6ZAwoesSat-F4hvSrs6B4ZicilxJaNQDJT1vf-7LzVO8cPqzsfl9AdHkHICSPsSpAMsFa6UgGOaO49mMUDccWpizgvRbm8X"/>
+</div>
+</div>
+<!-- Paso 2 -->
+<div class="relative flex flex-col p-6 rounded-3xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all duration-300">
+<div class="flex items-center justify-between mb-6">
+<div class="w-12 h-12 rounded-2xl bg-secondary-container/50 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[28px]">document_scanner</span>
+</div>
+<span class="font-headline-xl text-headline-xl text-surface-container-highest font-extrabold select-none">02</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2">
+            2. Escaneo Universal Inmediato
+          </h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 flex-1">
+            Si se pierde, quien lo encuentre apunta con la cámara de cualquier celular. Cero descargas de apps requeridas: abre al instante en Safari o Chrome.
+          </p>
+<div class="w-full h-32 rounded-2xl overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A smartphone screen scanning a clean metallic pet QR medallion outdoors, vibrant street background with depth of field" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8_y2LwXAhrvqQRpi95o7tw5iNPAXpoT-Ug1IRxGgo6mLgA1BmA6y9jQEnZlxIG3zHj1UGcOiVCbORzCzuVv9tyldPiNQn8ypfBh1ptuIYBkglKBeblbzlKRDHs67ZyKANPwjOAEMcz2RmOVXSZD27e6Cy5TVBNzOQ1WeJIAilkr82_xHhXFuBdtTs86pl0GiV0i20W00FsDDiMqBqBqrv5r0ymgDMb0dGSVSDHA35IlDMna-P8-3y"/>
+</div>
+</div>
+<!-- Paso 3 -->
+<div class="relative flex flex-col p-6 rounded-3xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all duration-300">
+<div class="flex items-center justify-between mb-6">
+<div class="w-12 h-12 rounded-2xl bg-tertiary-container/30 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-[28px]">share_location</span>
+</div>
+<span class="font-headline-xl text-headline-xl text-surface-container-highest font-extrabold select-none">03</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2">
+            3. Contacto y GPS al Tutor
+          </h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 flex-1">
+            El rescatista te contacta con un toque por WhatsApp o llamada. Simultáneamente, recibes un SMS y correo con las coordenadas satelitales del escaneo.
+          </p>
+<div class="w-full h-32 rounded-2xl overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Digital smartphone notification showing pet location pinpointed on satellite map with emergency contact buttons, clean UI mockup" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDsWUlwRpQfv4wCVg-7e7SpdXrhiUj-SzWxrh-RqaxKwBM9BehHiEsLDiuq1ZkUS1UZKgdVb23Y9IJrn9uc7C9X_ZJYU9BGku8QnMSZaUQBvm8gJWOyq8uPgpAWuCvT92TB1_Llus9rZR7sGxlFYrGlo7mD31IBMsWmarKGqJKrn76rJp7_wMnJ0tGEJ2_BLTfmYdiGfCnaQOQynDzcAl3lLtpZXUm2U62AdBWb1vuI0J9RrQtrvrZ"/>
+</div>
+</div>
+</div>
+</section>
+<!-- 3. CATÁLOGO DE PLACAS Y TIENDA OFICIAL -->
+<section class="w-full py-16" id="tienda-catalogo">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-widest font-bold mb-1">Hardware Veterinario Certificado</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">
+            Tienda Oficial de Placas &amp; Collares
+          </h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">
+            Todos los modelos incluyen acceso vitalicio a la nube médica, garantía anti-desgaste y envío express a todo el país.
+          </p>
+</div>
+<!-- Live Guarantee Tag -->
+<div class="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-surface-container-low">
+<span class="material-symbols-outlined text-primary text-[20px]">local_shipping</span>
+<span class="font-label-sm text-label-sm text-on-surface">Envío gratis en compras sobre S/. 50.00</span>
+</div>
+</div>
+<!-- Product Cards Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Producto 1: Aluminio Anodizado Clínico -->
+<div class="flex flex-col rounded-3xl bg-surface-container-lowest shadow-sm hover:shadow-xl transition-all duration-300 p-6">
+<div class="relative w-full h-64 rounded-2xl overflow-hidden bg-surface-container mb-6">
+<img class="w-full h-full object-cover" data-alt="Matte emerald teal anodized aluminum round dog tag with laser etched QR code and pet silhouette on white medical grade pedestal studio background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8rNtEKdKBy2z0zMmNS-Emc_cnlC9sI6D1X8vyOkj8lizXY8f1RumsorK6PfOndymYJrpJGWadAe7ARSdpchekoZ9-QkLN0aJFANuUVOuHd3zFJSCU25HFcqZiOXBUOBT0oS1qIk7kFt0GIzmpRrwIF10scmrPlccPYslBqmoALPZzvFuSp3ldp5wqvPGKS463SXI5cgzeY9xKL9BUpL-ESeLkhF-eYGPPoRa80mELeKSQLNF2D8bb"/>
+<span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur-md font-label-sm text-label-sm text-on-surface font-semibold shadow-sm">
+              Ultraligera (4g)
+            </span>
+<span class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-primary-container text-on-primary font-label-sm text-label-sm">
+              IP68 Waterproof
+            </span>
+</div>
+<div class="flex flex-col flex-1">
+<div class="flex items-center justify-between mb-2">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">
+                Aluminio Anodizado Clínico
+              </h3>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">
+              Grabado láser de fibra óptica de ultra alta durabilidad. No tintas, no calcomanías. Resistente al agua salada, barro y mordidas ligeras.
+            </p>
+<!-- Product Specs -->
+<div class="flex flex-wrap gap-2 mb-6">
+<span class="px-2.5 py-1 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface-variant">Resistencia IP68</span>
+<span class="px-2.5 py-1 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface-variant">Láser Imborrable</span>
+<span class="px-2.5 py-1 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface-variant">Antialérgico</span>
+</div>
+<!-- Color Variants Selection -->
+<div class="mb-6">
+<span class="font-label-sm text-label-sm text-outline uppercase block mb-2">Colores Anodizados Disponibles</span>
+<div class="flex items-center gap-3">
+<label class="flex items-center gap-1.5 cursor-pointer">
+<input checked="" class="accent-primary" name="color-prod-1" type="radio"/>
+<span class="font-body-sm text-body-sm text-on-surface">Turquesa</span>
+</label>
+<label class="flex items-center gap-1.5 cursor-pointer">
+<input class="accent-primary" name="color-prod-1" type="radio"/>
+<span class="font-body-sm text-body-sm text-on-surface">Titanio</span>
+</label>
+<label class="flex items-center gap-1.5 cursor-pointer">
+<input class="accent-primary" name="color-prod-1" type="radio"/>
+<span class="font-body-sm text-body-sm text-on-surface">Coral</span>
+</label>
+</div>
+</div>
+<!-- Price & Button -->
+<div class="mt-auto pt-4 flex items-center justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-outline block">Precio Unitario</span>
+<span class="font-headline-md text-headline-md text-on-surface font-extrabold">S/. 29.90</span>
+</div>
+<button class="flex items-center gap-2 px-5 py-3 rounded-full bg-primary-container text-on-primary font-label-md text-label-md hover:bg-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">add_shopping_cart</span>
+<span>Comprar</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Producto 2: Acero Inoxidable Premium (Best Seller) -->
+<div class="flex flex-col rounded-3xl bg-surface-container-lowest shadow-md hover:shadow-xl transition-all duration-300 p-6 relative">
+<!-- Best Seller ribbon badge -->
+<div class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-primary text-on-primary font-label-sm text-label-sm shadow-md font-bold uppercase tracking-wider">
+            ★ Más Vendida (Best Seller)
+          </div>
+<div class="relative w-full h-64 rounded-2xl overflow-hidden bg-surface-container mb-6 mt-1">
+<img class="w-full h-full object-cover" data-alt="High gloss polished stainless steel pet medallion with crystal clear scratch-resistant epoxy resin dome coating and sharp QR code, luxury pet jewelry aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCh0ebgSzEcntLBW1DbUrJTY6tuqC0P9tHujayvBiEzk5UUz5rSdZpXpCUD3GG9wUJ0umCa5rjdzC0BAT6JDoRLr2L4K53y0LOf77zg4iTKPboWl0V73IplRe-ytARIg8OFWfInZo9qWfSKC1RjYCs9GdOG67eEUyEHt1Z3d-rdmhu-dccWILVC2YhcKpI0zOePz6D_HlAvdL6lPh8WdvN8qRLHqd-Qx-TVV0OwNyT0myghj4eRuI3C"/>
+<span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur-md font-label-sm text-label-sm text-on-surface font-semibold shadow-sm">
+              Acero 316L Médico
+            </span>
+<span class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-secondary text-on-secondary font-label-sm text-label-sm">
+              Dual QR + NFC
+            </span>
+</div>
+<div class="flex flex-col flex-1">
+<div class="flex items-center justify-between mb-2">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">
+                Acero Inoxidable Premium
+              </h3>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">
+              Capa de resina epóxica anti-rayaduras de nivel náutico con chip NFC integrado pasivo. Puedes escanear el QR o acercar el celular por contactless.
+            </p>
+<!-- Product Specs -->
+<div class="flex flex-wrap gap-2 mb-6">
+<span class="px-2.5 py-1 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface-variant">Chip NFC Pasivo</span>
+<span class="px-2.5 py-1 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface-variant">Domo Epóxico</span>
+<span class="px-2.5 py-1 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface-variant">Garantía Vitalicia</span>
+</div>
+<!-- Color Variants Selection -->
+<div class="mb-6">
+<span class="font-label-sm text-label-sm text-outline uppercase block mb-2">Acabado Metálico</span>
+<div class="flex items-center gap-3">
+<label class="flex items-center gap-1.5 cursor-pointer">
+<input checked="" class="accent-primary" name="color-prod-2" type="radio"/>
+<span class="font-body-sm text-body-sm text-on-surface">Espejo Plata</span>
+</label>
+<label class="flex items-center gap-1.5 cursor-pointer">
+<input class="accent-primary" name="color-prod-2" type="radio"/>
+<span class="font-body-sm text-body-sm text-on-surface">Oro Cepillado</span>
+</label>
+<label class="flex items-center gap-1.5 cursor-pointer">
+<input class="accent-primary" name="color-prod-2" type="radio"/>
+<span class="font-body-sm text-body-sm text-on-surface">Grafito Mate</span>
+</label>
+</div>
+</div>
+<!-- Price & Button -->
+<div class="mt-auto pt-4 flex items-center justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-outline block">Precio Unitario</span>
+<span class="font-headline-md text-headline-md text-on-surface font-extrabold">S/. 49.90</span>
+</div>
+<button class="flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-on-primary font-label-md text-label-md shadow-md hover:bg-on-primary-container transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">add_shopping_cart</span>
+<span>Comprar</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Producto 3: Collar Inteligente Pro con Chapa Integrada -->
+<div class="flex flex-col rounded-3xl bg-surface-container-lowest shadow-sm hover:shadow-xl transition-all duration-300 p-6">
+<div class="relative w-full h-64 rounded-2xl overflow-hidden bg-surface-container mb-6">
+<img class="w-full h-full object-cover" data-alt="Tactical reflective dog collar with a flush embedded curved smart QR plate, military grade ballistic nylon fabric, studio shot" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZSFhO6rEyck3pnIhjA929V4qxKnYMrQSPqE9REw5GWQmWHOXV6T5fdZlI_9tffr6QGh8qm8ewi23mPUdJvLCR4uOSufR8QyJj9QoOu5n-txU9Vp8l3bfIPpnkiIKnW8kDbSGUdV94cobkp_j_q598UXDqXvd0QHm1RQ4NpxLbUDebC2b4M4jfkmRnS9gpigni_kYaEBPAh8MhwlKGtPdIlxhQQEDPkREJKoTCtdczXM-hpbsJOXmn"/>
+<span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur-md font-label-sm text-label-sm text-on-surface font-semibold shadow-sm">
+              Collar Completo Pro
+            </span>
+<span class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm">
+              Reflectivo 3M
+            </span>
+</div>
+<div class="flex flex-col flex-1">
+<div class="flex items-center justify-between mb-2">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">
+                Collar Inteligente Pro
+              </h3>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">
+              Nylon balístico de alta densidad con placa remachada curva sin tintineo metálico. Ideal para perros activos o aventureros en paseos nocturnos.
+            </p>
+<!-- Product Specs -->
+<div class="flex flex-wrap gap-2 mb-6">
+<span class="px-2.5 py-1 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface-variant">Sin Ruidos (Silenciosa)</span>
+<span class="px-2.5 py-1 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface-variant">Hebilla Reforzada</span>
+<span class="px-2.5 py-1 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface-variant">Tallas S, M, L, XL</span>
+</div>
+<!-- Size Selection -->
+<div class="mb-6">
+<span class="font-label-sm text-label-sm text-outline uppercase block mb-2">Talla del Collar</span>
+<div class="flex items-center gap-3">
+<label class="flex items-center gap-1.5 cursor-pointer">
+<input class="accent-primary" name="talla-prod-3" type="radio"/>
+<span class="font-body-sm text-body-sm text-on-surface">S</span>
+</label>
+<label class="flex items-center gap-1.5 cursor-pointer">
+<input checked="" class="accent-primary" name="talla-prod-3" type="radio"/>
+<span class="font-body-sm text-body-sm text-on-surface">M</span>
+</label>
+<label class="flex items-center gap-1.5 cursor-pointer">
+<input class="accent-primary" name="talla-prod-3" type="radio"/>
+<span class="font-body-sm text-body-sm text-on-surface">L</span>
+</label>
+<label class="flex items-center gap-1.5 cursor-pointer">
+<input class="accent-primary" name="talla-prod-3" type="radio"/>
+<span class="font-body-sm text-body-sm text-on-surface">XL</span>
+</label>
+</div>
+</div>
+<!-- Price & Button -->
+<div class="mt-auto pt-4 flex items-center justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-outline block">Precio Unitario</span>
+<span class="font-headline-md text-headline-md text-on-surface font-extrabold">S/. 59.90</span>
+</div>
+<button class="flex items-center gap-2 px-5 py-3 rounded-full bg-primary-container text-on-primary font-label-md text-label-md hover:bg-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">add_shopping_cart</span>
+<span>Comprar</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 4. COMPARATIVA DE TECNOLOGÍA Y BENEFICIOS -->
+<section class="w-full py-16">
+<div class="flex flex-col items-center text-center max-w-2xl mx-auto mb-12">
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-widest font-bold mb-2">Protección Comparada</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface tracking-tight mb-3">
+          ¿Por qué Mascotas QR supera las opciones tradicionales?
+        </h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+          Mira frente a frente la diferencia entre una placa de metal estática, el microchip bajo la piel y nuestra tecnología interactiva.
+        </p>
+</div>
+<div class="overflow-x-auto rounded-3xl bg-surface-container-lowest shadow-sm">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low text-on-surface">
+<th class="p-5 font-headline-sm text-headline-sm">Características Clave</th>
+<th class="p-5 font-headline-sm text-headline-sm text-primary bg-primary-fixed/20 rounded-t-2xl">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">verified</span>
+<span>Mascotas QR (Smart)</span>
+</div>
+</th>
+<th class="p-5 font-headline-sm text-headline-sm text-on-surface-variant">Placa Grabada Tradicional</th>
+<th class="p-5 font-headline-sm text-headline-sm text-on-surface-variant">Microchip Subcutáneo</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-low font-body-md text-body-md">
+<tr>
+<td class="p-5 font-semibold text-on-surface">Visibilidad inmediata por cualquier persona</td>
+<td class="p-5 bg-primary-fixed/10 font-bold text-primary">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-[20px]">check_circle</span>
+<span>Sí, con cualquier smartphone</span>
+</div>
+</td>
+<td class="p-5 text-on-surface-variant">Sí (pero datos fijos limitados)</td>
+<td class="p-5 text-on-surface-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-[20px]">cancel</span>
+<span>No, requiere lector de clínica vet</span>
+</div>
+</td>
+</tr>
+<tr>
+<td class="p-5 font-semibold text-on-surface">Actualización de teléfono sin cambiar la chapa</td>
+<td class="p-5 bg-primary-fixed/10 font-bold text-primary">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-[20px]">check_circle</span>
+<span>Instantáneo vía web</span>
+</div>
+</td>
+<td class="p-5 text-on-surface-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-[20px]">cancel</span>
+<span>Imposible, debes recomprar</span>
+</div>
+</td>
+<td class="p-5 text-on-surface-variant">Complicado (trámite municipal/vet)</td>
+</tr>
+<tr>
+<td class="p-5 font-semibold text-on-surface">Ficha Médica &amp; Alergias en la Nube</td>
+<td class="p-5 bg-primary-fixed/10 font-bold text-primary">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-[20px]">check_circle</span>
+<span>Completa (vacunas, medicación, dietas)</span>
+</div>
+</td>
+<td class="p-5 text-on-surface-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-[20px]">cancel</span>
+<span>No cabe en la placa</span>
+</div>
+</td>
+<td class="p-5 text-on-surface-variant">Solo código alfanumérico</td>
+</tr>
+<tr>
+<td class="p-5 font-semibold text-on-surface">Geolocalización satelital al escanearse</td>
+<td class="p-5 bg-primary-fixed/10 font-bold text-primary">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-[20px]">check_circle</span>
+<span>Envío de GPS automático al tutor</span>
+</div>
+</td>
+<td class="p-5 text-on-surface-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-[20px]">cancel</span>
+<span>Sin tecnología</span>
+</div>
+</td>
+<td class="p-5 text-on-surface-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-[20px]">cancel</span>
+<span>No tiene GPS activo</span>
+</div>
+</td>
+</tr>
+<tr>
+<td class="p-5 font-semibold text-on-surface">Requiere apps especiales o suscripción forzosa</td>
+<td class="p-5 bg-primary-fixed/10 font-bold text-primary">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-[20px]">check_circle</span>
+<span>Cero apps obligatorias • Plan base gratis</span>
+</div>
+</td>
+<td class="p-5 text-on-surface-variant">Sin app</td>
+<td class="p-5 text-on-surface-variant">Requiere bases de datos restringidas</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- 5. TESTIMONIOS REALES Y CASOS DE RESCATE -->
+<section class="w-full py-16">
+<div class="flex flex-col items-center text-center max-w-2xl mx-auto mb-12">
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-widest font-bold mb-2">Historias que Inspiran</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface tracking-tight mb-3">
+          Reencuentros que sucedieron gracias a Mascotas QR
+        </h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+          Casos documentados donde el escaneo oportuno evitó una tragedia familiar.
+        </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Testimonio 1 -->
+<div class="flex flex-col p-6 rounded-3xl bg-surface-container-lowest shadow-sm">
+<div class="flex items-center gap-1 text-primary mb-4">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface italic mb-6 flex-1">
+            "Max se asustó con unos fuegos artificiales y corrió 8 cuadras. Una vecina escaneó su chapa con su iPhone y a los 2 minutos ya me estaba escribiendo por WhatsApp con el link de Google Maps. Volvió a casa en 35 minutos."
+          </p>
+<div class="flex items-center gap-3 pt-4">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Portrait of a young smiling latin woman hugging a golden retriever dog outdoors in a park, natural sunlight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDttHj9LWO0u5S-HhHItx1B4HeSy8lEmW0XdGI_CgmFm4cvvlYHzetMkAU-mPhX-Fx91PjvK9HMZvMB0xk7XSVT5A4I5mcNcS9Q-gD4wsy5unAF-fuFMmFlSyYnFuqcT3dvGX2bjRntDS3QdbGw0Y2aaRUabgiQt8CzT5VnmbGHDTfgx4qBP65lSNfINsJviYt2q99859G8YAVMxeugWOLrcZ_wx4M4IKLB2XQ4Bla8zjZXlF7BblVn"/>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Camila Fernández</span>
+<span class="font-body-sm text-body-sm text-primary font-semibold">Tutora de Max • Miraflores</span>
+</div>
+</div>
+</div>
+<!-- Testimonio 2 -->
+<div class="flex flex-col p-6 rounded-3xl bg-surface-container-lowest shadow-sm">
+<div class="flex items-center gap-1 text-primary mb-4">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface italic mb-6 flex-1">
+            "Lo mejor es la ficha de alergias. Mi bulldog francés toma corticoides especiales. Quien lo encontró leyó la advertencia médica en pantalla y no le dio comida dañina mientras llegaba a recogerlo. Esto no lo hace ninguna placa común."
+          </p>
+<div class="flex items-center gap-3 pt-4">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Portrait of a middle-aged man smiling with a french bulldog resting on his arm, clean warm interior" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9b7-y4xOy2EhY50ogQHvonNpacvmFpQQ1HRM6TvedSdkYcNXNtuHu9brNPksQqxfRt6VCRwsVclFpLuKvmBb_lU7gojSE-QF60ejr9bc4YwCzU-K8pO-GTMOC8MEiJ_0oE2Yg31AbK7AM3PjbJz9EJ6ASpOug8lW7QYSTD5kZx5t-02ptclL2KocHf7HtG8qN08hdHL0X-XAvt4SMc_Qjo7LqzsnIRykmwp9dNoLZL6UMuRLQ-GSd"/>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Diego Morales</span>
+<span class="font-body-sm text-body-sm text-primary font-semibold">Tutor de Rocco • Surco</span>
+</div>
+</div>
+</div>
+<!-- Testimonio 3 -->
+<div class="flex flex-col p-6 rounded-3xl bg-surface-container-lowest shadow-sm">
+<div class="flex items-center gap-1 text-primary mb-4">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface italic mb-6 flex-1">
+            "Nos mudamos de departamento y cambié de número de celular. Con una chapa tradicional hubiera tenido que mandar a tallar otra. Aquí solo entré a la web, actualicé mi teléfono y listo en 10 segundos."
+          </p>
+<div class="flex items-center gap-3 pt-4">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Happy young woman playing with an energetic rescue cat with a light collar in a bright apartment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPoKj8J1eGZpnpe7moJlc2AMhLgoG3iVPWuK5R-87QK97hDAS0bII7lnewKIQe6GjdT4Ey-I4voPFt6WqgOZTLBNpbmnhFpL56AVc-ocZA7mKEh2Cc8FWr-V-t04lvXRNkOV8eEkF65QFEVh-rqEHInuu7FOBw9WADookBhNiTH1_HrHYjhrQzZcxNA-qRZjGHf6ZHIUuLheeI6962UzDz7Cezwcex55sTHfesVxFQK4Ty4yVYE2oa"/>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Lucía Valdivia</span>
+<span class="font-body-sm text-body-sm text-primary font-semibold">Tutora de Luna • San Isidro</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 6. FAQ Y LLAMADO A LA ACCIÓN FINAL -->
+<section class="w-full py-16">
+<div class="flex flex-col lg:flex-row gap-12">
+<!-- Left: FAQ accordions -->
+<div class="flex-1 flex flex-col">
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-widest font-bold mb-2">Preguntas Frecuentes</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface tracking-tight mb-6">
+            Resolvemos tus dudas
+          </h2>
+<div class="space-y-4">
+<!-- FAQ 1 -->
+<details class="group p-4 rounded-2xl bg-surface-container-lowest shadow-sm [&amp;_summary::-webkit-details-marker]:none cursor-pointer">
+<summary class="flex items-center justify-between font-label-lg text-label-lg text-on-surface">
+<span>¿La persona que encuentre a mi mascota debe tener una app instalada?</span>
+<span class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<p class="font-body-md text-body-md text-on-surface-variant mt-3 leading-relaxed">
+                No. Cualquier cámara de celular moderno (iOS o Android) lee el código QR de manera nativa y despliega la página del perfil en el navegador web estándar sin pedir registros ni descargas.
+              </p>
+</details>
+<!-- FAQ 2 -->
+<details class="group p-4 rounded-2xl bg-surface-container-lowest shadow-sm [&amp;_summary::-webkit-details-marker]:none cursor-pointer">
+<summary class="flex items-center justify-between font-label-lg text-label-lg text-on-surface">
+<span>¿Tiene algún costo mensual mantener activa la placa?</span>
+<span class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<p class="font-body-md text-body-md text-on-surface-variant mt-3 leading-relaxed">
+                La compra de tu placa incluye el Plan Vitalicio Gratuito: perfil público, botones de contacto directo y carnet de vacunas sin cuotas recurrentes jamás. También ofrecemos un plan Premium opcional con seguro de rescate y alertas satelitales SMS avanzadas.
+              </p>
+</details>
+<!-- FAQ 3 -->
+<details class="group p-4 rounded-2xl bg-surface-container-lowest shadow-sm [&amp;_summary::-webkit-details-marker]:none cursor-pointer">
+<summary class="flex items-center justify-between font-label-lg text-label-lg text-on-surface">
+<span>¿Qué pasa si mi mascota se baña o nada con la placa puesta?</span>
+<span class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<p class="font-body-md text-body-md text-on-surface-variant mt-3 leading-relaxed">
+                Nuestras placas cuentan con certificación IP68 y resina selladora industrial. Son totalmente sumergibles en agua dulce y salada, resistentes al lodo, rayos UV y fricción diaria.
+              </p>
+</details>
+<!-- FAQ 4 -->
+<details class="group p-4 rounded-2xl bg-surface-container-lowest shadow-sm [&amp;_summary::-webkit-details-marker]:none cursor-pointer">
+<summary class="flex items-center justify-between font-label-lg text-label-lg text-on-surface">
+<span>¿Cuánto tiempo tarda en llegar mi pedido a domicilio?</span>
+<span class="material-symbols-outlined text-primary group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<p class="font-body-md text-body-md text-on-surface-variant mt-3 leading-relaxed">
+                En Lima Metropolitana entregamos en 24 a 48 horas hábiles. Para provincias a nivel nacional el despacho toma entre 2 y 4 días a través de Olva Courier o Shalom con número de seguimiento en vivo.
+              </p>
+</details>
+</div>
+</div>
+<!-- Right: CTA Final Banner Card -->
+<div class="flex-1 flex flex-col justify-between p-8 rounded-3xl bg-inverse-surface text-inverse-on-surface shadow-xl relative overflow-hidden">
+<div class="absolute -right-16 -bottom-16 w-64 h-64 rounded-full bg-primary/20 blur-3xl pointer-events-none"></div>
+<div class="relative z-10">
+<span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-lowest/10 text-primary-fixed font-label-sm text-label-sm uppercase tracking-wider mb-6">
+<span class="material-symbols-outlined text-[16px]">verified_user</span>
+              Protección Inmediata
+            </span>
+<h3 class="font-headline-lg text-headline-lg text-surface tracking-tight mb-4">
+              No esperes a que se pierda para pensar en su seguridad.
+            </h3>
+<p class="font-body-md text-body-md text-outline-variant mb-8 leading-relaxed">
+              Equipa a tu mejor amigo hoy mismo con la tecnología que ya ha rescatado a miles de mascotas en todo el territorio.
+            </p>
+</div>
+<div class="relative z-10 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+<a class="flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-primary-container text-on-primary font-label-lg text-label-lg shadow-md hover:bg-primary transition-all duration-200" href="#tienda-catalogo">
+<span class="material-symbols-outlined text-[20px]">store</span>
+<span>Elegir mi Placa Ahora</span>
+</a>
+<div class="flex items-center gap-2 justify-center py-2 text-outline-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[18px] text-primary-fixed">check</span>
+<span>Garantía de Satisfacción 100%</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer Landing Micro-Bar -->
+<footer class="w-full pt-8 pb-4 flex flex-col sm:flex-row items-center justify-between text-on-surface-variant font-body-sm text-body-sm gap-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">pets</span>
+<span>© 2025 Mascotas QR Inc. Todos los derechos reservados. Red de Identificación Animal.</span>
+</div>
+<div class="flex items-center gap-6">
+<a class="hover:text-primary transition-colors" href="#">Términos de Servicio</a>
+<a class="hover:text-primary transition-colors" href="#">Política de Privacidad</a>
+<a class="hover:text-primary transition-colors" href="#">Contacto Veterinarias</a>
+</div>
+</footer>
+</div>
+</div>
+<script>
+  // Simple smooth scroll handler for in-page anchors
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const targetId = this.getAttribute('href');
+      if (targetId && targetId !== '#') {
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          e.preventDefault();
+          targetElement.scrollIntoView({
+            behavior: 'smooth'
+          });
+        }
+      }
+    });
+  });
+</script></main></div></body></html>

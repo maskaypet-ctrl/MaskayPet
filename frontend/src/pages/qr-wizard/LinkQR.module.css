@@ -1,0 +1,212 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+}
+
+.title {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--on-surface);
+}
+
+.subtitle {
+  font-size: 14px;
+  color: var(--on-surface-variant);
+  margin-top: 4px;
+}
+
+/* Steps Bar */
+.stepsBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 12px 24px;
+  background: var(--surface-container-lowest);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-xs);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.stepItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--outline);
+}
+
+.stepNum {
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-full);
+  background: var(--surface-container-high);
+  color: var(--outline);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
+.stepActive {
+  color: var(--primary);
+}
+
+.stepActive .stepNum {
+  background: var(--primary);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 108, 73, 0.3);
+}
+
+.stepLine {
+  flex: 1;
+  height: 2px;
+  background: var(--surface-container-high);
+  margin: 0 12px;
+}
+
+/* Step Card */
+.stepCard {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+}
+
+.cardHeroIcon {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-xl);
+  background: rgba(0, 108, 73, 0.1);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cardHeroIcon span { font-size: 32px; }
+
+.successIcon {
+  background: var(--success-bg);
+  color: var(--success);
+}
+
+.cardHeading {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--on-surface);
+}
+
+.cardDescription {
+  font-size: 14px;
+  color: var(--on-surface-variant);
+  max-width: 500px;
+  line-height: 1.5;
+}
+
+.stepForm {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: left;
+  margin-top: 12px;
+}
+
+.hintBox {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  background: var(--surface-container-low);
+  border-radius: var(--radius-md);
+  font-size: 12px;
+  color: var(--on-surface-variant);
+  line-height: 1.4;
+}
+.hintBox span { color: var(--secondary); font-size: 18px; flex-shrink: 0; }
+
+.replaceNotice {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  background: var(--warning-bg);
+  color: var(--warning);
+  border-radius: var(--radius-md);
+  font-size: 12px;
+}
+.replaceNotice span { font-size: 18px; flex-shrink: 0; }
+
+.formBtnRow {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.btnDoubleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.noPetsBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 24px;
+}
+
+.successActions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 360px;
+  margin-top: 12px;
+}
+
+@media (max-width: 600px) {
+  .stepsBar {
+    padding: 8px 14px;
+    gap: 6px;
+  }
+
+  .stepItem span:last-child {
+    display: none;
+  }
+
+  .stepLine {
+    margin: 0 6px;
+  }
+
+  .btnDoubleRow {
+    flex-direction: column-reverse;
+    width: 100%;
+    gap: 8px;
+  }
+
+  .btnDoubleRow button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .formBtnRow button {
+    width: 100%;
+    justify-content: center;
+  }
+}

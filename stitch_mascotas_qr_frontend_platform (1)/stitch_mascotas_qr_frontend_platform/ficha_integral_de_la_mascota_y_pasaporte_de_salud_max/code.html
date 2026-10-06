@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "primary": "#006c49", "tertiary-fixed-dim": "#ffb3ad", "on-error-container": "#93000a", "surface": "#faf8ff", "primary-fixed": "#6ffbbe", "secondary": "#006a61", "inverse-primary": "#4edea3", "inverse-on-surface": "#eef0ff", "on-surface": "#131b2e", "surface-container": "#eaedff", "on-tertiary-container": "#79000e", "outline": "#6c7a71", "on-secondary-fixed-variant": "#005049", "background": "#faf8ff", "on-tertiary-fixed-variant": "#930013", "on-primary-fixed-variant": "#005236", "on-secondary-fixed": "#00201d", "on-secondary": "#ffffff", "surface-bright": "#faf8ff", "surface-container-highest": "#dae2fd", "surface-container-high": "#e2e7ff", "on-surface-variant": "#3c4a42", "on-tertiary-fixed": "#410004", "on-primary-container": "#00422b", "error-container": "#ffdad6", "surface-tint": "#006c49", "primary-container": "#10b981", "surface-variant": "#dae2fd", "surface-container-low": "#f2f3ff", "secondary-container": "#86f2e4", "secondary-fixed": "#89f5e7", "primary-fixed-dim": "#4edea3", "surface-dim": "d2d9f4", "secondary-fixed-dim": "#6bd8cb", "on-secondary-container": "#006f66", "on-tertiary": "#ffffff", "inverse-surface": "#283044", "tertiary": "#b91a24", "on-error": "#ffffff", "tertiary-container": "#ff7a73", "tertiary-fixed": "#ffdad7", "error": "#ba1a1a", "outline-variant": "#bbcabf", "on-background": "#131b2e", "on-primary-fixed": "#002113", "surface-container-lowest": "#ffffff", "on-primary": "#ffffff" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "margin": "1rem", "space-sm": "0.5rem", "space-xl": "2.5rem", "gutter": "1rem", "gutter-desktop": "1.5rem", "margin-desktop": "2.5rem", "space-md": "1rem", "space-xs": "0.25rem", "space-lg": "1.5rem" }, "fontFamily": { "headline-lg": [ "Plus Jakarta Sans" ], "headline-sm": [ "Plus Jakarta Sans" ], "body-md": [ "Inter" ], "body-sm": [ "Inter" ], "label-lg": [ "Plus Jakarta Sans" ], "headline-xl": [ "Plus Jakarta Sans" ], "label-sm": [ "Plus Jakarta Sans" ], "label-md": [ "Plus Jakarta Sans" ], "headline-md": [ "Plus Jakarta Sans" ], "headline-lg-mobile": [ "Plus Jakarta Sans" ], "headline-xl-mobile": [ "Plus Jakarta Sans" ], "body-lg": [ "Inter" ] }, "fontSize": { "headline-lg": [ "32px", { "lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "700" } ], "headline-sm": [ "18px", { "lineHeight": "24px", "fontWeight": "600" } ], "body-md": [ "14px", { "lineHeight": "20px", "fontWeight": "400" } ], "body-sm": [ "12px", { "lineHeight": "16px", "fontWeight": "400" } ], "label-lg": [ "14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" } ], "headline-xl": [ "40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800" } ], "label-sm": [ "10px", { "lineHeight": "12px", "letterSpacing": "0.04em", "fontWeight": "700" } ], "label-md": [ "12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" } ], "headline-md": [ "22px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "headline-lg-mobile": [ "24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "700" } ], "headline-xl-mobile": [ "30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "800" } ], "body-lg": [ "16px", { "lineHeight": "24px", "fontWeight": "400" } ] } } } };</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased min-h-screen"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between"><div class="flex flex-col"><div class="h-16 flex items-center gap-3 px-6 bg-surface-container-lowest"><img alt="Mascotas QR Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcPK85SznLgNaols-Pb6XSUZGQepOelkGG_rAtGDY6WF1ZtQeHuWolK01I411kmGE4JTAWOafoVLJvvAkPp4a_FBikumjvFiS4N2-X-lMvkZVTq4pKoaGtBSqPGobOHdoHlQBXDuJg4dcu0U6uJDoovhwb2Nl4alizJ3uM903kjcI9OBfh7VSEYm8YyfjHkptIMA1qNZiluwHMoJOiI3FjCJwq52ZMIhLUvzuqoGaVhk_RM48j2Ye5"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight leading-none">Mascotas QR</span><span class="font-label-sm text-label-sm text-primary tracking-wider uppercase mt-1">Care &amp; Rescue</span></div></div><div class="px-4 py-6"><p class="font-label-sm text-label-sm text-outline uppercase px-3 mb-3">Plataforma</p><nav class="flex flex-col gap-1" data-active-classes="bg-primary-container text-on-primary-container font-label-lg text-label-lg shadow-sm"><a aria-current="page" class="flex items-center gap-3 px-3 py-3 rounded-xl transition-all bg-primary-container text-on-primary-container font-label-lg text-label-lg shadow-sm" data-path="resumen" href="#"><span class="material-symbols-outlined text-[20px]">grid_view</span><span>Resumen</span></a><a class="flex items-center gap-3 px-3 py-3 rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="mis-mascotas" href="#"><span class="material-symbols-outlined text-[20px]">pets</span><span>Mis Mascotas</span></a><a class="flex items-center gap-3 px-3 py-3 rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="vincular-placa-qr" href="#"><span class="material-symbols-outlined text-[20px]">qr_code_scanner</span><span>Vincular Placa QR</span></a><a class="flex items-center gap-3 px-3 py-3 rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="tienda-de-placas" href="#"><span class="material-symbols-outlined text-[20px]">shopping_bag</span><span>Tienda de Placas</span></a><a class="flex items-center gap-3 px-3 py-3 rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="mi-cuenta-y-planes" href="#"><span class="material-symbols-outlined text-[20px]">manage_accounts</span><span>Mi Cuenta y Planes</span></a></nav></div></div><div class="p-4 mx-4 mb-6 rounded-2xl bg-surface-container-low"><div class="flex items-center gap-2 mb-2"><span class="material-symbols-outlined text-secondary text-[20px]">verified_user</span><span class="font-label-md text-label-md text-on-surface">Protección Activa</span></div><p class="font-body-sm text-body-sm text-on-surface-variant mb-3">Placas conectadas y geolocalización de emergencia habilitada.</p><div class="flex items-center justify-between"><span class="font-label-sm text-label-sm text-outline">Plan Premium</span><span class="font-label-sm text-label-sm text-primary font-bold">Al Día</span></div></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 px-8 flex items-center justify-between"><div class="flex items-center gap-3"><div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container"><span class="w-2 h-2 rounded-full bg-primary-container"></span><span class="font-label-sm text-label-sm text-on-surface-variant">Red de Rescate Nacional Operativa</span></div></div><div class="flex items-center gap-4"><button class="flex items-center gap-2 px-4 py-2 rounded-full bg-tertiary text-on-tertiary font-label-md text-label-md shadow-[0_4px_12px_rgba(185,26,36,0.25)] hover:bg-error transition-all" type="button"><span class="material-symbols-outlined text-[18px] animate-pulse">e911_emergency</span><span>Modo Rescate</span></button><div class="relative"><button class="w-10 h-10 rounded-full flex items-center justify-center bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span></button><span class="absolute top-1.5 right-1.5 w-2.5 h-2.5 rounded-full bg-tertiary ring-2 ring-surface"></span></div><div class="flex items-center gap-3 pl-2"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-primary/20" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCj96eVESND53is01LZzVHe5tnkSfozcw7EmnTo4GHxpln_AuTV6NZr7Ib3lgVYMyRcCIlNlGIJzTHpCzntTDG2V-zNQABHTz7-sYb46kJL7oxakkcH3Ntdx5tzggJr4RuXeOCVV-5EK8uU6DXzYHQYF36T3dELhkUjARVpOWCVkTbhkrxYNMYa8L9cT0Dn00CNP0uo2lGmCoyLf-KDfm0mQiYycXUyts3jWD2tCm5nRpzT55I8LrI9"/><div class="flex flex-col text-left"><span class="font-label-md text-label-md text-on-surface leading-tight">Dra. Valeria Ramos</span><span class="font-body-sm text-body-sm text-on-surface-variant leading-none">Tutor Responsable</span></div></div></div></header><main class="w-full pt-16 bg-surface min-h-screen px-8 py-8"><div class="flex flex-col w-full gap-8">
+<!-- Sub-Header & Breadcrumb Bar -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="flex flex-col gap-1">
+<nav class="flex items-center gap-2 font-label-md text-label-md text-outline">
+<a class="hover:text-primary transition-colors" href="#">Dashboard</a>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<a class="hover:text-primary transition-colors" href="#">Mis Mascotas</a>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-on-surface font-semibold">Max (PET-QR-78291)</span>
+</nav>
+<div class="flex items-center gap-3 mt-1">
+<span class="px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm font-bold flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+          PLACA ACTIVA CONECTADA
+        </span>
+<span class="font-body-sm text-body-sm text-outline">Último escaneo preventivo: Ayer, 18:42 hrs (Miraflores, Lima)</span>
+</div>
+</div>
+<!-- Top Action Buttons -->
+<div class="flex items-center gap-2.5 flex-wrap">
+<button class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-surface-container-lowest text-on-surface hover:bg-surface-container-high transition-all shadow-sm font-label-md text-label-md" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+<span>Editar Datos</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-surface-container-lowest text-on-surface hover:bg-surface-container-high transition-all shadow-sm font-label-md text-label-md" type="button">
+<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+<span>Descargar Pasaporte</span>
+</button>
+<a class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-secondary text-on-secondary hover:bg-on-secondary-container transition-all shadow-sm font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+<span>Ver Perfil Público</span>
+</a>
+</div>
+</div>
+<!-- Hero Pet Identity Card -->
+<div class="w-full bg-surface-container-lowest rounded-2xl shadow-sm p-6 lg:p-8 relative overflow-hidden">
+<div class="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-gradient-to-br from-primary-fixed/30 to-secondary-container/20 blur-3xl pointer-events-none"></div>
+<div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 relative z-10">
+<!-- Avatar and Core Identifiers -->
+<div class="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+<div class="relative group">
+<div class="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden shadow-md bg-surface-container">
+<img alt="Max - Golden Retriever" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida/AEtjO1X1LxPMs7fA3MD-gDY3NfTeDNoEnriDHQ2vq-UQL2shj5PMMABKmVv8cqIlfvb_j0-ILxRgx2sYGoYrangwaHQBtGsu0pPbwpIyLfjYiGK314Qe_ukq-hoMrMUIsDRnfkjtXbTnDxrFVTHZmQpYM9SemsKIgdyV1Wb-P7qCRFWw4UonL8KE08xtfdJKbN-5KKoSfZJm7540u-dE3NCh0ZPgTx8yBpliLeSqFTIHMTKXaNDfMIVNMYjcl24"/>
+</div>
+<span class="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-md" title="Mascota Verificada">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+</span>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-3 flex-wrap">
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Max</h1>
+<span class="px-3 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">male</span>
+              Macho
+            </span>
+<span class="px-3 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md">
+              3 años, 2 meses
+            </span>
+</div>
+<p class="font-body-md text-body-md text-outline">Golden Retriever • Capa Dorada Clásica • 31.4 kg</p>
+<div class="flex items-center gap-4 pt-1 flex-wrap font-body-sm text-body-sm">
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-primary">memory</span>
+<span class="font-semibold font-label-sm text-label-sm uppercase text-outline">Microchip:</span>
+<span class="font-mono font-medium">9810982348123</span>
+<span class="text-primary font-medium">(Reniec Animal Verificado)</span>
+</div>
+<div class="w-1 h-1 rounded-full bg-outline-variant hidden sm:block"></div>
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-secondary">qr_code_2</span>
+<span class="font-semibold font-label-sm text-label-sm uppercase text-outline">Chapa Smart:</span>
+<span class="font-mono font-medium">#MAX-782-PE</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Emergency Mode Dispatch Toggle Box -->
+<div class="w-full lg:w-auto p-4 rounded-2xl bg-surface-container-low flex flex-col sm:flex-row lg:flex-col items-start sm:items-center lg:items-end justify-between gap-4">
+<div class="flex flex-col lg:items-end text-left lg:text-right">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Estado de Seguridad</span>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-container"></span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Modo Seguro Activo</span>
+</div>
+<span class="font-body-sm text-body-sm text-outline mt-0.5">Sin alertas de extravío emitidas</span>
+</div>
+<button class="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-error-container text-on-error-container hover:bg-tertiary-fixed hover:text-on-tertiary-fixed transition-all font-label-lg text-label-lg shadow-sm" id="toggleRescueModalBtn" type="button">
+<span class="material-symbols-outlined text-[20px] text-error animate-pulse">crisis_alert</span>
+<span>¿Max se perdió? Activar Modo Rescate</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Tabbed Navigation Bar -->
+<div class="w-full border-b border-surface-container-high">
+<div class="flex items-center gap-2 overflow-x-auto pb-px scrollbar-none">
+<button class="tab-button active flex items-center gap-2.5 px-5 py-3.5 rounded-t-xl font-label-lg text-label-lg whitespace-nowrap transition-all text-primary border-b-2 border-primary bg-surface-container-lowest/60" id="tab-health-btn" onclick="switchTab('health')">
+<span class="material-symbols-outlined text-[20px]">medical_services</span>
+<span>Pasaporte de Salud</span>
+<span class="px-2 py-0.5 text-[11px] rounded-full bg-primary-fixed text-on-primary-fixed-variant font-bold">100% al día</span>
+</button>
+<button class="tab-button flex items-center gap-2.5 px-5 py-3.5 rounded-t-xl font-label-lg text-label-lg whitespace-nowrap transition-all text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/40" id="tab-privacy-btn" onclick="switchTab('privacy')">
+<span class="material-symbols-outlined text-[20px]">security</span>
+<span>Privacidad del QR Público</span>
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+</button>
+<button class="tab-button flex items-center gap-2.5 px-5 py-3.5 rounded-t-xl font-label-lg text-label-lg whitespace-nowrap transition-all text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/40" id="tab-contacts-btn" onclick="switchTab('contacts')">
+<span class="material-symbols-outlined text-[20px]">contacts</span>
+<span>Contactos de Emergencia</span>
+<span class="px-2 py-0.5 text-[11px] rounded-full bg-surface-container-highest text-on-surface font-bold">3</span>
+</button>
+<button class="tab-button flex items-center gap-2.5 px-5 py-3.5 rounded-t-xl font-label-lg text-label-lg whitespace-nowrap transition-all text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/40" id="tab-caregivers-btn" onclick="switchTab('caregivers')">
+<span class="material-symbols-outlined text-[20px]">group</span>
+<span>Cuidadores &amp; Paseadores</span>
+</button>
+<button class="tab-button flex items-center gap-2.5 px-5 py-3.5 rounded-t-xl font-label-lg text-label-lg whitespace-nowrap transition-all text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/40" id="tab-radar-btn" onclick="switchTab('radar')">
+<span class="material-symbols-outlined text-[20px]">radar</span>
+<span>Radar GPS &amp; Escaneos</span>
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+</button>
+</div>
+</div>
+<!-- ==================== TAB 1: PASAPORTE DE SALUD ==================== -->
+<div class="tab-pane flex flex-col gap-8 w-full" id="tab-health">
+<!-- Critical Health Alert Banner -->
+<div class="p-5 rounded-2xl bg-tertiary-fixed/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm">
+<div class="flex items-start sm:items-center gap-3.5">
+<div class="w-10 h-10 rounded-xl bg-tertiary text-on-tertiary flex items-center justify-center shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[24px]">warning</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">Alerta Médica Activa en Placa QR</span>
+<span class="px-2 py-0.5 rounded-full bg-tertiary text-on-tertiary font-label-sm text-label-sm">Crítico</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-0.5">
+<strong>Alergia Severa al Pollo y Proteínas Aviares Concentradas.</strong> En caso de hallazgo, no suministrar golosinas estándar; riesgo de shock anafiláctico digestivo.
+          </p>
+</div>
+</div>
+<button class="px-3.5 py-1.5 rounded-xl bg-surface-container-lowest text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors shrink-0 shadow-sm" type="button">
+        Gestionar Alertas
+      </button>
+</div>
+<!-- Main 2-Column Health Layout -->
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+<!-- Left 2 Cols: Vaccines & Parasite Control -->
+<div class="xl:col-span-2 flex flex-col gap-8">
+<!-- Vaccination Table Card -->
+<div class="bg-surface-container-lowest rounded-2xl p-6 lg:p-7 shadow-sm flex flex-col gap-5">
+<div class="flex items-center justify-between flex-wrap gap-2">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary-fixed text-on-primary-fixed-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">vaccines</span>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Plan de Inmunización &amp; Vacunas</h2>
+<p class="font-body-sm text-body-sm text-outline">Esquema canino anual verificado por Colegio Médico Veterinario</p>
+</div>
+</div>
+<button class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-primary text-on-primary hover:bg-primary/90 font-label-md text-label-md shadow-sm transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span>Registrar Dosis</span>
+</button>
+</div>
+<!-- Table Container -->
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="font-label-sm text-label-sm uppercase tracking-wider text-outline border-b border-surface-container-high">
+<th class="pb-3 pr-4">Vacuna / Laboratorio</th>
+<th class="pb-3 px-4">Fecha Aplicada</th>
+<th class="pb-3 px-4">Lote &amp; Cert.</th>
+<th class="pb-3 px-4">Médico Veterinario</th>
+<th class="pb-3 pl-4 text-right">Próximo Refuerzo</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-high font-body-sm text-body-sm text-on-surface">
+<!-- Dose 1 -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="py-4 pr-4">
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg text-on-surface">Séxtuple Canina (DHPPi/L)</span>
+<span class="font-body-sm text-body-sm text-outline">Zoetis Vanguard Plus 5</span>
+</div>
+</td>
+<td class="py-4 px-4 text-on-surface-variant font-medium">12 Nov 2024</td>
+<td class="py-4 px-4 font-mono text-outline">Lote #VNG-88219</td>
+<td class="py-4 px-4">
+<div class="flex flex-col">
+<span class="font-medium text-on-surface">Dra. Andrea Morales</span>
+<span class="text-outline text-[11px]">CMVP 4921</span>
+</div>
+</td>
+<td class="py-4 pl-4 text-right">
+<span class="px-2.5 py-1 rounded-full bg-primary-fixed/60 text-on-primary-fixed-variant font-label-sm text-label-sm font-bold inline-block">
+                      12 Nov 2025 (8 meses)
+                    </span>
+</td>
+</tr>
+<!-- Dose 2 -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="py-4 pr-4">
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg text-on-surface">Antirrábica Nobivac Rabies</span>
+<span class="font-body-sm text-body-sm text-outline">MSD Animal Health</span>
+</div>
+</td>
+<td class="py-4 px-4 text-on-surface-variant font-medium">18 Ene 2025</td>
+<td class="py-4 px-4 font-mono text-outline">Lote #RAB-10940</td>
+<td class="py-4 px-4">
+<div class="flex flex-col">
+<span class="font-medium text-on-surface">Dra. Andrea Morales</span>
+<span class="text-outline text-[11px]">CMVP 4921</span>
+</div>
+</td>
+<td class="py-4 pl-4 text-right">
+<span class="px-2.5 py-1 rounded-full bg-primary-fixed/60 text-on-primary-fixed-variant font-label-sm text-label-sm font-bold inline-block">
+                      18 Ene 2026 (10 meses)
+                    </span>
+</td>
+</tr>
+<!-- Dose 3 -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="py-4 pr-4">
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg text-on-surface">Tos de las Perreras (KC Bronchicine)</span>
+<span class="font-body-sm text-body-sm text-outline">Intranasal Biológico</span>
+</div>
+</td>
+<td class="py-4 px-4 text-on-surface-variant font-medium">05 Feb 2025</td>
+<td class="py-4 px-4 font-mono text-outline">Lote #BRC-4412</td>
+<td class="py-4 px-4">
+<div class="flex flex-col">
+<span class="font-medium text-on-surface">Dr. Carlos Mendoza</span>
+<span class="text-outline text-[11px]">CMVP 6120</span>
+</div>
+</td>
+<td class="py-4 pl-4 text-right">
+<span class="px-2.5 py-1 rounded-full bg-primary-fixed/60 text-on-primary-fixed-variant font-label-sm text-label-sm font-bold inline-block">
+                      05 Feb 2026 (11 meses)
+                    </span>
+</td>
+</tr>
+<!-- Dose 4 -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="py-4 pr-4">
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg text-on-surface">GiardiaVax Inactivada</span>
+<span class="font-body-sm text-body-sm text-outline">Booster Semestral</span>
+</div>
+</td>
+<td class="py-4 px-4 text-on-surface-variant font-medium">01 Oct 2024</td>
+<td class="py-4 px-4 font-mono text-outline">Lote #GDV-9011</td>
+<td class="py-4 px-4">
+<div class="flex flex-col">
+<span class="font-medium text-on-surface">Dra. Andrea Morales</span>
+<span class="text-outline text-[11px]">CMVP 4921</span>
+</div>
+</td>
+<td class="py-4 pl-4 text-right">
+<span class="px-2.5 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-bold inline-block animate-pulse">
+                      Próx: 01 Abr 2025 (18 días)
+                    </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Antiparasitic Control Cards -->
+<div class="bg-surface-container-lowest rounded-2xl p-6 lg:p-7 shadow-sm flex flex-col gap-5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-secondary-fixed text-on-secondary-fixed-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">pest_control</span>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Control de Antiparasitarios</h2>
+<p class="font-body-sm text-body-sm text-outline">Protección integral interna y externa contra parásitos y vectores</p>
+</div>
+</div>
+<span class="px-3 py-1 rounded-full bg-primary-container/20 text-on-primary-container font-label-sm text-label-sm font-bold">
+              ESTADO: PROTEGIDO
+            </span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+<!-- External Bravecto -->
+<div class="p-4 rounded-xl bg-surface-container-low flex flex-col justify-between gap-4">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-surface-container-lowest flex items-center justify-center text-secondary shadow-sm">
+<span class="material-symbols-outlined text-[20px]">bug_report</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Bravecto (Fluralaner)</h3>
+<p class="font-body-sm text-body-sm text-outline">Antiparasitario Externo (3 meses)</p>
+</div>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold">Al Día</span>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between text-body-sm font-body-sm">
+<span class="text-outline">Aplicado: 15 Ene 2025</span>
+<span class="font-semibold text-on-surface">Vence: 15 Abr 2025</span>
+</div>
+<!-- Progress bar -->
+<div class="w-full h-2 rounded-full bg-surface-container-high overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 72%"></div>
+</div>
+<span class="font-label-sm text-label-sm text-outline text-right">Quedan 32 días de protección activa</span>
+</div>
+</div>
+<!-- Internal Endogard -->
+<div class="p-4 rounded-xl bg-surface-container-low flex flex-col justify-between gap-4">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-surface-container-lowest flex items-center justify-center text-primary shadow-sm">
+<span class="material-symbols-outlined text-[20px]">medication</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Endogard Plus 30kg</h3>
+<p class="font-body-sm text-body-sm text-outline">Desparasitante Interno Oral</p>
+</div>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold">Al Día</span>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between text-body-sm font-body-sm">
+<span class="text-outline">Dosis: 01 Feb 2025</span>
+<span class="font-semibold text-on-surface">Próxima: 01 May 2025</span>
+</div>
+<!-- Progress bar -->
+<div class="w-full h-2 rounded-full bg-surface-container-high overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 48%"></div>
+</div>
+<span class="font-label-sm text-label-sm text-outline text-right">Refuerzo trimestral programado</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right 1 Col: Weight Tracker & Medical Docs -->
+<div class="flex flex-col gap-8">
+<!-- Weight Tracker Card -->
+<div class="bg-surface-container-lowest rounded-2xl p-6 shadow-sm flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-primary text-[22px]">monitor_weight</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Curva Biométrica de Peso</h2>
+</div>
+<button class="text-primary hover:text-on-surface font-label-sm text-label-sm uppercase font-bold transition-colors" type="button">
+              + Registrar
+            </button>
+</div>
+<div class="flex items-baseline gap-3">
+<span class="font-headline-xl text-headline-xl text-on-surface">31.4 <span class="font-body-md text-body-md text-outline">kg</span></span>
+<span class="flex items-center gap-0.5 text-primary font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px]">arrow_upward</span>
+              +0.6 kg (Óptimo)
+            </span>
+</div>
+<p class="font-body-sm text-body-sm text-outline">Condición Corporal: 5/9 (Ideal para Golden Retriever adulto)</p>
+<!-- SVG Sparkline / Weight Graph -->
+<div class="w-full h-36 bg-surface-container-low rounded-xl p-3 flex flex-col justify-between">
+<div class="flex justify-between text-label-sm font-label-sm text-outline">
+<span>Oct</span>
+<span>Nov</span>
+<span>Dic</span>
+<span>Ene</span>
+<span>Feb</span>
+<span>Mar</span>
+</div>
+<!-- Dynamic Vector Sparkline -->
+<svg class="w-full h-16 overflow-visible text-primary" viewbox="0 0 300 70">
+<defs>
+<lineargradient id="weightGrad" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#10B981" stop-opacity="0.3"></stop>
+<stop offset="100%" stop-color="#10B981" stop-opacity="0.0"></stop>
+</lineargradient>
+</defs>
+<!-- Filled Area -->
+<path d="M 10 52 Q 60 48, 80 42 T 150 35 T 220 28 T 290 15 L 290 70 L 10 70 Z" fill="url(#weightGrad)"></path>
+<!-- Line -->
+<path d="M 10 52 Q 60 48, 80 42 T 150 35 T 220 28 T 290 15" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+<!-- Data Points -->
+<circle class="fill-surface stroke-primary" cx="10" cy="52" r="3.5" stroke-width="2.5"></circle>
+<circle class="fill-surface stroke-primary" cx="80" cy="42" r="3.5" stroke-width="2.5"></circle>
+<circle class="fill-surface stroke-primary" cx="150" cy="35" r="3.5" stroke-width="2.5"></circle>
+<circle class="fill-surface stroke-primary" cx="220" cy="28" r="3.5" stroke-width="2.5"></circle>
+<circle class="fill-primary stroke-surface" cx="290" cy="15" r="4.5" stroke-width="2"></circle>
+</svg>
+<div class="flex justify-between font-mono text-[11px] text-on-surface-variant pt-1 border-t border-surface-container-high">
+<span>29.8 kg</span>
+<span>30.2 kg</span>
+<span>30.6 kg</span>
+<span>30.9 kg</span>
+<span>31.1 kg</span>
+<span class="font-bold text-primary">31.4 kg</span>
+</div>
+</div>
+</div>
+<!-- Veterinary Documents & Records -->
+<div class="bg-surface-container-lowest rounded-2xl p-6 shadow-sm flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-secondary text-[22px]">folder_special</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Historial &amp; Archivos Médicos</h2>
+</div>
+<button class="text-secondary hover:text-on-surface font-label-sm text-label-sm uppercase font-bold transition-colors" type="button">
+              + Subir
+            </button>
+</div>
+<div class="flex flex-col gap-2.5">
+<!-- Doc 1 -->
+<a class="p-3 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex items-center justify-between group" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-error text-[24px]">picture_as_pdf</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">Ecografia_Abdominal_Preventiva.pdf</span>
+<span class="font-body-sm text-body-sm text-outline">12 Ene 2025 • 2.4 MB • Dr. Arana</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-on-surface text-[18px]">download</span>
+</a>
+<!-- Doc 2 -->
+<a class="p-3 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex items-center justify-between group" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-error text-[24px]">picture_as_pdf</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">Perfil_Bioquimico_Anual.pdf</span>
+<span class="font-body-sm text-body-sm text-outline">18 Ene 2025 • 1.1 MB • Lab Vet Lima</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-on-surface text-[18px]">download</span>
+</a>
+<!-- Doc 3 -->
+<a class="p-3 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex items-center justify-between group" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary text-[24px]">image</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">Carnet_Original_Cachorro.jpg</span>
+<span class="font-body-sm text-body-sm text-outline">15 Nov 2022 • 4.8 MB • Scan</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-on-surface text-[18px]">download</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ==================== TAB 2: PRIVACIDAD QR & SIMULADOR ==================== -->
+<div class="tab-pane hidden flex-col gap-8 w-full" id="tab-privacy">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Privacy Switches Configuration Panel (7 cols) -->
+<div class="lg:col-span-7 bg-surface-container-lowest rounded-2xl p-6 lg:p-8 shadow-sm flex flex-col gap-6">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Configuración de Privacidad de la Chapa QR</h2>
+<p class="font-body-sm text-body-sm text-outline mt-1">
+            Controla exactamente qué datos ve cualquier persona que escanee la chapa física de Max con su celular. Los cambios se sincronizan en vivo sin necesidad de cambiar la placa física.
+          </p>
+</div>
+<div class="flex flex-col gap-4">
+<!-- Toggle 1: Phone -->
+<div class="p-4 rounded-xl bg-surface-container-low flex items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-surface-container-lowest text-primary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[22px]">phone</span>
+</div>
+<div>
+<span class="font-label-lg text-label-lg text-on-surface block">Mostrar Teléfono de Contacto Principal</span>
+<span class="font-body-sm text-body-sm text-outline">Permite que el rescatista llame con un solo toque desde el navegador.</span>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" id="privacy-toggle-phone" onchange="updateSimulator()" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-high peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-surface-container-lowest after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-surface-container-lowest after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+<!-- Toggle 2: GPS Live Tracking Prompt -->
+<div class="p-4 rounded-xl bg-surface-container-low flex items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-surface-container-lowest text-secondary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[22px]">my_location</span>
+</div>
+<div>
+<span class="font-label-lg text-label-lg text-on-surface block">Solicitar Ubicación GPS Automática al Escanear</span>
+<span class="font-body-sm text-body-sm text-outline">Envía una alerta instantánea por WhatsApp a tu celular con las coordenadas exactas de quien escaneó.</span>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" id="privacy-toggle-gps" onchange="updateSimulator()" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-high peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-surface-container-lowest after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-surface-container-lowest after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+<!-- Toggle 3: Medical Allergies -->
+<div class="p-4 rounded-xl bg-surface-container-low flex items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-surface-container-lowest text-tertiary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[22px]">emergency_heat</span>
+</div>
+<div>
+<span class="font-label-lg text-label-lg text-on-surface block">Destacar Alergias Críticas &amp; Cuidados Médicos</span>
+<span class="font-body-sm text-body-sm text-outline">Aparece en rojo de advertencia superior en el perfil público.</span>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" id="privacy-toggle-allergies" onchange="updateSimulator()" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-high peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-surface-container-lowest after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-surface-container-lowest after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+<!-- Toggle 4: Home Address -->
+<div class="p-4 rounded-xl bg-surface-container-low flex items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-surface-container-lowest text-outline flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[22px]">home_pin</span>
+</div>
+<div>
+<span class="font-label-lg text-label-lg text-on-surface block">Mostrar Dirección de Hogar Completa</span>
+<span class="font-body-sm text-body-sm text-outline">Recomendado solo si Max se encuentra en una zona rural o condominio cerrado.</span>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" id="privacy-toggle-address" onchange="updateSimulator()" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-high peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-surface-container-lowest after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-surface-container-lowest after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+<!-- Toggle 5: Reward Notice -->
+<div class="p-4 rounded-xl bg-surface-container-low flex items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-surface-container-lowest text-primary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[22px]">military_tech</span>
+</div>
+<div>
+<span class="font-label-lg text-label-lg text-on-surface block">Mostrar Ofrecimiento de Gratificación</span>
+<span class="font-body-sm text-body-sm text-outline">Estimula la rápida devolución en situaciones de rescate.</span>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" id="privacy-toggle-reward" onchange="updateSimulator()" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-high peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-surface-container-lowest after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-surface-container-lowest after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+</div>
+<div class="p-4 rounded-xl bg-primary-fixed/20 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-[22px]">lock_reset</span>
+<span class="font-body-sm text-body-sm text-on-surface">Los datos sensibles como DNI del tutor y recetas médicas internas nunca son expuestos públicamente.</span>
+</div>
+</div>
+<!-- Live Mobile Simulator Mockup (5 cols) -->
+<div class="lg:col-span-5 flex flex-col items-center gap-4">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-primary animate-ping"></span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-bold">Simulador en Vivo: Lo que ve el rescatista</span>
+</div>
+<!-- Phone Shell Container -->
+<div class="w-full max-w-[340px] rounded-[36px] bg-inverse-surface p-3 shadow-2xl">
+<!-- Dynamic Screen -->
+<div class="w-full rounded-[28px] bg-surface-bright overflow-hidden flex flex-col p-4 gap-3 relative text-on-surface">
+<!-- Phone Notch & Brand -->
+<div class="flex justify-between items-center px-1 text-[11px] font-medium text-outline">
+<span class="flex items-center gap-1 font-bold text-primary">
+<span class="material-symbols-outlined text-[14px]">shield</span> Mascotas QR
+              </span>
+<span>GPS ACTIVO</span>
+</div>
+<!-- Pet Photo & Header in Phone -->
+<div class="flex flex-col items-center text-center pt-2">
+<div class="w-20 h-20 rounded-2xl overflow-hidden shadow-md">
+<img alt="Max Simulator" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1X1LxPMs7fA3MD-gDY3NfTeDNoEnriDHQ2vq-UQL2shj5PMMABKmVv8cqIlfvb_j0-ILxRgx2sYGoYrangwaHQBtGsu0pPbwpIyLfjYiGK314Qe_ukq-hoMrMUIsDRnfkjtXbTnDxrFVTHZmQpYM9SemsKIgdyV1Wb-P7qCRFWw4UonL8KE08xtfdJKbN-5KKoSfZJm7540u-dE3NCh0ZPgTx8yBpliLeSqFTIHMTKXaNDfMIVNMYjcl24"/>
+</div>
+<h4 class="font-headline-md text-headline-md text-on-surface mt-2">Max</h4>
+<span class="font-body-sm text-body-sm text-outline">Golden Retriever • Macho</span>
+</div>
+<!-- Simulator: Allergy Badge -->
+<div class="p-2.5 rounded-xl bg-tertiary-fixed text-on-tertiary-fixed text-center font-body-sm text-body-sm transition-all" id="sim-allergy-box">
+<span class="font-bold flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[16px]">warning</span> ¡ALERTA AL POLLO!
+              </span>
+</div>
+<!-- Simulator: Primary Call Button -->
+<div class="flex flex-col gap-1" id="sim-phone-box">
+<a class="w-full py-3 rounded-xl bg-primary text-on-primary font-label-md text-label-md flex items-center justify-center gap-2 shadow-md hover:bg-primary/90 transition-all" href="tel:+51987654321">
+<span class="material-symbols-outlined text-[18px]">call</span>
+<span>Llamar a Valeria (+51 987 654 321)</span>
+</a>
+<a class="w-full py-2.5 rounded-xl bg-secondary-container text-on-secondary-container font-label-md text-label-md flex items-center justify-center gap-2" href="#">
+<span class="material-symbols-outlined text-[18px]">chat</span>
+<span>Enviar WhatsApp con mi Ubicación</span>
+</a>
+</div>
+<!-- Simulator: Reward Notice -->
+<div class="p-2 rounded-xl bg-surface-container text-center font-label-sm text-label-sm text-secondary font-bold" id="sim-reward-box">
+              ⭐️ SE OFRECE GENEROSA GRATIFICACIÓN
+            </div>
+<!-- Simulator: Address (Hidden by default) -->
+<div class="p-2.5 rounded-xl bg-surface-container text-center font-body-sm text-body-sm hidden" id="sim-address-box">
+<span class="text-outline block text-[11px] uppercase font-bold">Dirección de Entrega Directa:</span>
+<span class="font-medium text-on-surface">Av. El Golf Los Inkas 120, Surco</span>
+</div>
+<!-- QR Card Footer Badge -->
+<div class="mt-2 pt-2 border-t border-surface-container-high text-center font-body-sm text-body-sm text-outline">
+              ID Chapa: MAX-782-PE • Red Nacional de Rescate
+            </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ==================== TAB 3: CONTACTOS DE EMERGENCIA ==================== -->
+<div class="tab-pane hidden flex-col gap-6 w-full" id="tab-contacts">
+<div class="bg-surface-container-lowest rounded-2xl p-6 lg:p-8 shadow-sm flex flex-col gap-6">
+<div class="flex items-center justify-between flex-wrap gap-4">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Círculo de Contactos de Emergencia</h2>
+<p class="font-body-sm text-body-sm text-outline mt-1">
+            Si Max se pierde y un rescatista escanea su chapa o activa una llamada, Mascotas QR intentará contactar a estas personas en orden de prioridad secuencial.
+          </p>
+</div>
+<button class="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-primary text-on-primary hover:bg-primary/90 font-label-md text-label-md shadow-sm transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">person_add</span>
+<span>Añadir Contacto</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Contact 1: Primary -->
+<div class="p-5 rounded-2xl bg-surface-container-low flex flex-col justify-between gap-5 relative overflow-hidden">
+<span class="absolute top-0 right-0 px-3 py-1 bg-primary text-on-primary font-label-sm text-label-sm font-bold rounded-bl-xl">Prioridad #1</span>
+<div class="flex items-center gap-3 mt-1">
+<div class="w-12 h-12 rounded-full overflow-hidden shadow-sm">
+<img alt="Valeria" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCj96eVESND53is01LZzVHe5tnkSfozcw7EmnTo4GHxpln_AuTV6NZr7Ib3lgVYMyRcCIlNlGIJzTHpCzntTDG2V-zNQABHTz7-sYb46kJL7oxakkcH3Ntdx5tzggJr4RuXeOCVV-5EK8uU6DXzYHQYF36T3dELhkUjARVpOWCVkTbhkrxYNMYa8L9cT0Dn00CNP0uo2lGmCoyLf-KDfm0mQiYycXUyts3jWD2tCm5nRpzT55I8LrI9"/>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">Dra. Valeria Ramos</span>
+<span class="font-body-sm text-body-sm text-outline">Tutor Principal (Mamá de Max)</span>
+</div>
+</div>
+<div class="flex flex-col gap-2 font-body-sm text-body-sm">
+<div class="flex items-center gap-2 text-on-surface">
+<span class="material-symbols-outlined text-primary text-[18px]">call</span>
+<span>+51 987 654 321</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface">
+<span class="material-symbols-outlined text-secondary text-[18px]">mail</span>
+<span>valeria.ramos@vetcare.pe</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-surface-container-high">
+<span class="text-primary font-label-sm text-label-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">check_circle</span> Alerta WhatsApp Activa
+            </span>
+<button class="text-outline hover:text-on-surface" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+</div>
+</div>
+<!-- Contact 2: Co-Tutor -->
+<div class="p-5 rounded-2xl bg-surface-container-low flex flex-col justify-between gap-5 relative overflow-hidden">
+<span class="absolute top-0 right-0 px-3 py-1 bg-surface-container text-on-surface-variant font-label-sm text-label-sm font-bold rounded-bl-xl">Prioridad #2</span>
+<div class="flex items-center gap-3 mt-1">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-primary font-headline-sm text-headline-sm font-bold shadow-sm">
+              MR
+            </div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">Martín Ramos</span>
+<span class="font-body-sm text-body-sm text-outline">Co-Tutor (Hermano)</span>
+</div>
+</div>
+<div class="flex flex-col gap-2 font-body-sm text-body-sm">
+<div class="flex items-center gap-2 text-on-surface">
+<span class="material-symbols-outlined text-primary text-[18px]">call</span>
+<span>+51 912 345 678</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface">
+<span class="material-symbols-outlined text-secondary text-[18px]">mail</span>
+<span>martin.ramos@outlook.com</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-surface-container-high">
+<span class="text-primary font-label-sm text-label-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">check_circle</span> Alerta WhatsApp Activa
+            </span>
+<button class="text-outline hover:text-on-surface" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+</div>
+</div>
+<!-- Contact 3: Vet Clinic -->
+<div class="p-5 rounded-2xl bg-surface-container-low flex flex-col justify-between gap-5 relative overflow-hidden">
+<span class="absolute top-0 right-0 px-3 py-1 bg-surface-container text-on-surface-variant font-label-sm text-label-sm font-bold rounded-bl-xl">Prioridad #3</span>
+<div class="flex items-center gap-3 mt-1">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-secondary shadow-sm">
+<span class="material-symbols-outlined text-[24px]">local_hospital</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">Clínica Vet 24/7 San Isidro</span>
+<span class="font-body-sm text-body-sm text-outline">Dra. Andrea Morales (Tratante)</span>
+</div>
+</div>
+<div class="flex flex-col gap-2 font-body-sm text-body-sm">
+<div class="flex items-center gap-2 text-on-surface">
+<span class="material-symbols-outlined text-primary text-[18px]">emergency</span>
+<span>(01) 440-9281 (Emergencias)</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface">
+<span class="material-symbols-outlined text-secondary text-[18px]">map</span>
+<span>Av. Conquistadores 789</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-surface-container-high">
+<span class="text-secondary font-label-sm text-label-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">verified</span> Historial Clínico Abierto
+            </span>
+<button class="text-outline hover:text-on-surface" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ==================== TAB 4: CUIDADORES & PASEADORES ==================== -->
+<div class="tab-pane hidden flex-col gap-6 w-full" id="tab-caregivers">
+<div class="bg-surface-container-lowest rounded-2xl p-6 lg:p-8 shadow-sm flex flex-col gap-6">
+<div class="flex items-center justify-between flex-wrap gap-4">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Paseadores y Cuidadores Autorizados</h2>
+<p class="font-body-sm text-body-sm text-outline mt-1">
+            Personas con pase temporal para pasear a Max o registrar eventos en su diario de bienestar.
+          </p>
+</div>
+<button class="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-secondary text-on-secondary hover:bg-secondary/90 font-label-md text-label-md shadow-sm transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">key</span>
+<span>Generar Pase Temporal</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="p-5 rounded-2xl bg-surface-container-low flex flex-col justify-between gap-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-xl bg-surface-container-lowest flex items-center justify-center text-primary shadow-sm font-bold">
+                JG
+              </div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">Juan Gómez (Dog Walker Pro)</span>
+<span class="font-body-sm text-body-sm text-outline">Paseos Diarios: Lun a Vie 07:30 - 08:45 hrs</span>
+</div>
+</div>
+<span class="px-3 py-1 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold">Acceso Activo</span>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-surface-container-high font-body-sm text-body-sm text-outline">
+<span>Permisos: Registro de Pipí/Popó &amp; Notificaciones GPS</span>
+<button class="text-tertiary hover:underline font-label-sm text-label-sm font-semibold" type="button">Revocar Acceso</button>
+</div>
+</div>
+<div class="p-5 rounded-2xl bg-surface-container-low flex flex-col justify-between gap-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-xl bg-surface-container-lowest flex items-center justify-center text-secondary shadow-sm font-bold">
+                HP
+              </div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">Hotel Canino Las Lomas</span>
+<span class="font-body-sm text-body-sm text-outline">Hospedaje Temporal (Próx. Fiestas Patrias)</span>
+</div>
+</div>
+<span class="px-3 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm font-semibold">Programado</span>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-surface-container-high font-body-sm text-body-sm text-outline">
+<span>Vigencia: 26 Jul 2025 al 30 Jul 2025</span>
+<button class="text-primary hover:underline font-label-sm text-label-sm font-semibold" type="button">Configurar</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ==================== TAB 5: RADAR GPS & ESCANEOS ==================== -->
+<div class="tab-pane hidden flex-col gap-6 w-full" id="tab-radar">
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+<!-- Interactive Map Card (2 cols) -->
+<div class="xl:col-span-2 bg-surface-container-lowest rounded-2xl p-6 shadow-sm flex flex-col gap-4">
+<div class="flex items-center justify-between flex-wrap gap-2">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-secondary-fixed text-on-secondary-fixed-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">share_location</span>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Geolocalización de Últimos Escaneos</h2>
+<p class="font-body-sm text-body-sm text-outline">Cada vez que un rescatista escanea el collar, registramos la posición exacta con su autorización</p>
+</div>
+</div>
+<span class="px-3 py-1 rounded-full bg-primary-container text-on-primary-container font-label-sm text-label-sm font-bold">
+            RADAR EN TIEMPO REAL
+          </span>
+</div>
+<!-- Google Static Map Hook Container -->
+<div class="w-full h-80 rounded-2xl bg-cover bg-center relative overflow-hidden shadow-inner flex flex-col justify-end p-4" data-location="Miraflores, Lima, Peru" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCLcAEvGYMT-CAj2_0CvBiZ1QptPBYTROYNhQJIGliQ7U3WXrNyTVxYwidpapob-m6WXgvlOQxjTu1bIioQuNyoyQRs4vOy3z2LtV8Hjoxs-3XxxJDsmy3YtjRQHo7ppOZWPdzNFjHWj-o2aE5rBiCGmYw8CEnHZ5WdniNx0zOfN0Uyfhgj7uCxbzbiALIV90R3r5xHmuZDz8wLi5qGJlXUPmvROcPjqt4eqz4jrVWRzk6QroN9aN3a')">
+<div class="bg-surface/90 backdrop-blur-md p-3.5 rounded-xl shadow-lg flex items-center justify-between gap-4 max-w-md">
+<div class="flex items-center gap-3">
+<div class="w-3 h-3 rounded-full bg-primary animate-ping"></div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-bold">Última lectura: Parque Reducto, Miraflores</span>
+<span class="font-body-sm text-body-sm text-outline">Lat: -12.1264, Lon: -77.0245 • Hace 22 hrs</span>
+</div>
+</div>
+<a class="px-3 py-1.5 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm font-bold shrink-0" href="#">Ver Ruta</a>
+</div>
+</div>
+</div>
+<!-- Scans Timeline Logs (1 col) -->
+<div class="bg-surface-container-lowest rounded-2xl p-6 shadow-sm flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Historial de Lecturas QR</h3>
+<span class="font-body-sm text-body-sm text-outline">4 registros</span>
+</div>
+<div class="flex flex-col gap-4 relative pl-4 border-l border-surface-container-high ml-2 my-2">
+<!-- Item 1 -->
+<div class="flex flex-col gap-1 relative">
+<span class="w-2.5 h-2.5 rounded-full bg-primary absolute -left-[21px] top-1 ring-4 ring-surface-container-lowest"></span>
+<div class="flex justify-between items-baseline">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Parque Reducto, Miraflores</span>
+<span class="font-label-sm text-label-sm text-outline">Ayer 18:42</span>
+</div>
+<span class="font-body-sm text-body-sm text-outline">Escaneado por: Valeria Ramos (Tutor - Test preventivo)</span>
+<span class="text-[11px] font-mono text-secondary">IP: 190.237.xx.xx (Móvil Safari iOS)</span>
+</div>
+<!-- Item 2 -->
+<div class="flex flex-col gap-1 relative">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary absolute -left-[21px] top-1 ring-4 ring-surface-container-lowest"></span>
+<div class="flex justify-between items-baseline">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Clínica Veterinaria San Isidro</span>
+<span class="font-label-sm text-label-sm text-outline">18 Ene 10:15</span>
+</div>
+<span class="font-body-sm text-body-sm text-outline">Escaneado por: Dra. Andrea Morales (Lectura de Ficha)</span>
+<span class="text-[11px] font-mono text-secondary">IP: 200.48.xx.xx (PC Consultorio)</span>
+</div>
+<!-- Item 3 -->
+<div class="flex flex-col gap-1 relative">
+<span class="w-2.5 h-2.5 rounded-full bg-surface-container-highest absolute -left-[21px] top-1 ring-4 ring-surface-container-lowest"></span>
+<div class="flex justify-between items-baseline">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Av. El Polo, Surco</span>
+<span class="font-label-sm text-label-sm text-outline">02 Dic 16:30</span>
+</div>
+<span class="font-body-sm text-body-sm text-outline">Escaneado por: Juan Gómez (Inicio Paseo)</span>
+<span class="text-[11px] font-mono text-secondary">IP: 179.6.xx.xx (Android Chrome)</span>
+</div>
+</div>
+<button class="w-full py-2.5 rounded-xl bg-surface-container text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high transition-colors text-center mt-auto" type="button">
+          Exportar Registro Completo (CSV)
+        </button>
+</div>
+</div>
+</div>
+<!-- Rescue Mode Confirmation Modal Dialog -->
+<div class="fixed inset-0 bg-inverse-surface/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden" id="rescueModeModal">
+<div class="w-full max-w-lg bg-surface-container-lowest rounded-3xl p-6 lg:p-8 shadow-2xl flex flex-col gap-6 relative">
+<button class="absolute top-5 right-5 text-outline hover:text-on-surface" onclick="closeRescueModal()">
+<span class="material-symbols-outlined text-[24px]">close</span>
+</button>
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-2xl bg-tertiary text-on-tertiary flex items-center justify-center shadow-lg animate-bounce">
+<span class="material-symbols-outlined text-[28px]">crisis_alert</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface font-bold">Activar Modo Rescate Inmediato</h3>
+<p class="font-body-sm text-body-sm text-outline">Max pasará a estar marcado como "EXTRAVIADO"</p>
+</div>
+</div>
+<div class="p-4 rounded-xl bg-tertiary-fixed/30 flex flex-col gap-2">
+<span class="font-label-md text-label-md text-on-surface font-bold">¿Qué ocurrirá al confirmar?</span>
+<ul class="font-body-sm text-body-sm text-on-surface-variant list-disc list-inside space-y-1">
+<li>La chapa QR mostrará una alarma roja de emergencia con tu teléfono en pantalla completa gigante.</li>
+<li>Se notificará a la red de usuarios de Mascotas QR en un radio de 5km de su última ubicación conocida.</li>
+<li>Se activará el canal preferente de rescate con la central de serenazgo municipal integrada.</li>
+</ul>
+</div>
+<div class="flex items-center gap-3 justify-end">
+<button class="px-5 py-2.5 rounded-xl bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors" onclick="closeRescueModal()" type="button">
+          Cancelar
+        </button>
+<button class="px-6 py-2.5 rounded-xl bg-tertiary text-on-tertiary font-label-md text-label-md hover:bg-error transition-all shadow-md font-bold" onclick="confirmRescue()" type="button">
+          Confirmar Alerta de Rescate
+        </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Client-side Interactive Behaviors -->
+<script>
+  function switchTab(tabId) {
+    // Hide all tabs
+    document.querySelectorAll('.tab-pane').forEach(el => {
+      el.classList.add('hidden');
+      el.classList.remove('flex');
+    });
+
+    // Reset buttons
+    document.querySelectorAll('.tab-button').forEach(btn => {
+      btn.classList.remove('text-primary', 'border-b-2', 'border-primary', 'bg-surface-container-lowest/60');
+      btn.classList.add('text-on-surface-variant');
+    });
+
+    // Activate current tab
+    const activePane = document.getElementById('tab-' + tabId);
+    if (activePane) {
+      activePane.classList.remove('hidden');
+      activePane.classList.add('flex');
+    }
+
+    // Highlight current button
+    const activeBtn = document.getElementById('tab-' + tabId + '-btn');
+    if (activeBtn) {
+      activeBtn.classList.remove('text-on-surface-variant');
+      activeBtn.classList.add('text-primary', 'border-b-2', 'border-primary', 'bg-surface-container-lowest/60');
+    }
+  }
+
+  function updateSimulator() {
+    const phoneChecked = document.getElementById('privacy-toggle-phone').checked;
+    const allergiesChecked = document.getElementById('privacy-toggle-allergies').checked;
+    const rewardChecked = document.getElementById('privacy-toggle-reward').checked;
+    const addressChecked = document.getElementById('privacy-toggle-address').checked;
+
+    const simPhone = document.getElementById('sim-phone-box');
+    const simAllergy = document.getElementById('sim-allergy-box');
+    const simReward = document.getElementById('sim-reward-box');
+    const simAddress = document.getElementById('sim-address-box');
+
+    if (simPhone) simPhone.style.display = phoneChecked ? 'flex' : 'none';
+    if (simAllergy) simAllergy.style.display = allergiesChecked ? 'block' : 'none';
+    if (simReward) simReward.style.display = rewardChecked ? 'block' : 'none';
+    if (simAddress) simAddress.style.display = addressChecked ? 'block' : 'none';
+  }
+
+  // Modal logic
+  const rescueBtn = document.getElementById('toggleRescueModalBtn');
+  const modal = document.getElementById('rescueModeModal');
+
+  if (rescueBtn && modal) {
+    rescueBtn.addEventListener('click', () => {
+      modal.classList.remove('hidden');
+    });
+  }
+
+  function closeRescueModal() {
+    if (modal) modal.classList.add('hidden');
+  }
+
+  function confirmRescue() {
+    alert('🚨 ¡Modo Rescate activado con éxito! Se ha transmitido la señal a la red de búsqueda y la chapa de Max está en alerta prioritaria.');
+    closeRescueModal();
+  }
+</script></main></div></body></html>

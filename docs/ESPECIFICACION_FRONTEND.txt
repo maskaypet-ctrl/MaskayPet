@@ -1,0 +1,211 @@
+================================================================================
+ESPECIFICACION FUNCIONAL Y ARQUITECTURA DE NAVEGACION - FRONTEND MASCOTAS QR
+================================================================================
+
+1. DESCRIPCION GENERAL DEL PRODUCTO
+--------------------------------------------------------------------------------
+Mascotas QR es una plataforma integral de identificacion inteligente de mascotas 
+mediante chapas fisicas con codigo QR, pasaporte digital de salud (vacunas, 
+tratamientos, control de peso, citas) y sistema de rescate de emergencia (Modo Perdido 
+con captura de coordenadas GPS en tiempo real).
+
+El frontend se conecta al backend centralizado en NestJS (API Base: http://localhost:4000/api/v1).
+
+
+2. STACK TECNOLOGICO RECOMENDADO
+--------------------------------------------------------------------------------
+- Framework Web: Next.js (App Router) + TypeScript.
+- Estilos: Tailwind CSS (Mobile-First, diseno responsivo y soporte para Dark/Light mode).
+- Iconografia: Lucide React.
+- Mapas GPS: Leaflet / OpenStreetMap o Mapbox para visualizar ubicaciones de escaneo.
+- Cliente HTTP: Fetch API nativo o Axios con interceptor para refresco automatico de JWT.
+
+
+3. MAPA DE RUTAS Y ARQUITECTURA DE NAVEGACION (SITEMAP)
+--------------------------------------------------------------------------------
+
+A. RUTAS PUBLICAS (ACCESO LIBRE SIN INICIAR SESION)
+--------------------------------------------------------------------------------
+1. RUTA: /
+   - Nombre: Landing Page & Tienda de Chapas
+   - Descripcion: Presentacion del producto, demostracion interactiva de escaneo QR, 
+     beneficios de la plataforma, catalogo de chapas/collares y testimonios.
+
+2. RUTA: /p/[publicCode]  --> LA VISTA MAS CRITICA DEL SISTEMA
+   - Nombre: Perfil Publico de Mascota & Rescate de Emergencia
+   - Descripcion: Pagina que se abre al escanear la placa QR fisica con la camara del movil.
+   - Comportamiento segun estado:
+     * Si la chapa esta activa y en Modo Normal:
+       - Muestra foto de la mascota, nombre, raza, especie, color y descripcion.
+       - Botones directos de llamada ("Llamar al Propietario") y "WhatsApp".
+       - Muestra solo los datos que el dueno autorizo en su perfil de privacidad.
+     * Si la chapa esta en MODO PERDIDO (Estado de Emergencia):
+       - Encabezado rojo de alta urgencia: "¡ESTA MASCOTA SE ENCUENTRA EXTRAVIADA!".
+       - Mensaje de auxilio del propietario y recompensa (si aplica).
+       - Contactos de emergencia prioritarios.
+       - BOTON DESTACADO: "📍 Enviar mi ubicacion GPS actual al dueno" (solicita permiso 
+         de geolocalizacion del navegador y envia las coordenadas a /api/v1/lost-mode/ping).
+     * Si la chapa NO esta asignada:
+       - Muestra mensaje amigable: "Esta placa QR esta lista para ser activada".
+       - Boton para iniciar sesion y vincularla a una mascota.
+
+3. RUTA: /login
+   - Nombre: Iniciar Sesion
+   - Descripcion: Formulario de acceso con correo y contrasena. Consume /api/v1/auth/login.
+
+4. RUTA: /register
+   - Nombre: Registro de Usuario
+   - Descripcion: Creacion de cuenta con nombre, apellido, correo, telefono y contrasena. 
+     Consume /api/v1/auth/register.
+
+5. RUTA: /planes
+   - Nombre: Planes y Precios
+   - Descripcion: Comparativa entre Plan Free (1 mascota, 1 contacto) y Plan Premium 
+     (mascotas ilimitadas, 5 cuidadores, alertas SMS y 10 anos de retencion documental).
+
+
+B. RUTAS PRIVADAS / PORTAL DEL PROPIETARIO (/dashboard)
+--------------------------------------------------------------------------------
+Requieren autenticacion con Bearer Token JWT.
+
+1. RUTA: /dashboard
+   - Nombre: Resumen General del Propietario
+   - Contenido:
+     * Carrusel o tarjetas de las mascotas del usuario con indicador de placa QR activa.
+     * BOTON DE PANICO: "Activar Modo Perdido" en caso de extravio de una mascota.
+     * Widget de Alertas y Recordatorios: Proximas vacunas, desparasitaciones o citas medicas.
+     * Resumen de escaneos recientes recibidos en las placas QR.
+
+2. RUTA: /dashboard/mascotas
+   - Nombre: Gestion de Mis Mascotas
+   - Contenido:
+     * Lista de todas las mascotas (propias y compartidas con cuidadores).
+     * Boton "+ Registrar Nueva Mascota" (abre modal o wizard de creacion).
+     * Indicadores de estado: Activa, En Modo Perdido, Con Placa QR vinculada.
+
+3. RUTA: /dashboard/mascotas/[id]
+   - Nombre: Ficha Integral de la Mascota
+   - Estructura organizada en 5 Pestanas:
+     * Pestana 1 - Datos Generales:
+       - Nombre, especie, raza, sexo, fecha de nacimiento, color, microchip, esterilizado, foto.
+       - Placa QR asignada con boton para "Desvincular" o "Reemplazar".
+     * Pestana 2 - Pasaporte de Salud:
+       - Seccion Vacunas: Tabla con historial de vacunas aplicadas y fecha de proximo refuerzo.
+       - Seccion Desparasitaciones: Registro de antiparasitarios internos y externos.
+       - Seccion Tratamientos: Tratamientos en curso, dosis, frecuencia y veterinario.
+       - Seccion Diagnosticos: Historial clinico y condiciones cronicas.
+       - Seccion Control de Peso: Grafico de linea con la curva de peso mensual (kg).
+       - Seccion Citas Medicas: Calendario de citas programadas.
+       - Seccion Documentos: Subida y visualizacion de recetas medicas o analisis.
+     * Pestana 3 - Privacidad del QR Publico:
+       - Switches de configuracion:
+         [X] Mostrar nombre de la mascota
+         [X] Mostrar foto de la mascota
+         [X] Mostrar telefono del propietario
+         [ ] Mostrar nombre del propietario
+         [X] Mostrar contactos de emergencia
+         [ ] Mostrar resumen medico basico
+       - Campo de texto para Mensaje de Emergencia personalizado.
+     * Pestana 4 - Contactos de Emergencia y Cuidadores:
+       - Lista de contactos con prioridad (Contacto principal, familiares, vecinos).
+       - Cuidadores autorizados con permisos de visualizacion o edicion.
+     * Pestana 5 - Radar y Mapa de Escaneos:
+       - Mapa interactivo con pines de geolocalizacion recibidos en escaneos de QR.
+       - Registro de fecha, hora y precision en metros de cada ping GPS.
+
+4. RUTA: /dashboard/vincular-qr
+   - Nombre: Asistente para Vincular Placa QR
+   - Contenido:
+     * Opcion 1: Escanear con la camara del movil el codigo de la chapa nueva.
+     * Opcion 2: Escribir manualmente el codigo alfanumerico (ej: PET-QR-DEMO01).
+     * Selector de la mascota a la cual asociar la placa.
+     * Boton de confirmacion que consume /api/v1/qr/assign.
+
+5. RUTA: /dashboard/recordatorios
+   - Nombre: Calendario de Recordatorios
+   - Contenido: Vista tipo agenda de todas las fechas de refuerzo de vacunas, 
+     desparasitaciones y citas medicas programadas.
+
+6. RUTA: /dashboard/mi-cuenta
+   - Nombre: Perfil y Configuracion
+   - Contenido:
+     * Datos personales y actualizacion de foto de perfil.
+     * Gestion de Suscripcion: Plan actual (Free / Premium), fecha de renovacion y boton 
+       para subir a Premium en Soles (PEN).
+     * Preferencias de Notificaciones: Activar/desactivar notificaciones Push, Email y SMS.
+
+
+C. RUTAS DE ADMINISTRACION Y PRODUCCION (/admin)
+--------------------------------------------------------------------------------
+Requieren rol de usuario: admin, production_manager o support.
+
+1. RUTA: /admin/lotes-qr
+   - Generacion de lotes de produccion fisica de placas QR (codigo de lote, cantidad, 
+     generacion de codigos unicos y exportacion para impresion laser).
+2. RUTA: /admin/auditoria
+   - Visualizador de logs de auditoria de la base de datos (quien creo, modifico o 
+     elimino registros medicos o de usuarios).
+
+
+4. FLUJOS PRINCIPALES DE USUARIO (USER JOURNEYS)
+--------------------------------------------------------------------------------
+
+FLUJO A: RESCATE DE MASCOTA EXTRAVIADA (PERSONA QUE ENCUENTRA LA MASCOTA)
+1. La persona encuentra al perro/gato en la calle.
+2. Abre la camara de su celular y escanea la chapa QR del collar.
+3. El navegador abre instantaneamente la URL publica: https://mascotasqr.com/p/PET-QR-12345
+4. La pantalla muestra la foto de la mascota y una alerta: "¡ESTOY PERDIDO!".
+5. La persona tiene 2 acciones inmediatas:
+   - Presionar el boton verde de WhatsApp o el boton de Llamar para hablar con el dueno.
+   - Presionar el boton "📍 Enviar mi ubicacion al dueno".
+6. Al presionar "Enviar ubicacion", el navegador pide permiso de GPS y envia las coordenadas 
+   al backend sin pedir registros ni descargas de apps.
+7. El dueno recibe una alerta inmediata en su telefono con el punto exacto en el mapa.
+
+FLUJO B: EL DUENO ACTIVA EL MODO PERDIDO
+1. El dueno nota que su mascota no esta en casa.
+2. Abre la aplicacion web y entra a su /dashboard.
+3. Presiona el boton rojo de panico: "Activar Modo Perdido" en la mascota correspondiente.
+4. El sistema actualiza el estado de la chapa QR en tiempo real.
+5. A partir de ese momento, cualquier escaneo mostrara la vista de emergencia de alta prioridad.
+
+FLUJO C: ONBOARDING Y ASOCIACION DE PLACA FISICA
+1. El usuario se registra en la plataforma (/register).
+2. Agrega su primera mascota (/dashboard/mascotas) completando nombre, especie y foto.
+3. Hace clic en "Vincular Placa QR".
+4. Ingresa el codigo impreso en su chapa fisica.
+5. La placa queda vinculada y activa para proteger a su mascota.
+
+
+5. INTEGRACION CON LOS ENDPOINTS DEL BACKEND (NESTJS)
+--------------------------------------------------------------------------------
+- Autenticacion:
+  POST /api/v1/auth/register -> Registro de usuario
+  POST /api/v1/auth/login    -> Login y emision de tokens JWT
+  POST /api/v1/auth/refresh  -> Refresco de sesion
+  GET  /api/v1/auth/me       -> Perfil del usuario autenticado
+- Mascotas:
+  GET    /api/v1/pets        -> Listar mascotas del dueno
+  POST   /api/v1/pets        -> Crear nueva mascota
+  GET    /api/v1/pets/:id    -> Detalle completo de mascota
+  PATCH  /api/v1/pets/:id    -> Actualizar informacion
+- Placas QR & Escaneo:
+  GET  /api/v1/qr/public/:publicCode -> Endpoint publico de resolucion de escaneo
+  POST /api/v1/qr/assign             -> Vincular chapa a mascota
+  POST /api/v1/qr/unassign           -> Desvincular chapa
+- Modo Perdido & GPS:
+  POST /api/v1/lost-mode/activate/:petId -> Activar Modo Perdido
+  POST /api/v1/lost-mode/resolve/:petId  -> Marcar como recuperada
+  POST /api/v1/lost-mode/ping            -> Enviar coordenadas GPS (publico)
+  GET  /api/v1/lost-mode/history/:petId  -> Historial de escaneos y mapa
+- Historial Medico:
+  GET/POST /api/v1/health/pets/:id/vaccinations -> Vacunas
+  GET/POST /api/v1/health/pets/:id/deworming    -> Desparasitaciones
+  GET/POST /api/v1/health/pets/:id/treatments   -> Tratamientos
+  GET/POST /api/v1/health/pets/:id/weight       -> Control de peso
+  GET/POST /api/v1/health/pets/:id/documents    -> Documentos medicos
+- Suscripciones y Planes:
+  GET  /api/v1/subscriptions/plans -> Catalogo de planes (Free / Premium)
+  GET  /api/v1/subscriptions/me    -> Suscripcion actual del usuario
+  POST /api/v1/subscriptions/subscribe -> Upgrade de plan
+================================================================================
