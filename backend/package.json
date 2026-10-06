@@ -44,5 +44,8 @@
   "devDependencies": {
     "@nestjs/schematics": "^11.0.2",
     "ts-node": "^10.9.2"
+  },
+  "overrides": {
+    "js-yaml": "^4.3.2"
   }
 }
