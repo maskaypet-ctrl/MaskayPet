@@ -79,7 +79,7 @@ export const RegisterPage: React.FC = () => {
       <div className={styles.bannerSection}>
         <div className={styles.brandHeader}>
           <div className={styles.logoBox}>
-            <span className="material-symbols-outlined">pets</span>
+            <img src="/app-logo.jpg" alt="MaskayPet Logo" className={styles.logoImg} />
           </div>
           <div>
             <h1 className={styles.brandTitle}>MaskayPet</h1>
@@ -108,7 +108,7 @@ export const RegisterPage: React.FC = () => {
           {/* Mobile Brand Header */}
           <div className={styles.mobileBrandHeader}>
             <div className={styles.mobileLogoBox}>
-              <span className="material-symbols-outlined">pets</span>
+              <img src="/logo-circle.jpg" alt="MaskayPet Logo" className={styles.logoImg} />
             </div>
             <div className={styles.mobileBrandText}>
               <span className={styles.mobileBrandTitle}>MaskayPet</span>

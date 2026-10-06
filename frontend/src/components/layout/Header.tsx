@@ -96,7 +96,7 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Mobile Brand (Shown only on mobile <= 768px) */}
         <div className={styles.mobileBrand}>
           <div className={styles.mobileBrandLogo}>
-            <span className="material-symbols-outlined">pets</span>
+            <img src="/logo-circle.jpg" alt="MaskayPet Logo" className={styles.mobileBrandLogoImg} />
           </div>
           <span className={styles.mobileBrandTitle}>MaskayPet</span>
         </div>

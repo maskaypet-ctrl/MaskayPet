@@ -9,7 +9,7 @@ export const TermsPage: React.FC = () => {
         <div className={styles.headerInner}>
           <Link to="/" className={styles.brandLink}>
             <div className={styles.logoIcon}>
-              <span className="material-symbols-outlined">pets</span>
+              <img src="/logo-circle.jpg" alt="MaskayPet Logo" className={styles.logoImg} />
             </div>
             <div>
               <span className={styles.brandName}>MaskayPet</span>

@@ -9,6 +9,48 @@
   background: var(--background);
 }
 
+.publicHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 4px;
+}
+
+.publicLogoBox {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 108, 73, 0.2);
+  flex-shrink: 0;
+}
+
+.publicLogoImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.publicHeaderText {
+  display: flex;
+  flex-direction: column;
+}
+
+.publicBrandName {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1.1;
+}
+
+.publicBrandTag {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--on-surface-variant);
+}
+
 .loadingWrapper {
   display: flex;
   align-items: center;

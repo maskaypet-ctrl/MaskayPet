@@ -25,8 +25,8 @@
 }
 
 .logoBox {
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(8px);
   border-radius: var(--radius-md);
@@ -34,7 +34,18 @@
   align-items: center;
   justify-content: center;
   border: 1px solid rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
 }
+
+.logoBox img,
+.logoImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 .logoBox span { font-size: 26px; }
 
 .brandTitle {
@@ -249,16 +260,23 @@
   }
 
   .mobileLogoBox {
-    width: 60px;
-    height: 60px;
+    width: 64px;
+    height: 64px;
     background: linear-gradient(135deg, #006c49 0%, #10b981 100%);
     color: #fff;
-    border-radius: 18px;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     box-shadow: 0 8px 20px rgba(0, 108, 73, 0.28);
     flex-shrink: 0;
+    overflow: hidden;
+  }
+  .mobileLogoBox img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
   .mobileLogoBox span { font-size: 32px; }
 

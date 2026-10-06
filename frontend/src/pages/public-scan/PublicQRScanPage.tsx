@@ -108,6 +108,17 @@ export const PublicQRScanPage: React.FC = () => {
 
   return (
     <div className={styles.container}>
+      {/* Platform Public Branding Header */}
+      <div className={styles.publicHeader}>
+        <div className={styles.publicLogoBox}>
+          <img src="/logo-circle.jpg" alt="MaskayPet Logo" className={styles.publicLogoImg} />
+        </div>
+        <div className={styles.publicHeaderText}>
+          <span className={styles.publicBrandName}>MaskayPet</span>
+          <span className={styles.publicBrandTag}>Red Inteligente de Identificación y Rescate</span>
+        </div>
+      </div>
+
       {/* 1. Emergency Banner if Lost */}
       {isLostMode && (
         <div className={styles.emergencyTopBanner}>

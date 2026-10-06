@@ -41,7 +41,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <div className={styles.brand}>
             <div className={styles.brandMain}>
               <div className={styles.logoIcon}>
-                <span className="material-symbols-outlined">pets</span>
+                <img src="/logo-circle.jpg" alt="MaskayPet Logo" className={styles.logoImg} />
               </div>
               <div className={styles.brandText}>
                 <span className={styles.brandName}>MaskayPet</span>
