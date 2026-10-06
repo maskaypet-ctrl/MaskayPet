@@ -52,7 +52,7 @@ export const LoginPage: React.FC = () => {
       <div className={styles.bannerSection}>
         <div className={styles.brandHeader}>
           <div className={styles.logoBox}>
-            <img src="/app-logo.jpg" alt="MaskayPet Logo" className={styles.logoImg} />
+            <img src="/app-logo.png" alt="MaskayPet Logo" className={styles.logoImg} />
           </div>
           <div>
             <h1 className={styles.brandTitle}>MaskayPet</h1>

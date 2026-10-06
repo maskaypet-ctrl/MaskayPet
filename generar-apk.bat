@@ -1,9 +1,9 @@
 @echo off
 echo ==============================================
-echo Compilando MaskayPet APK (Android)
+echo Compilando MaskayPet APK (Android Release)
 echo ==============================================
 
-set "JAVA_HOME=C:\Program Files\Android\Android Studio\jbr"
+set "JAVA_HOME=C:\Users\murci\.jdks\jbr-21.0.11"
 cd /d "%~dp0\frontend"
 
 echo [1/3] Compilando frontend Web...
@@ -22,18 +22,18 @@ if %errorlevel% neq 0 (
     exit /b %errorlevel%
 )
 
-echo [3/3] Ensamblando APK con Gradle...
+echo [3/3] Ensamblando APK firmado (Release)...
 cd android
-call gradlew.bat assembleDebug
+call gradlew.bat assembleRelease
 if %errorlevel% neq 0 (
     echo [ERROR] Fallo el ensamble del APK.
     pause
     exit /b %errorlevel%
 )
 
-copy /y "%~dp0frontend\android\app\build\outputs\apk\debug\app-debug.apk" "%~dp0MaskayPet.apk"
+copy /y "%~dp0frontend\android\app\build\outputs\apk\release\app-release.apk" "%~dp0MaskayPet.apk"
 echo.
 echo =======================================================
-echo EXITO: APK listo en la carpeta principal: MaskayPet.apk
+echo EXITO: APK Release firmado en: MaskayPet.apk
 echo =======================================================
 pause
