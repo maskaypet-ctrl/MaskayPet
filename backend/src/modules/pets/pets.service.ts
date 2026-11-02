@@ -4,8 +4,10 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import * as crypto from 'crypto';
 import { DatabaseService } from '../../database/database.service';
 import {
+  AddCollaboratorDto,
   CreatePetContactDto,
   CreatePetDto,
   UpdatePetDto,
@@ -47,32 +49,32 @@ export class PetsService {
   }
 
   /**
-   * Check user subscription limit for max_pets
+   * Check user subscription limit for max_pets (Free allows up to 4 pets, Paid/Premium unlimited)
    */
-  private async checkPetCreationLimit(userId: string) {
-    // Get active subscription or default to 'free'
+  private async getUserSubscriptionTier(userId: string): Promise<'free' | 'premium'> {
     const sub = await this.db.queryOne<{ tier: string }>(
       `SELECT tier FROM public.subscriptions 
        WHERE user_id = $1 AND status IN ('trialing','active','past_due')
+         AND (current_period_end IS NULL OR current_period_end > now())
        ORDER BY created_at DESC LIMIT 1`,
       [userId],
     );
-    const tier = sub?.tier || 'free';
+    return sub?.tier === 'premium' ? 'premium' : 'free';
+  }
 
-    const limits = await this.db.queryOne<{ max_pets: number | null }>(
-      `SELECT max_pets FROM public.plan_limits WHERE tier = $1`,
-      [tier],
-    );
+  private async checkPetCreationLimit(userId: string) {
+    const tier = await this.getUserSubscriptionTier(userId);
+    const maxPets = tier === 'premium' ? null : 4;
 
-    if (limits && limits.max_pets !== null) {
+    if (maxPets !== null) {
       const currentCountRes = await this.db.queryOne<{ count: string }>(
         `SELECT COUNT(*) as count FROM public.pets WHERE owner_id = $1 AND status != 'archived'`,
         [userId],
       );
       const currentCount = parseInt(currentCountRes?.count || '0', 10);
-      if (currentCount >= limits.max_pets) {
+      if (currentCount >= maxPets) {
         throw new BadRequestException(
-          `Has alcanzado el límite de ${limits.max_pets} mascota(s) para tu plan ${tier.toUpperCase()}. Mejora a Premium para registrar mascotas ilimitadas.`,
+          `Has alcanzado el límite de ${maxPets} mascotas en el Plan Gratuito. Con un Plan Mensual o superior puedes registrar mascotas y códigos QR ilimitados.`,
         );
       }
     }
@@ -84,13 +86,16 @@ export class PetsService {
   async getMyPets(userId: string) {
     const res = await this.db.query(
       `SELECT p.id, p.name, p.species, p.breed, p.sex, p.birth_date, p.color,
+              p.microchip_number, p.is_sterilized, p.description,
               p.photo_storage_path, p.status, p.created_at,
               p.owner_id,
               (p.owner_id = $1) as is_owner,
               c.role as collaborator_role,
               t.public_code as qr_code,
               t.status as qr_status,
-              EXISTS (SELECT 1 FROM public.lost_mode_events l WHERE l.pet_id = p.id AND l.status = 'active') as is_lost
+              EXISTS (SELECT 1 FROM public.lost_mode_events l WHERE l.pet_id = p.id AND l.status = 'active') as is_lost,
+              (SELECT COUNT(*)::int FROM public.pet_vaccinations pv WHERE pv.pet_id = p.id) as vaccines_count,
+              (SELECT COUNT(*)::int FROM public.pet_vaccinations pv WHERE pv.pet_id = p.id AND pv.next_due_date IS NOT NULL AND pv.next_due_date < CURRENT_DATE) as overdue_vaccines_count
        FROM public.pets p
        LEFT JOIN public.pet_collaborators c ON c.pet_id = p.id AND c.user_id = $1
        LEFT JOIN public.qr_tag_assignments a ON a.pet_id = p.id AND a.unassigned_at IS NULL
@@ -192,10 +197,29 @@ export class PetsService {
   }
 
   /**
-   * Create a new pet with automatic public profile initialization
+   * Create a new pet with optional QR generation (Free = 1 QR max, Paid = Unlimited QRs)
    */
   async createPet(userId: string, dto: CreatePetDto, ipAddress?: string) {
     await this.checkPetCreationLimit(userId);
+    const tier = await this.getUserSubscriptionTier(userId);
+
+    const activeQrRes = await this.db.queryOne<{ active_qr_count: string }>(
+      `SELECT COUNT(DISTINCT a.pet_id) as active_qr_count
+       FROM public.qr_tag_assignments a
+       JOIN public.pets p ON p.id = a.pet_id
+       WHERE p.owner_id = $1 AND a.unassigned_at IS NULL AND p.status != 'archived'`,
+      [userId],
+    );
+    const activeQrCount = parseInt(activeQrRes?.active_qr_count || '0', 10);
+    const canCreateMoreQr = tier === 'premium' || activeQrCount < 1;
+
+    if (dto.createQr === true && !canCreateMoreQr) {
+      throw new BadRequestException(
+        'En el Plan Gratuito puedes crear el código QR para 1 mascota. Desmarca la opción de crear QR para registrar esta mascota sin QR, o activa tu Plan Mensual para tener códigos QR ilimitados.',
+      );
+    }
+
+    const shouldCreateQr = dto.createQr !== undefined ? Boolean(dto.createQr) : canCreateMoreQr;
 
     return this.db.transaction(async (client) => {
       // 1. Insert Pet
@@ -229,7 +253,52 @@ export class PetsService {
         [pet.id],
       );
 
-      return pet;
+      // 3. Optionally generate a high-scale unique QR code for this pet
+      let qrTag: any = null;
+      let uniqueQrCode: string | null = null;
+
+      if (shouldCreateQr) {
+        for (let attempt = 0; attempt < 5; attempt++) {
+          const part1 = crypto.randomBytes(3).toString('hex').toUpperCase();
+          const part2 = crypto.randomBytes(3).toString('hex').toUpperCase();
+          const candidate = `MQR-${part1}-${part2}`;
+          const existing = await client.query(
+            `SELECT id FROM public.qr_tags WHERE public_code = $1`,
+            [candidate],
+          );
+          if (existing.rows.length === 0) {
+            uniqueQrCode = candidate;
+            break;
+          }
+        }
+        if (!uniqueQrCode) {
+          uniqueQrCode = `MQR-${crypto.randomUUID().replace(/-/g, '').substring(0, 12).toUpperCase()}`;
+        }
+
+        const tagRes = await client.query(
+          `INSERT INTO public.qr_tags (production_batch_id, public_code, status)
+           VALUES ($1, $2, 'active')
+           RETURNING *`,
+          [null, uniqueQrCode],
+        );
+        qrTag = tagRes.rows[0];
+
+        if (qrTag) {
+          await client.query(
+            `INSERT INTO public.qr_tag_assignments (qr_tag_id, pet_id)
+             VALUES ($1, $2)`,
+            [qrTag.id, pet.id],
+          );
+        }
+      }
+
+      return {
+        ...pet,
+        qr_tag_id: qrTag?.id || null,
+        qr_code: uniqueQrCode,
+        qr_public_code: uniqueQrCode,
+        qr_status: uniqueQrCode ? 'active' : null,
+      };
     }, { userId, ipAddress });
   }
 
@@ -366,14 +435,23 @@ export class PetsService {
     const values: any[] = [];
     let idx = 1;
 
-    if (dto.showPetName !== undefined) { fields.push(`show_pet_name = $${idx++}`); values.push(dto.showPetName); }
-    if (dto.showPhoto !== undefined) { fields.push(`show_photo = $${idx++}`); values.push(dto.showPhoto); }
-    if (dto.showBreed !== undefined) { fields.push(`show_breed = $${idx++}`); values.push(dto.showBreed); }
-    if (dto.showOwnerName !== undefined) { fields.push(`show_owner_name = $${idx++}`); values.push(dto.showOwnerName); }
-    if (dto.showOwnerPhone !== undefined) { fields.push(`show_owner_phone = $${idx++}`); values.push(dto.showOwnerPhone); }
-    if (dto.showContacts !== undefined) { fields.push(`show_contacts = $${idx++}`); values.push(dto.showContacts); }
-    if (dto.showMedicalInfo !== undefined) { fields.push(`show_medical_info = $${idx++}`); values.push(dto.showMedicalInfo); }
-    if (dto.emergencyMessage !== undefined) { fields.push(`emergency_message = $${idx++}`); values.push(dto.emergencyMessage?.trim() || null); }
+    const showPetName = dto.showPetName ?? dto.show_pet_name;
+    const showPhoto = dto.showPhoto ?? dto.show_photo;
+    const showBreed = dto.showBreed ?? dto.show_breed;
+    const showOwnerName = dto.showOwnerName ?? dto.show_owner_name;
+    const showOwnerPhone = dto.showOwnerPhone ?? dto.show_owner_phone;
+    const showContacts = dto.showContacts ?? dto.show_contacts;
+    const showMedicalInfo = dto.showMedicalInfo ?? dto.show_medical_info;
+    const emergencyMessage = dto.emergencyMessage !== undefined ? dto.emergencyMessage : dto.emergency_message;
+
+    if (showPetName !== undefined) { fields.push(`show_pet_name = $${idx++}`); values.push(showPetName); }
+    if (showPhoto !== undefined) { fields.push(`show_photo = $${idx++}`); values.push(showPhoto); }
+    if (showBreed !== undefined) { fields.push(`show_breed = $${idx++}`); values.push(showBreed); }
+    if (showOwnerName !== undefined) { fields.push(`show_owner_name = $${idx++}`); values.push(showOwnerName); }
+    if (showOwnerPhone !== undefined) { fields.push(`show_owner_phone = $${idx++}`); values.push(showOwnerPhone); }
+    if (showContacts !== undefined) { fields.push(`show_contacts = $${idx++}`); values.push(showContacts); }
+    if (showMedicalInfo !== undefined) { fields.push(`show_medical_info = $${idx++}`); values.push(showMedicalInfo); }
+    if (emergencyMessage !== undefined) { fields.push(`emergency_message = $${idx++}`); values.push(emergencyMessage?.trim() || null); }
 
     if (fields.length === 0) {
       return this.db.queryOne(`SELECT * FROM public.pet_public_profiles WHERE pet_id = $1`, [petId]);
@@ -382,5 +460,115 @@ export class PetsService {
     values.push(petId);
     const sql = `UPDATE public.pet_public_profiles SET ${fields.join(', ')} WHERE pet_id = $${idx} RETURNING *`;
     return this.db.queryOne(sql, values, { userId, ipAddress });
+  }
+
+  /**
+   * Add a co-caregiver / family collaborator to a pet by email
+   */
+  async addCollaborator(petId: string, ownerUserId: string, dto: AddCollaboratorDto, ipAddress?: string) {
+    const { pet } = await this.verifyPetAccess(petId, ownerUserId, true);
+
+    const sub = await this.db.queryOne<{ tier: string }>(
+      `SELECT tier FROM public.subscriptions 
+       WHERE user_id = $1 AND status IN ('trialing','active','past_due')
+         AND (current_period_end IS NULL OR current_period_end > now())
+       ORDER BY created_at DESC LIMIT 1`,
+      [ownerUserId],
+    );
+    const tier = sub?.tier || 'free';
+    const limits = await this.db.queryOne<{ max_collaborators_per_pet: number }>(
+      `SELECT max_collaborators_per_pet FROM public.plan_limits WHERE tier = $1`,
+      [tier],
+    );
+    const maxCollabs = limits?.max_collaborators_per_pet ?? 1;
+
+    const currentCollabs = await this.db.query(
+      `SELECT user_id FROM public.pet_collaborators WHERE pet_id = $1`,
+      [petId],
+    );
+
+    const targetAccount = await this.db.queryOne<{ id: string; email: string }>(
+      `SELECT id, email FROM identity.user_accounts WHERE email = $1`,
+      [dto.email.toLowerCase().trim()],
+    );
+    if (!targetAccount) {
+      throw new NotFoundException(
+        'No se encontró una cuenta registrada con ese correo. Pídele a tu familiar que se registre primero en MaskayPet.',
+      );
+    }
+
+    if (targetAccount.id === ownerUserId) {
+      throw new BadRequestException('No puedes agregarte a ti mismo como co-cuidador.');
+    }
+
+    const alreadyCollab = currentCollabs.rows.some((c: any) => c.user_id === targetAccount.id);
+    if (!alreadyCollab && currentCollabs.rows.length >= maxCollabs) {
+      throw new BadRequestException(
+        `Has alcanzado el límite de ${maxCollabs} co-cuidador(es) por mascota en tu plan ${tier.toUpperCase()}.`,
+      );
+    }
+
+    const role = dto.role || 'caregiver';
+    await this.db.query(
+      `INSERT INTO public.pet_collaborators (pet_id, user_id, role)
+       VALUES ($1, $2, $3)
+       ON CONFLICT (pet_id, user_id) DO UPDATE SET role = EXCLUDED.role`,
+      [petId, targetAccount.id, role],
+      { userId: ownerUserId, ipAddress },
+    );
+
+    await this.db
+      .query(
+        `INSERT INTO public.notifications (user_id, pet_id, type, title, message, channel, priority)
+         VALUES ($1, $2, 'collaborator_added', '🐾 Te han asignado como Co-Cuidador', $3, 'in_app', 'normal')`,
+        [
+          targetAccount.id,
+          petId,
+          `Ahora tienes acceso como co-cuidador (${role === 'caregiver' ? 'Editor' : 'Lector'}) de la mascota "${pet.name}".`,
+        ],
+      )
+      .catch(() => {});
+
+    const updated = await this.getPetById(petId, ownerUserId);
+    return {
+      added: true,
+      collaborators: updated.collaborators,
+    };
+  }
+
+  /**
+   * Remove a collaborator from a pet
+   */
+  async removeCollaborator(
+    petId: string,
+    collaboratorUserId: string,
+    ownerUserId: string,
+    ipAddress?: string,
+  ) {
+    await this.verifyPetAccess(petId, ownerUserId, true);
+    await this.db.query(
+      `DELETE FROM public.pet_collaborators WHERE pet_id = $1 AND user_id = $2`,
+      [petId, collaboratorUserId],
+      { userId: ownerUserId, ipAddress },
+    );
+    return { removed: true };
+  }
+
+  /**
+   * Archive / soft-delete a pet
+   */
+  async archivePet(petId: string, ownerUserId: string, ipAddress?: string) {
+    await this.verifyPetAccess(petId, ownerUserId, true);
+    return this.db.transaction(async (client) => {
+      await client.query(
+        `UPDATE public.qr_tag_assignments SET unassigned_at = now() WHERE pet_id = $1 AND unassigned_at IS NULL`,
+        [petId],
+      );
+      await client.query(
+        `UPDATE public.pets SET status = 'archived' WHERE id = $1`,
+        [petId],
+      );
+      return { archived: true, petId };
+    }, { userId: ownerUserId, ipAddress });
   }
 }

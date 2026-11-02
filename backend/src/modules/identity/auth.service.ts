@@ -11,7 +11,15 @@ import { JwtService } from '@nestjs/jwt';
 import * as argon2 from 'argon2';
 import * as crypto from 'crypto';
 import { DatabaseService } from '../../database/database.service';
-import { LoginDto, RefreshTokenDto, RegisterDto } from './dto/auth.dto';
+import {
+  AdminResetPasswordDto,
+  ChangePasswordDto,
+  ConfirmPasswordCodeDto,
+  LoginDto,
+  RefreshTokenDto,
+  RegisterDto,
+  RequestPasswordCodeDto,
+} from './dto/auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -129,8 +137,11 @@ export class AuthService {
         user: {
           id: userId,
           email: dto.email.toLowerCase().trim(),
-          firstName: dto.firstName,
-          lastName: dto.lastName,
+          firstName: dto.firstName.trim(),
+          lastName: dto.lastName.trim(),
+          first_name: dto.firstName.trim(),
+          last_name: dto.lastName.trim(),
+          phone: dto.phone?.trim() || null,
           roles,
         },
         tokens: {
@@ -157,9 +168,11 @@ export class AuthService {
       locked_until: Date | null;
       first_name: string;
       last_name: string;
+      phone: string | null;
+      avatar_storage_path: string | null;
     }>(
       `SELECT a.id, a.email, a.status, c.password_hash, c.failed_attempts, c.locked_until,
-              u.first_name, u.last_name
+              u.first_name, u.last_name, u.phone, u.avatar_storage_path
        FROM identity.user_accounts a
        JOIN identity.user_credentials c ON c.user_id = a.id
        JOIN public.users u ON u.id = a.id
@@ -236,6 +249,10 @@ export class AuthService {
         email: account.email,
         firstName: account.first_name,
         lastName: account.last_name,
+        first_name: account.first_name,
+        last_name: account.last_name,
+        phone: account.phone,
+        avatarStoragePath: account.avatar_storage_path,
         roles,
       },
       tokens: {
@@ -304,10 +321,17 @@ export class AuthService {
       [session.user_id, newHash, ipAddress || null, userAgent || null, expiresAt],
     );
 
+    const expiresIn = this.configService.get<string>('JWT_ACCESS_EXPIRATION', '15m');
+
     return {
       accessToken,
       refreshToken: rawToken,
-      expiresIn: this.configService.get<string>('JWT_ACCESS_EXPIRATION', '15m'),
+      expiresIn,
+      tokens: {
+        accessToken,
+        refreshToken: rawToken,
+        expiresIn,
+      },
     };
   }
 
@@ -347,7 +371,191 @@ export class AuthService {
 
     return {
       ...user,
+      firstName: user.first_name,
+      lastName: user.last_name,
+      avatarStoragePath: user.avatar_storage_path,
       roles: rolesRes.rows.map((r) => r.code),
+    };
+  }
+
+  /**
+   * USER: Change own password verifying current password
+   */
+  async changePassword(userId: string, dto: ChangePasswordDto, ipAddress?: string) {
+    const cred = await this.db.queryOne<{ password_hash: string }>(
+      `SELECT password_hash FROM identity.user_credentials WHERE user_id = $1`,
+      [userId],
+    );
+    if (!cred) {
+      throw new UnauthorizedException('Credenciales de usuario no encontradas');
+    }
+
+    const isValid = await this.verifyPassword(cred.password_hash, dto.currentPassword);
+    if (!isValid) {
+      throw new BadRequestException('La contraseña actual ingresada es incorrecta');
+    }
+
+    const newHash = await this.hashPassword(dto.newPassword);
+    await this.db.query(
+      `UPDATE identity.user_credentials SET password_hash = $1, updated_at = now() WHERE user_id = $2`,
+      [newHash, userId],
+      { userId, ipAddress },
+    );
+
+    return {
+      changed: true,
+      message: 'Tu contraseña ha sido actualizada exitosamente.',
+    };
+  }
+
+  /**
+   * ADMIN: Reset password for a user account
+   */
+  async adminResetPassword(
+    adminUserId: string,
+    targetUserId: string,
+    dto: AdminResetPasswordDto,
+    ipAddress?: string,
+  ) {
+    const account = await this.db.queryOne<{ id: string; email: string }>(
+      `SELECT id, email FROM identity.user_accounts WHERE id = $1`,
+      [targetUserId],
+    );
+    if (!account) {
+      throw new BadRequestException('Cuenta de usuario no encontrada');
+    }
+
+    const newHash = await this.hashPassword(dto.newPassword);
+    await this.db.query(
+      `UPDATE identity.user_credentials SET password_hash = $1, updated_at = now() WHERE user_id = $2`,
+      [newHash, targetUserId],
+      { userId: adminUserId, ipAddress },
+    );
+
+    return {
+      reset: true,
+      userId: targetUserId,
+      email: account.email,
+      message: `Contraseña restablecida con éxito para ${account.email}.`,
+    };
+  }
+
+  /**
+   * PUBLIC / USER: Request 6-digit email verification code for password reset/change
+   */
+  async requestPasswordCode(dto: RequestPasswordCodeDto) {
+    const email = dto.email.trim().toLowerCase();
+    const account = await this.db.queryOne<{ id: string; email: string }>(
+      `SELECT id, email FROM identity.user_accounts WHERE email = $1`,
+      [email],
+    );
+    if (!account) {
+      throw new BadRequestException('No existe ninguna cuenta registrada con ese correo electrónico');
+    }
+
+    const code = String(crypto.randomInt(100000, 999999));
+    const expiresAt = new Date(Date.now() + 15 * 60 * 1000); // 15 minutes
+
+    await this.db.query(
+      `INSERT INTO identity.password_reset_codes (email, code, expires_at)
+       VALUES ($1, $2, $3)`,
+      [email, code, expiresAt],
+    );
+
+    // Send via Resend API if RESEND_API_KEY is configured
+    const resendApiKey = this.configService.get<string>('RESEND_API_KEY');
+    const emailFrom = this.configService.get<string>('EMAIL_FROM', 'Mascotas QR <onboarding@resend.dev>');
+    let emailDispatched = false;
+
+    if (resendApiKey) {
+      try {
+        const res = await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${resendApiKey}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            from: emailFrom,
+            to: [email],
+            subject: `Tu código de verificación Mascotas QR: ${code}`,
+            html: `<div style="font-family:sans-serif;max-width:480px;margin:0 auto;padding:24px;border:1px solid #e2e8f0;border-radius:12px;">
+              <h2 style="color:#0d9488;margin-top:0;">Mascotas QR - Código de Verificación</h2>
+              <p>Hola, has solicitado actualizar o recuperar tu contraseña en <strong>Mascotas QR</strong>.</p>
+              <p>Tu código de verificación de 6 dígitos es:</p>
+              <div style="font-size:32px;font-weight:800;letter-spacing:6px;background:#f0fdfa;color:#0f766e;padding:16px;text-align:center;border-radius:10px;margin:16px 0;">
+                ${code}
+              </div>
+              <p style="font-size:13px;color:#64748b;">Este código vence en 15 minutos.</p>
+            </div>`,
+          }),
+        });
+        emailDispatched = res.ok;
+      } catch (e: any) {
+        this.logger.warn(`Error enviando correo vía Resend: ${e.message}`);
+      }
+    }
+
+    this.logger.log(`📧 [CÓDIGO DE VERIFICACIÓN] Correo: ${email} | Código: ${code} (Vence en 15 min)`);
+
+    const isProd = this.configService.get<string>('NODE_ENV') === 'production';
+
+    return {
+      sent: true,
+      email,
+      emailDispatched,
+      expiresInMinutes: 15,
+      // In local/dev mode when no external email provider is configured, include verificationCodePreview so testing is effortless
+      verificationCodePreview: !isProd && !emailDispatched ? code : undefined,
+      message: emailDispatched
+        ? `Hemos enviado un código de verificación de 6 dígitos a ${email}.`
+        : `Código de verificación generado para ${email}.`,
+    };
+  }
+
+  /**
+   * PUBLIC / USER: Confirm 6-digit email verification code and update password
+   */
+  async confirmPasswordCode(dto: ConfirmPasswordCodeDto, ipAddress?: string) {
+    const email = dto.email.trim().toLowerCase();
+    const code = dto.code.trim();
+
+    const account = await this.db.queryOne<{ id: string; email: string }>(
+      `SELECT id, email FROM identity.user_accounts WHERE email = $1`,
+      [email],
+    );
+    if (!account) {
+      throw new BadRequestException('Cuenta no encontrada');
+    }
+
+    const resetRecord = await this.db.queryOne<{ id: string; code: string; expires_at: string }>(
+      `SELECT id, code, expires_at
+       FROM identity.password_reset_codes
+       WHERE email = $1 AND code = $2 AND used_at IS NULL AND expires_at > now()
+       ORDER BY created_at DESC LIMIT 1`,
+      [email, code],
+    );
+
+    if (!resetRecord) {
+      throw new BadRequestException('El código de verificación es inválido o ha expirado');
+    }
+
+    const newHash = await this.hashPassword(dto.newPassword);
+    await this.db.query(
+      `UPDATE identity.user_credentials SET password_hash = $1, updated_at = now() WHERE user_id = $2`,
+      [newHash, account.id],
+      { userId: account.id, ipAddress },
+    );
+
+    await this.db.query(
+      `UPDATE identity.password_reset_codes SET used_at = now() WHERE id = $1`,
+      [resetRecord.id],
+    );
+
+    return {
+      updated: true,
+      email,
+      message: '¡Contraseña actualizada exitosamente! Ya puedes iniciar sesión con tu nueva clave.',
     };
   }
 }

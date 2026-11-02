@@ -154,7 +154,21 @@ export class HealthService {
     return res.rows[0];
   }
 
-  // 4. DIAGNOSES
+  async updateTreatmentStatus(
+    petId: string,
+    treatmentId: string,
+    userId: string,
+    status: string,
+    ipAddress?: string,
+  ) {
+    await this.petsService.verifyPetAccess(petId, userId, false);
+    const res = await this.db.query(
+      `UPDATE public.pet_treatments SET status = $1 WHERE id = $2 AND pet_id = $3 RETURNING *`,
+      [status, treatmentId, petId],
+      { userId, ipAddress },
+    );
+    return res.rows[0];
+  }
   async getDiagnoses(petId: string, userId: string) {
     await this.petsService.verifyPetAccess(petId, userId);
     const res = await this.db.query(
@@ -217,14 +231,52 @@ export class HealthService {
 
   async addAppointment(petId: string, userId: string, dto: CreateAppointmentDto, ipAddress?: string) {
     await this.petsService.verifyPetAccess(petId, userId, false);
-    const res = await this.db.query(
-      `INSERT INTO public.appointments (pet_id, user_id, scheduled_at, reason, notes, status)
-       VALUES ($1, $2, $3, $4, $5, 'scheduled')
-       RETURNING *`,
-      [petId, userId, dto.scheduledAt, dto.reason.trim(), dto.notes?.trim() || null],
-      { userId, ipAddress },
-    );
-    return res.rows[0];
+    return this.db.transaction(async (client) => {
+      const res = await client.query(
+        `INSERT INTO public.appointments (pet_id, user_id, scheduled_at, reason, notes, status)
+         VALUES ($1, $2, $3, $4, $5, 'scheduled')
+         RETURNING *`,
+        [petId, userId, dto.scheduledAt, dto.reason.trim(), dto.notes?.trim() || null],
+      );
+
+      await client.query(
+        `INSERT INTO public.reminders (user_id, pet_id, reminder_type, reference_id, title, message, due_at)
+         VALUES ($1, $2, 'appointment', $3, $4, $5, $6)`,
+        [
+          userId,
+          petId,
+          res.rows[0].id,
+          `Cita Veterinaria: ${dto.reason.trim()}`,
+          dto.notes?.trim() || `Cita programada por: ${dto.reason.trim()}`,
+          dto.scheduledAt,
+        ],
+      );
+
+      return res.rows[0];
+    }, { userId, ipAddress });
+  }
+
+  async updateAppointmentStatus(
+    petId: string,
+    appointmentId: string,
+    userId: string,
+    status: string,
+    ipAddress?: string,
+  ) {
+    await this.petsService.verifyPetAccess(petId, userId, false);
+    return this.db.transaction(async (client) => {
+      const res = await client.query(
+        `UPDATE public.appointments SET status = $1 WHERE id = $2 AND pet_id = $3 RETURNING *`,
+        [status, appointmentId, petId],
+      );
+      if (status === 'completed' || status === 'canceled') {
+        await client.query(
+          `UPDATE public.reminders SET status = $1 WHERE reference_id = $2`,
+          [status, appointmentId],
+        );
+      }
+      return res.rows[0];
+    }, { userId, ipAddress });
   }
 
   // 7. MEDICAL DOCUMENTS

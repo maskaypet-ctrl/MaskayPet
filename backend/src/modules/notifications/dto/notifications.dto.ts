@@ -6,6 +6,10 @@ export class UpdateNotificationPreferencesDto {
   @IsString()
   user_id?: string;
 
+  @IsOptional()
+  @IsString()
+  updated_at?: string;
+
   @ApiProperty({ example: true, required: false })
   @IsOptional()
   @IsBoolean()

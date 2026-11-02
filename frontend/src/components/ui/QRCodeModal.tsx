@@ -10,6 +10,7 @@ interface QRCodeModalProps {
   qrCode: string;
   petName?: string;
   isLost?: boolean;
+  onEditInfo?: () => void;
 }
 
 export const QRCodeModal: React.FC<QRCodeModalProps> = ({
@@ -18,14 +19,14 @@ export const QRCodeModal: React.FC<QRCodeModalProps> = ({
   qrCode,
   petName,
   isLost = false,
+  onEditInfo,
 }) => {
   const { success } = useToast();
   const [copied, setCopied] = useState(false);
 
   if (!qrCode) return null;
 
-  const isLocalhost = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
-  const targetOrigin = isLocalhost ? `https://192.168.1.2:${window.location.port || '3000'}` : window.location.origin;
+  const targetOrigin = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000';
   const publicUrl = `${targetOrigin}/qr/${qrCode}`;
   const qrImageUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&margin=12&data=${encodeURIComponent(
     publicUrl,
@@ -61,25 +62,39 @@ export const QRCodeModal: React.FC<QRCodeModalProps> = ({
       <div className={styles.modalBody}>
         <div className={styles.petInfoBadge}>
           <h3 className={styles.petTitle}>{petName || 'Mascota Protegida'}</h3>
-          <span className={styles.codePill}>{qrCode}</span>
+          <span className={styles.codePill}>QR Activo</span>
         </div>
 
         <div className={`${styles.qrFrame} ${isLost ? styles.lostFrame : ''}`}>
           <img
             src={qrImageUrl}
-            alt={`Código QR para ${qrCode}`}
+            alt={`Código QR para ${petName || 'Mascota'}`}
             className={styles.qrImage}
           />
           <div className={`${styles.scanNotice} ${isLost ? styles.lostNotice : ''}`}>
             <span className="material-symbols-outlined">
               {isLost ? 'warning' : 'qr_code_scanner'}
             </span>
-            <span>{isLost ? 'PLACA EN MODO PERDIDO' : 'Escaneable con cualquier smartphone'}</span>
+            <span>{isLost ? 'MASCOTA EN MODO PERDIDO' : 'Escaneable con cualquier smartphone'}</span>
           </div>
         </div>
 
-        <div className={styles.urlBox}>
-          <span>{publicUrl}</span>
+        <div
+          style={{
+            background: 'var(--surface-container-low)',
+            border: '1px solid var(--outline-variant)',
+            borderRadius: '12px',
+            padding: '10px 14px',
+            fontSize: '12px',
+            color: 'var(--on-surface-variant)',
+            textAlign: 'center',
+            lineHeight: 1.45,
+          }}
+        >
+          🔒 <strong>QR Único e Inmutable:</strong> Este código QR pertenece únicamente a{' '}
+          <strong>{petName || 'tu mascota'}</strong>. Puedes modificar su
+          foto, teléfonos, vacunas y estado de alerta cuantas veces quieras y el QR mostrará siempre
+          la información actualizada.
         </div>
 
         <div className={styles.actionsRow}>
@@ -106,6 +121,19 @@ export const QRCodeModal: React.FC<QRCodeModalProps> = ({
           >
             Abrir Vista Pública
           </Button>
+
+          {onEditInfo && (
+            <Button
+              variant="outline"
+              icon="edit"
+              onClick={() => {
+                onClose();
+                onEditInfo();
+              }}
+            >
+              Editar Datos del QR
+            </Button>
+          )}
         </div>
       </div>
     </Modal>

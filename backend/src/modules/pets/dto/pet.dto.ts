@@ -62,6 +62,11 @@ export class CreatePetDto {
   @IsOptional()
   @IsString()
   photoStoragePath?: string;
+
+  @ApiProperty({ example: false, required: false, description: 'Si se desea crear y activar el código QR inmediatamente al crear la mascota' })
+  @IsOptional()
+  @IsBoolean()
+  createQr?: boolean;
 }
 
 export class UpdatePetDto {
@@ -165,43 +170,94 @@ export class CreatePetContactDto {
 }
 
 export class UpdatePublicProfileDto {
+  @IsOptional()
+  @IsString()
+  pet_id?: string;
+
+  @IsOptional()
+  @IsString()
+  updated_at?: string;
+
   @ApiProperty({ example: true, required: false })
   @IsOptional()
   @IsBoolean()
   showPetName?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  show_pet_name?: boolean;
 
   @ApiProperty({ example: true, required: false })
   @IsOptional()
   @IsBoolean()
   showPhoto?: boolean;
 
+  @IsOptional()
+  @IsBoolean()
+  show_photo?: boolean;
+
   @ApiProperty({ example: true, required: false })
   @IsOptional()
   @IsBoolean()
   showBreed?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  show_breed?: boolean;
 
   @ApiProperty({ example: true, required: false })
   @IsOptional()
   @IsBoolean()
   showOwnerName?: boolean;
 
+  @IsOptional()
+  @IsBoolean()
+  show_owner_name?: boolean;
+
   @ApiProperty({ example: true, required: false })
   @IsOptional()
   @IsBoolean()
   showOwnerPhone?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  show_owner_phone?: boolean;
 
   @ApiProperty({ example: true, required: false })
   @IsOptional()
   @IsBoolean()
   showContacts?: boolean;
 
+  @IsOptional()
+  @IsBoolean()
+  show_contacts?: boolean;
+
   @ApiProperty({ example: false, required: false })
   @IsOptional()
   @IsBoolean()
   showMedicalInfo?: boolean;
 
+  @IsOptional()
+  @IsBoolean()
+  show_medical_info?: boolean;
+
   @ApiProperty({ example: 'Recompensa por devolución segura. Por favor llame de inmediato.', required: false })
   @IsOptional()
   @IsString()
   emergencyMessage?: string;
+
+  @IsOptional()
+  @IsString()
+  emergency_message?: string;
+}
+
+export class AddCollaboratorDto {
+  @ApiProperty({ example: 'familiar@ejemplo.com', description: 'Correo electrónico registrado del co-cuidador' })
+  @IsEmail({}, { message: 'Ingresa un correo electrónico válido' })
+  email: string;
+
+  @ApiProperty({ example: 'caregiver', enum: ['caregiver', 'viewer'], required: false })
+  @IsOptional()
+  @IsIn(['caregiver', 'viewer'])
+  role?: 'caregiver' | 'viewer';
 }

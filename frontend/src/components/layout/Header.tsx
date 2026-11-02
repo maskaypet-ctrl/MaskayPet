@@ -208,14 +208,39 @@ export const Header: React.FC<HeaderProps> = ({
                 </span>
               </div>
               <div className={styles.profileDropdownBody}>
-                <a href="/cuenta" className={styles.menuItem}>
+                <button
+                  type="button"
+                  className={styles.menuItem}
+                  onClick={() => {
+                    setShowProfileMenu(false);
+                    navigate('/cuenta');
+                  }}
+                >
                   <span className="material-symbols-outlined">account_circle</span>
-                  <span>Mi Perfil & Planes</span>
-                </a>
-                <a href="/vincular-qr" className={styles.menuItem}>
+                  <span>Perfil del Dueño & Planes</span>
+                </button>
+                <button
+                  type="button"
+                  className={styles.menuItem}
+                  onClick={() => {
+                    setShowProfileMenu(false);
+                    navigate('/cuenta?activar=1');
+                  }}
+                >
+                  <span className="material-symbols-outlined">vpn_key</span>
+                  <span>Ingresar Código de Activación</span>
+                </button>
+                <button
+                  type="button"
+                  className={styles.menuItem}
+                  onClick={() => {
+                    setShowProfileMenu(false);
+                    navigate('/vincular-qr');
+                  }}
+                >
                   <span className="material-symbols-outlined">qr_code_scanner</span>
-                  <span>Vincular Placa QR</span>
-                </a>
+                  <span>Código QR Único</span>
+                </button>
                 <button
                   className={`${styles.menuItem} ${styles.logoutItem}`}
                   onClick={logout}

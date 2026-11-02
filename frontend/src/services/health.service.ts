@@ -67,6 +67,15 @@ export const healthService = {
     return res.data;
   },
 
+  async updateTreatmentStatus(
+    petId: string,
+    treatmentId: string,
+    status: 'planned' | 'active' | 'completed' | 'canceled',
+  ): Promise<Treatment> {
+    const res = await api.patch<Treatment>(`/health/pets/${petId}/treatments/${treatmentId}/status`, { status });
+    return res.data;
+  },
+
   // Diagnoses
   async getDiagnoses(petId: string): Promise<Diagnosis[]> {
     const res = await api.get<Diagnosis[]>(`/health/pets/${petId}/diagnoses`);
@@ -110,6 +119,15 @@ export const healthService = {
     notes?: string;
   }): Promise<Appointment> {
     const res = await api.post<Appointment>(`/health/pets/${petId}/appointments`, data);
+    return res.data;
+  },
+
+  async updateAppointmentStatus(
+    petId: string,
+    appointmentId: string,
+    status: 'scheduled' | 'confirmed' | 'completed' | 'canceled',
+  ): Promise<Appointment> {
+    const res = await api.patch<Appointment>(`/health/pets/${petId}/appointments/${appointmentId}/status`, { status });
     return res.data;
   },
 

@@ -39,6 +39,7 @@ export const petsService = {
     isSterilized?: boolean;
     description?: string;
     photoStoragePath?: string;
+    createQr?: boolean;
   }): Promise<Pet> {
     const res = await api.post<Pet>('/pets', data);
     return res.data;
@@ -70,6 +71,27 @@ export const petsService = {
 
   async updatePublicProfile(petId: string, data: Partial<PetPublicProfile>): Promise<PetPublicProfile> {
     const res = await api.patch<PetPublicProfile>(`/pets/${petId}/public-profile`, data);
+    return res.data;
+  },
+
+  async addCollaborator(
+    petId: string,
+    data: { email: string; role?: 'caregiver' | 'viewer' },
+  ): Promise<{ added: boolean; collaborators: any[] }> {
+    const res = await api.post(`/pets/${petId}/collaborators`, data);
+    return res.data;
+  },
+
+  async removeCollaborator(
+    petId: string,
+    collaboratorUserId: string,
+  ): Promise<{ removed: boolean }> {
+    const res = await api.delete(`/pets/${petId}/collaborators/${collaboratorUserId}`);
+    return res.data;
+  },
+
+  async archivePet(petId: string): Promise<{ archived: boolean; petId: string }> {
+    const res = await api.delete(`/pets/${petId}`);
     return res.data;
   },
 };

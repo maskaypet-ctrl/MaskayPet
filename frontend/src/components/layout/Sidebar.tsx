@@ -21,12 +21,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const navItems = [
     { to: '/dashboard', label: 'Resumen', icon: 'grid_view' },
     { to: '/pets', label: 'Mis Mascotas', icon: 'pets' },
-    { to: '/vincular-qr', label: 'Vincular Placa QR', icon: 'qr_code_scanner' },
-    { to: '/cuenta', label: 'Mi Cuenta & Planes', icon: 'manage_accounts' },
+    { to: '/vincular-qr', label: 'Código QR Único', icon: 'qr_code_scanner' },
+    { to: '/cuenta', label: 'Perfil del Dueño & Planes', icon: 'manage_accounts' },
   ];
 
   if (isAdmin) {
-    navItems.push({ to: '/admin/vouchers', label: 'Admin Vouchers', icon: 'confirmation_number' });
+    navItems.push({ to: '/admin/vouchers', label: 'Panel Admin', icon: 'admin_panel_settings' });
   }
 
   return (
@@ -99,7 +99,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               Privacidad
             </NavLink>
           </div>
-          <span style={{ textAlign: 'center', fontSize: '10px' }}>MaskayPet © 2026</span>
+          <span style={{ textAlign: 'center', fontSize: '10px' }}>MaskayPet v1.1.0 © 2026</span>
         </div>
       </aside>
     </>

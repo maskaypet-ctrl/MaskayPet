@@ -1,9 +1,15 @@
 import axios from 'axios';
 
-const PRIMARY_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000/api/v1';
-const FALLBACK_URL = PRIMARY_URL.includes('localhost')
-  ? 'http://192.168.1.2:4000/api/v1'
-  : 'http://localhost:4000/api/v1';
+const isLocalBrowser =
+  typeof window !== 'undefined' &&
+  (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+
+const PRIMARY_URL = isLocalBrowser
+  ? '/api/v1'
+  : import.meta.env.VITE_API_URL || 'https://maskaypet.onrender.com/api/v1';
+const FALLBACK_URL = isLocalBrowser
+  ? 'http://localhost:4000/api/v1'
+  : 'https://maskaypet.onrender.com/api/v1';
 
 let currentBaseUrl = PRIMARY_URL;
 
@@ -93,7 +99,11 @@ api.interceptors.response.use(
           refreshToken,
         });
 
-        const tokenData = response.data?.data?.tokens || response.data?.tokens;
+        const tokenData =
+          response.data?.data?.tokens ||
+          response.data?.tokens ||
+          response.data?.data ||
+          response.data;
         const accessToken = tokenData?.accessToken;
         const newRefresh = tokenData?.refreshToken;
 

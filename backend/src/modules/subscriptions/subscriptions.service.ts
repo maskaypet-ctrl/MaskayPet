@@ -6,8 +6,66 @@ import {
 } from '@nestjs/common';
 import * as crypto from 'crypto';
 import { DatabaseService } from '../../database/database.service';
-import { SubscribeDto } from './dto/subscription.dto';
+import { AdminGrantSubscriptionDto, SubscribeDto } from './dto/subscription.dto';
 import { GenerateVouchersDto, RedeemVoucherDto } from './dto/voucher.dto';
+
+export const BILLING_CYCLES: Record<
+  string,
+  {
+    code: string;
+    label: string;
+    tier: 'free' | 'premium';
+    status: 'trialing' | 'active';
+    durationDays: number;
+    pricePen: number;
+    badge?: string;
+  }
+> = {
+  trial_14d: {
+    code: 'trial_14d',
+    label: 'Prueba Gratis Premium (14 Días)',
+    tier: 'premium',
+    status: 'trialing',
+    durationDays: 14,
+    pricePen: 0.0,
+    badge: '14 DÍAS GRATIS',
+  },
+  monthly_1m: {
+    code: 'monthly_1m',
+    label: 'Plan Mensual (1 Mes / 30 días)',
+    tier: 'premium',
+    status: 'active',
+    durationDays: 30,
+    pricePen: 14.9,
+  },
+  quarterly_3m: {
+    code: 'quarterly_3m',
+    label: 'Plan Trimestral (3 Meses / 90 días)',
+    tier: 'premium',
+    status: 'active',
+    durationDays: 90,
+    pricePen: 39.9,
+    badge: 'AHORRA 11%',
+  },
+  semiannual_6m: {
+    code: 'semiannual_6m',
+    label: 'Plan Semestral (6 Meses / 180 días)',
+    tier: 'premium',
+    status: 'active',
+    durationDays: 180,
+    pricePen: 69.9,
+    badge: 'MÁS POPULAR • AHORRA 22%',
+  },
+  annual_1y: {
+    code: 'annual_1y',
+    label: 'Plan Anual (1 Año / 365 días)',
+    tier: 'premium',
+    status: 'active',
+    durationDays: 365,
+    pricePen: 119.9,
+    badge: 'MEJOR VALOR • AHORRA 33%',
+  },
+};
 
 @Injectable()
 export class SubscriptionsService {
@@ -20,7 +78,10 @@ export class SubscriptionsService {
        JOIN public.plan_limits l ON l.tier = t.tier
        ORDER BY (t.tier = 'free') DESC`,
     );
-    return res.rows;
+    return res.rows.map((row) => ({
+      ...row,
+      billingCycles: row.tier === 'premium' ? Object.values(BILLING_CYCLES) : [],
+    }));
   }
 
   async getMySubscription(userId: string) {
@@ -34,6 +95,42 @@ export class SubscriptionsService {
       [userId],
     );
 
+    const paymentsRes = await this.db.query(
+      `SELECT * FROM public.payments WHERE user_id = $1 ORDER BY paid_at DESC LIMIT 20`,
+      [userId],
+    );
+
+    const hasUsedTrial = paymentsRes.rows.some(
+      (p) =>
+        p.provider === 'free_trial' ||
+        p.provider_payment_id === 'trial_14d' ||
+        (p.provider_payment_id && String(p.provider_payment_id).startsWith('TRIAL')),
+    );
+
+    // Check if active subscription has reached its expiration date
+    if (sub && sub.current_period_end && new Date(sub.current_period_end).getTime() <= Date.now()) {
+      await this.db.query(
+        `UPDATE public.subscriptions SET status = 'expired', updated_at = now() WHERE id = $1`,
+        [sub.id],
+      );
+      const freeLimits = await this.db.queryOne(
+        `SELECT max_pets, max_collaborators_per_pet, sms_credits_monthly, medical_document_retention_years
+         FROM public.plan_limits WHERE tier = 'free'`,
+      );
+      return {
+        tier: 'free',
+        status: 'expired',
+        expired_at: sub.current_period_end,
+        started_at: sub.started_at,
+        auto_renew: false,
+        days_remaining: 0,
+        has_used_trial: true,
+        payments: paymentsRes.rows,
+        billing_options: Object.values(BILLING_CYCLES),
+        ...freeLimits,
+      };
+    }
+
     if (!sub) {
       // Default Free limits
       const freeLimits = await this.db.queryOne(
@@ -45,16 +142,91 @@ export class SubscriptionsService {
         status: 'active',
         started_at: null,
         auto_renew: false,
+        days_remaining: 0,
+        has_used_trial: hasUsedTrial,
+        payments: paymentsRes.rows,
+        billing_options: Object.values(BILLING_CYCLES),
         ...freeLimits,
       };
     }
 
-    return sub;
+    const endMs = sub.current_period_end ? new Date(sub.current_period_end).getTime() : 0;
+    const daysRemaining = endMs > Date.now() ? Math.ceil((endMs - Date.now()) / (24 * 60 * 60 * 1000)) : 0;
+
+    return {
+      ...sub,
+      days_remaining: daysRemaining,
+      has_used_trial: hasUsedTrial || sub.status === 'trialing',
+      payments: paymentsRes.rows,
+      billing_options: Object.values(BILLING_CYCLES),
+    };
   }
 
   async subscribe(userId: string, dto: SubscribeDto, ipAddress?: string) {
+    if (dto.tier === 'free' || dto.billingCycle === 'free') {
+      return this.db.transaction(async (client) => {
+        await client.query(
+          `UPDATE public.subscriptions 
+           SET status = 'canceled', canceled_at = now()
+           WHERE user_id = $1 AND status IN ('trialing','active','past_due')`,
+          [userId],
+        );
+        return {
+          tier: 'free',
+          status: 'active',
+          message: 'Tu cuenta ha pasado al Plan Free.',
+        };
+      }, { userId, ipAddress });
+    }
+
+    const cycleKey =
+      dto.isTrial || dto.billingCycle === 'trial_14d'
+        ? 'trial_14d'
+        : dto.billingCycle && BILLING_CYCLES[dto.billingCycle]
+        ? dto.billingCycle
+        : 'monthly_1m';
+
+    const cycle = BILLING_CYCLES[cycleKey] || BILLING_CYCLES.monthly_1m;
+    const durationDays = dto.durationDays || cycle.durationDays;
+    const isTrial = cycleKey === 'trial_14d' || Boolean(dto.isTrial);
+
+    if (isTrial) {
+      const priorPayments = await this.db.query(
+        `SELECT * FROM public.payments WHERE user_id = $1`,
+        [userId],
+      );
+      const alreadyTrialed = priorPayments.rows.some(
+        (p) => p.provider === 'free_trial' || p.provider_payment_id === 'trial_14d',
+      );
+      if (alreadyTrialed) {
+        throw new ConflictException(
+          'Ya utilizaste tu periodo de Prueba Gratis anteriormente en esta cuenta. Elige un plan por tiempo (1 mes, 6 meses o 1 año).',
+        );
+      }
+    }
+
     return this.db.transaction(async (client) => {
-      // Cancel previous active subscription if exists
+      // Check if user already has an active subscription to accumulate remaining days
+      const activeSub = await client.query(
+        `SELECT id, tier, current_period_end, status
+         FROM public.subscriptions
+         WHERE user_id = $1 AND status IN ('trialing','active')
+         ORDER BY current_period_end DESC
+         LIMIT 1`,
+        [userId],
+      );
+
+      const durationMs = durationDays * 24 * 60 * 60 * 1000;
+      let periodEnd = new Date(Date.now() + durationMs);
+
+      if (activeSub.rows[0] && activeSub.rows[0].current_period_end) {
+        const currentEnd = new Date(activeSub.rows[0].current_period_end);
+        if (currentEnd > new Date()) {
+          periodEnd = new Date(currentEnd.getTime() + durationMs);
+        }
+      }
+
+      // Cancel previous active subscription record before inserting updated one
       await client.query(
         `UPDATE public.subscriptions 
          SET status = 'canceled', canceled_at = now()
@@ -62,28 +234,157 @@ export class SubscriptionsService {
         [userId],
       );
 
-      // Create new subscription
-      const periodEnd = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+      const subStatus = isTrial ? 'trialing' : 'active';
+      const provider = isTrial ? 'free_trial' : dto.provider || 'yape';
+
       const subRes = await client.query(
         `INSERT INTO public.subscriptions (
            user_id, tier, status, current_period_start, current_period_end, provider, provider_subscription_id
-         ) VALUES ($1, $2, 'active', now(), $3, $4, $5)
+         ) VALUES ($1, $2, $3, now(), $4, $5, $6)
          RETURNING *`,
-        [userId, dto.tier, periodEnd, dto.provider || 'manual', dto.providerPaymentToken || null],
+        [userId, 'premium', subStatus, periodEnd, provider, cycle.code],
       );
       const sub = subRes.rows[0];
 
-      // If premium, create payment record
-      if (dto.tier === 'premium') {
-        await client.query(
-          `INSERT INTO public.payments (user_id, subscription_id, amount, currency, status, provider, paid_at)
-           VALUES ($1, $2, 19.90, 'PEN', 'approved', $3, now())`,
-          [userId, sub.id, dto.provider || 'manual'],
-        );
-      }
+      await client.query(
+        `INSERT INTO public.payments (
+           user_id, subscription_id, amount, currency, status, provider, provider_payment_id, paid_at
+         ) VALUES ($1, $2, $3, 'PEN', 'approved', $4, $5, now())`,
+        [userId, sub.id, cycle.pricePen, provider, cycle.code],
+      );
 
-      return sub;
+      await client.query(
+        `INSERT INTO public.notifications (user_id, type, title, message, channel, priority)
+         VALUES ($1, 'subscription_activated', '¡Plan Activado con Éxito!', $2, 'in_app', 'high')`,
+        [
+          userId,
+          isTrial
+            ? `¡Tu Prueba Gratis Premium por ${durationDays} días está activa hasta el ${periodEnd.toLocaleDateString()}!`
+            : `Has activado ${cycle.label} (vigente hasta el ${periodEnd.toLocaleDateString()}).`,
+        ],
+      );
+
+      return {
+        ...sub,
+        message: isTrial
+          ? `¡Prueba Gratis Premium por ${durationDays} días activada con éxito!`
+          : `¡${cycle.label} activado con éxito!`,
+        cycleLabel: cycle.label,
+        durationDays,
+        pricePen: cycle.pricePen,
+        amountPaidPen: cycle.pricePen,
+      };
     }, { userId, ipAddress });
+  }
+
+  /**
+   * ADMIN: List all user accounts with their subscription & trial status
+   */
+  async listAccountsForAdmin() {
+    const res = await this.db.query(
+      `SELECT u.id, a.email, a.status as account_status, u.first_name, u.last_name, u.phone, u.created_at,
+              (SELECT COUNT(*)::int FROM public.pets p WHERE p.owner_id = u.id AND p.status != 'archived') as pets_count,
+              s.tier as subscription_tier,
+              s.status as subscription_status,
+              s.current_period_end,
+              s.provider as subscription_provider,
+              s.provider_subscription_id as billing_cycle
+       FROM public.users u
+       JOIN identity.user_accounts a ON a.id = u.id
+       LEFT JOIN LATERAL (
+         SELECT tier, status, current_period_end, provider, provider_subscription_id
+         FROM public.subscriptions sub
+         WHERE sub.user_id = u.id AND sub.status IN ('trialing','active','past_due')
+         ORDER BY sub.created_at DESC
+         LIMIT 1
+       ) s ON true
+       ORDER BY u.created_at DESC
+       LIMIT 100`,
+    );
+    return res.rows.map((row) => ({
+      ...row,
+      tier: row.subscription_tier || row.tier || 'free',
+      subscription_status: row.subscription_status || 'active',
+      provider: row.subscription_provider || row.provider || null,
+      provider_subscription_id: row.billing_cycle || row.provider_subscription_id || null,
+    }));
+  }
+
+  /**
+   * ADMIN: Directly grant or modify a user account's subscription (Trial, 1M, 3M, 6M, 1Y, or Free)
+   */
+  async adminGrantSubscription(
+    adminUserId: string,
+    targetUserId: string,
+    dto: AdminGrantSubscriptionDto,
+    ipAddress?: string,
+  ) {
+    if (dto.planType === 'free') {
+      return this.subscribe(targetUserId, { tier: 'free', billingCycle: 'free' }, ipAddress);
+    }
+
+    let durationDays = 30;
+    let isTrial = false;
+    if (dto.planType === 'trial_7d') {
+      durationDays = 7;
+      isTrial = true;
+    } else if (dto.planType === 'trial_14d') {
+      durationDays = 14;
+      isTrial = true;
+    } else if (dto.planType === 'monthly_1m') {
+      durationDays = 30;
+    } else if (dto.planType === 'quarterly_3m') {
+      durationDays = 90;
+    } else if (dto.planType === 'semiannual_6m') {
+      durationDays = 180;
+    } else if (dto.planType === 'annual_1y') {
+      durationDays = 365;
+    } else if (dto.planType === 'custom' && dto.customDays) {
+      durationDays = dto.customDays;
+    }
+
+    return this.db.transaction(async (client) => {
+      await client.query(
+        `UPDATE public.subscriptions 
+         SET status = 'canceled', canceled_at = now()
+         WHERE user_id = $1 AND status IN ('trialing','active','past_due')`,
+        [targetUserId],
+      );
+
+      const periodEnd = new Date(Date.now() + durationDays * 24 * 60 * 60 * 1000);
+      const subStatus = isTrial ? 'trialing' : 'active';
+      const subRes = await client.query(
+        `INSERT INTO public.subscriptions (
+           user_id, tier, status, current_period_start, current_period_end, provider, provider_subscription_id
+         ) VALUES ($1, $2, $3, now(), $4, $5, $6)
+         RETURNING *`,
+        [targetUserId, 'premium', subStatus, periodEnd, 'admin_grant', dto.planType],
+      );
+      const sub = subRes.rows[0];
+
+      await client.query(
+        `INSERT INTO public.payments (
+           user_id, subscription_id, amount, currency, status, provider, provider_payment_id, paid_at
+         ) VALUES ($1, $2, 0.00, 'PEN', 'approved', 'admin_grant', $3, now())`,
+        [targetUserId, sub.id, dto.planType],
+      );
+
+      await client.query(
+        `INSERT INTO public.notifications (user_id, type, title, message, channel, priority)
+         VALUES ($1, 'subscription_activated', '¡Plan Activado con Éxito!', $2, 'in_app', 'high')`,
+        [
+          targetUserId,
+          `Un administrador ha activado tu cuenta en ${isTrial ? 'Prueba Gratis Premium' : 'Plan Premium'} por ${durationDays} días (hasta el ${periodEnd.toLocaleDateString()}).`,
+        ],
+      );
+
+      return {
+        success: true,
+        subscription: sub,
+        durationDays,
+        status: subStatus,
+      };
+    }, { userId: adminUserId, ipAddress });
   }
 
   /**
@@ -220,6 +521,17 @@ export class SubscriptionsService {
       let newPeriodEnd: Date;
       let subscriptionId: string;
       const durationMs = voucher.duration_days * 24 * 60 * 60 * 1000;
+      const isTrialVoucher = voucher.duration_days <= 14 || voucher.code.startsWith('TRIAL');
+      const targetStatus = isTrialVoucher ? 'trialing' : 'active';
+
+      // Estimate reference price for history based on duration
+      let estimatedPrice = 0;
+      if (!isTrialVoucher) {
+        if (voucher.duration_days >= 360) estimatedPrice = 119.9;
+        else if (voucher.duration_days >= 180) estimatedPrice = 69.9;
+        else if (voucher.duration_days >= 90) estimatedPrice = 39.9;
+        else if (voucher.duration_days >= 30) estimatedPrice = 14.9;
+      }
 
       if (activeSub.rows[0] && activeSub.rows[0].tier === voucher.tier) {
         // Extend existing subscription duration
@@ -249,9 +561,9 @@ export class SubscriptionsService {
         const newSub = await client.query(
           `INSERT INTO public.subscriptions (
              user_id, tier, status, current_period_start, current_period_end, provider, provider_subscription_id
-           ) VALUES ($1, $2, 'active', now(), $3, 'voucher', $4)
+           ) VALUES ($1, $2, $3, now(), $4, 'voucher', $5)
            RETURNING *`,
-          [userId, voucher.tier, newPeriodEnd, voucher.code],
+          [userId, voucher.tier, targetStatus, newPeriodEnd, voucher.code],
         );
         subscriptionId = newSub.rows[0].id;
       }
@@ -268,8 +580,8 @@ export class SubscriptionsService {
       await client.query(
         `INSERT INTO public.payments (
            user_id, subscription_id, amount, currency, status, provider, provider_payment_id, paid_at
-         ) VALUES ($1, $2, 0.00, 'PEN', 'approved', 'voucher', $3, now())`,
-        [userId, subscriptionId, voucher.code],
+         ) VALUES ($1, $2, $3, 'PEN', 'approved', 'voucher', $4, now())`,
+        [userId, subscriptionId, estimatedPrice, voucher.code],
       );
 
       // 4. Send in-app notification to the user

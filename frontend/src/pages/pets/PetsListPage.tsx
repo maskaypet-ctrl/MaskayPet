@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { petsService } from '../../services/pets.service';
+import { qrService } from '../../services/qr.service';
+import { useToast } from '../../contexts/ToastContext';
 import { Pet } from '../../types';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
 import { Card } from '../../components/ui/Card';
+import { Modal } from '../../components/ui/Modal';
 import { Spinner } from '../../components/ui/Spinner';
 import { CreatePetModal } from './CreatePetModal';
 import { PetAvatar } from '../../components/ui/PetAvatar';
@@ -13,11 +16,14 @@ import styles from './Pets.module.css';
 
 export const PetsListPage: React.FC = () => {
   const navigate = useNavigate();
+  const { success, error } = useToast();
   const [pets, setPets] = useState<Pet[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
   const [search, setSearch] = useState('');
   const [selectedQrPet, setSelectedQrPet] = useState<Pet | null>(null);
+  const [confirmQrPet, setConfirmQrPet] = useState<Pet | null>(null);
+  const [isCreatingQr, setIsCreatingQr] = useState(false);
 
   const fetchPets = async () => {
     try {
@@ -34,11 +40,27 @@ export const PetsListPage: React.FC = () => {
     fetchPets();
   }, []);
 
+  const handleConfirmCreateQr = async () => {
+    if (!confirmQrPet) return;
+    setIsCreatingQr(true);
+    try {
+      const res = await qrService.ensureUniqueQr(confirmQrPet.id);
+      success(`¡Código QR creado exitosamente para ${confirmQrPet.name}!`);
+      const updatedPet = { ...confirmQrPet, qr_code: res.qrCode };
+      setConfirmQrPet(null);
+      await fetchPets();
+      setSelectedQrPet(updatedPet);
+    } catch (err: any) {
+      error(err.response?.data?.message || 'No se pudo crear el código QR');
+    } finally {
+      setIsCreatingQr(false);
+    }
+  };
+
   const filteredPets = pets.filter(
     (p) =>
       p.name.toLowerCase().includes(search.toLowerCase()) ||
-      (p.breed && p.breed.toLowerCase().includes(search.toLowerCase())) ||
-      (p.qr_code && p.qr_code.toLowerCase().includes(search.toLowerCase())),
+      (p.breed && p.breed.toLowerCase().includes(search.toLowerCase())),
   );
 
   if (isLoading) return <Spinner label="Cargando tus mascotas..." />;
@@ -139,11 +161,11 @@ export const PetsListPage: React.FC = () => {
                     <h3 className={styles.petCardName}>{pet.name}</h3>
                     {pet.qr_code ? (
                       <Badge variant="primary" size="sm">
-                        {pet.qr_code}
+                        QR Activo
                       </Badge>
                     ) : (
                       <Badge variant="outline" size="sm">
-                        Sin Placa QR
+                        Sin QR
                       </Badge>
                     )}
                   </div>
@@ -167,8 +189,8 @@ export const PetsListPage: React.FC = () => {
                 </span>
                 <span>
                   {pet.qr_code
-                    ? `Placa QR Inteligente activa (${pet.qr_code})`
-                    : 'Sin placa vinculada'}
+                    ? 'Código QR Inteligente activo'
+                    : 'Sin código QR activo'}
                 </span>
               </div>
 
@@ -192,12 +214,13 @@ export const PetsListPage: React.FC = () => {
                   </button>
                 ) : (
                   <Button
-                    variant="surface"
+                    variant="secondary"
                     size="sm"
-                    onClick={() => navigate('/vincular-qr')}
-                    title="Vincular placa QR"
+                    icon="qr_code_2"
+                    onClick={() => setConfirmQrPet(pet)}
+                    title="Crear código QR para esta mascota"
                   >
-                    Vincular
+                    Crear QR
                   </Button>
                 )}
               </div>
@@ -215,6 +238,47 @@ export const PetsListPage: React.FC = () => {
           setModalOpen(false);
         }}
       />
+
+      {/* Confirm Create QR Modal */}
+      <Modal
+        isOpen={!!confirmQrPet}
+        onClose={() => setConfirmQrPet(null)}
+        title="¿Crear Código QR?"
+        subtitle={confirmQrPet ? `Confirmación para ${confirmQrPet.name}` : ''}
+        icon="qr_code_2"
+        maxWidth="sm"
+      >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <p style={{ margin: 0, fontSize: '14px', color: 'var(--on-surface)', lineHeight: 1.5 }}>
+            ¿Seguro que deseas crear el código QR para <strong>{confirmQrPet?.name}</strong>?
+          </p>
+          <div
+            style={{
+              background: 'var(--surface-container-low)',
+              border: '1px solid var(--outline-variant)',
+              borderRadius: '10px',
+              padding: '10px 12px',
+              fontSize: '12px',
+              color: 'var(--on-surface-variant)',
+            }}
+          >
+            💡 Recuerda: En el Plan Gratuito puedes activar el QR para 1 mascota. Con el Plan Mensual o superior tienes códigos QR ilimitados.
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
+            <Button variant="outline" onClick={() => setConfirmQrPet(null)}>
+              Cancelar
+            </Button>
+            <Button
+              variant="primary"
+              icon="qr_code_2"
+              isLoading={isCreatingQr}
+              onClick={handleConfirmCreateQr}
+            >
+              Sí, Crear QR
+            </Button>
+          </div>
+        </div>
+      </Modal>
 
       {/* QR Code Scannable Modal */}
       {selectedQrPet && selectedQrPet.qr_code && (

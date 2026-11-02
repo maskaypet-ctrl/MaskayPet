@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { qrService } from '../../services/qr.service';
 import { lostService } from '../../services/lost.service';
+import { useAuth } from '../../contexts/AuthContext';
 import { useToast } from '../../contexts/ToastContext';
 import { PublicQRScanResponse } from '../../types';
 import { Card } from '../../components/ui/Card';
@@ -13,6 +14,8 @@ import styles from './PublicQRScan.module.css';
 
 export const PublicQRScanPage: React.FC = () => {
   const { code } = useParams<{ code: string }>();
+  const navigate = useNavigate();
+  const { user } = useAuth();
   const { success, error, info } = useToast();
 
   const [data, setData] = useState<PublicQRScanResponse | null>(null);
@@ -104,10 +107,43 @@ export const PublicQRScanPage: React.FC = () => {
     );
   }
 
-  const { pet, owner, contacts, isLostMode, medicalSummary } = data;
+  const { pet, owner, contacts, isLostMode, medicalSummary, ownerId } = data;
+  const isOwnerViewing = Boolean(user?.id && ownerId && user.id === ownerId);
 
   return (
     <div className={styles.container}>
+      {/* Owner Live Edit Bar if Owner scans/opens their own QR */}
+      {isOwnerViewing && pet?.id && (
+        <Card
+          padding="md"
+          style={{
+            marginBottom: '16px',
+            background: 'var(--primary-fixed)',
+            border: '2px solid var(--primary)',
+          }}
+        >
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontWeight: 800, color: 'var(--primary)', fontSize: '14px' }}>
+                <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>verified_user</span>
+                <span>Vista del Tutor • Código QR Único: {data.qrCode || code}</span>
+              </div>
+              <p style={{ margin: '4px 0 0 0', fontSize: '12px', color: 'var(--on-surface)' }}>
+                Toda modificación que realices en la ficha de <strong>{pet.name}</strong> se reflejará aquí al instante sin cambiar tu código QR.
+              </p>
+            </div>
+            <Button
+              variant="primary"
+              size="sm"
+              icon="edit"
+              onClick={() => navigate(`/pets/${pet.id}?tab=privacy`)}
+            >
+              Editar Información de este QR
+            </Button>
+          </div>
+        </Card>
+      )}
+
       {/* Platform Public Branding Header */}
       <div className={styles.publicHeader}>
         <div className={styles.publicLogoBox}>
@@ -175,15 +211,31 @@ export const PublicQRScanPage: React.FC = () => {
           <div className={styles.petTitles}>
             <h1 className={styles.petName}>{pet?.name || 'Mascota Protegida'}</h1>
             <p className={styles.petBreed}>
-              {pet?.species === 'perro' ? '🐕 Canino' : '🐈 Felino'} • {pet?.breed || 'Raza Mixta'}
+              {pet?.species?.toLowerCase() === 'perro' || pet?.species?.toLowerCase() === 'dog' ? '🐕 Canino' : '🐈 Felino'} • {pet?.breed || 'Raza Mixta'}
+              {pet?.sex ? ` • ${pet.sex === 'male' ? 'Macho' : pet.sex === 'female' ? 'Hembra' : ''}` : ''}
             </p>
-            <div className={styles.badgeRow}>
+            <div className={styles.badgeRow} style={{ flexWrap: 'wrap', gap: '6px' }}>
               <Badge variant="success" size="sm">
                 <span className="material-symbols-outlined" style={{ fontSize: '13px', marginRight: '3px' }}>
                   verified
                 </span>
-                Placa Inteligente Activa
+                QR Único: {data.qrCode || code}
               </Badge>
+              {pet?.color && (
+                <Badge variant="neutral" size="sm">
+                  Color: {pet.color}
+                </Badge>
+              )}
+              {pet?.isSterilized && (
+                <Badge variant="primary" size="sm">
+                  Esterilizado
+                </Badge>
+              )}
+              {pet?.microchipNumber && (
+                <Badge variant="neutral" size="sm">
+                  Chip: {pet.microchipNumber}
+                </Badge>
+              )}
             </div>
           </div>
         </div>
@@ -294,7 +346,24 @@ export const PublicQRScanPage: React.FC = () => {
               <ul className={styles.medList}>
                 {medicalSummary.activeTreatments.map((t, i) => (
                   <li key={i}>
-                    <strong>{t.treatment_name}:</strong> {t.instructions || 'Seguir indicaciones de receta'}
+                    <strong>{t.treatment_name}:</strong>{' '}
+                    {t.medication_name ? `${t.medication_name} ` : ''}
+                    {t.dosage ? `(${t.dosage}) ` : ''}
+                    {t.instructions || 'Seguir indicaciones de receta'}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {medicalSummary.diagnoses && medicalSummary.diagnoses.length > 0 && (
+            <div className={styles.medSection}>
+              <strong className={styles.medSubTitle}>Diagnósticos / Condiciones Médicas:</strong>
+              <ul className={styles.medList}>
+                {medicalSummary.diagnoses.map((d, i) => (
+                  <li key={i}>
+                    <strong>{d.diagnosis}</strong>
+                    {d.description ? `: ${d.description}` : ''}
                   </li>
                 ))}
               </ul>

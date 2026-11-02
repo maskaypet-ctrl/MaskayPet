@@ -7,8 +7,11 @@ export interface User {
   email: string;
   firstName: string;
   lastName: string;
+  first_name?: string;
+  last_name?: string;
   phone?: string | null;
   avatarStoragePath?: string | null;
+  avatar_storage_path?: string | null;
   roles: string[];
 }
 
@@ -50,6 +53,8 @@ export interface Pet {
   qr_public_code?: string | null;
   qr_status?: 'available' | 'active' | 'inactive' | 'lost' | 'damaged' | 'retired' | null;
   is_lost?: boolean;
+  vaccines_count?: number;
+  overdue_vaccines_count?: number;
   created_at: string;
 }
 
@@ -178,13 +183,17 @@ export interface PublicQRScanResponse {
   lostModeEventId?: string | null;
   message?: string;
   qrCode?: string;
+  ownerId?: string;
   pet?: {
     id?: string;
     name?: string;
     species?: string;
     breed?: string;
     sex?: string;
+    birthDate?: string | null;
     color?: string;
+    microchipNumber?: string | null;
+    isSterilized?: boolean | null;
     photoStoragePath?: string;
     description?: string;
     emergencyMessage?: string;
@@ -201,8 +210,15 @@ export interface PublicQRScanResponse {
     is_primary?: boolean;
   }[];
   medicalSummary?: {
-    recentVaccines?: { vaccine_name: string; application_date: string }[];
-    activeTreatments?: { treatment_name: string; instructions?: string }[];
+    recentVaccines?: { vaccine_name: string; application_date: string; next_due_date?: string }[];
+    activeTreatments?: {
+      treatment_name: string;
+      medication_name?: string;
+      dosage?: string;
+      frequency?: string;
+      instructions?: string;
+    }[];
+    diagnoses?: { diagnosis: string; description?: string; diagnosis_date?: string }[];
   } | null;
 }
 
@@ -234,18 +250,65 @@ export interface Plan {
   medical_document_retention_years: number;
 }
 
+export interface BillingOption {
+  id: 'trial_14d' | 'monthly_1m' | 'quarterly_3m' | 'semiannual_6m' | 'annual_1y';
+  label: string;
+  durationDays: number;
+  pricePen: number;
+  badge?: string | null;
+  isTrial: boolean;
+}
+
+export interface SubscriptionPayment {
+  id: string;
+  user_id: string;
+  subscription_id?: string | null;
+  provider: string;
+  provider_payment_id?: string | null;
+  amount: number | string;
+  currency: string;
+  status: string;
+  paid_at?: string | null;
+  created_at: string;
+}
+
 export interface UserSubscription {
   id?: string;
   tier: 'free' | 'premium';
   status: 'trialing' | 'active' | 'past_due' | 'canceled' | 'expired';
+  provider?: string | null;
+  provider_subscription_id?: string | null;
   started_at?: string | null;
   current_period_start?: string | null;
   current_period_end?: string | null;
+  expired_at?: string | null;
+  days_remaining?: number;
+  has_used_trial?: boolean;
   auto_renew?: boolean;
   max_pets?: number | null;
   max_collaborators_per_pet?: number;
   sms_credits_monthly?: number;
   medical_document_retention_years?: number;
+  payments?: SubscriptionPayment[];
+  billing_options?: BillingOption[];
+}
+
+export interface AdminUserAccount {
+  id: string;
+  email: string;
+  first_name: string;
+  last_name: string;
+  phone?: string | null;
+  is_active: boolean;
+  created_at: string;
+  subscription_id?: string | null;
+  tier: 'free' | 'premium';
+  subscription_status: 'trialing' | 'active' | 'past_due' | 'canceled' | 'expired';
+  provider?: string | null;
+  provider_subscription_id?: string | null;
+  started_at?: string | null;
+  current_period_end?: string | null;
+  pets_count?: number;
 }
 
 export interface Voucher {

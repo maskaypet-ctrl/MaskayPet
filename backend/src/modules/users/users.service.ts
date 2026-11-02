@@ -29,6 +29,9 @@ export class UsersService {
 
     return {
       ...user,
+      firstName: user.first_name,
+      lastName: user.last_name,
+      avatarStoragePath: user.avatar_storage_path,
       roles: rolesRes.rows.map((r) => r.code),
     };
   }

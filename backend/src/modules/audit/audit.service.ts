@@ -19,6 +19,19 @@ export class AuditService {
       return res.rows;
     }
 
+    if (tableName) {
+      const res = await this.db.query(
+        `SELECT a.*, u.first_name, u.last_name
+         FROM audit.audit_logs a
+         LEFT JOIN public.users u ON u.id = a.changed_by
+         WHERE a.table_name = $1
+         ORDER BY a.changed_at DESC
+         LIMIT $2`,
+        [tableName, limit],
+      );
+      return res.rows;
+    }
+
     const res = await this.db.query(
       `SELECT a.*, u.first_name, u.last_name
        FROM audit.audit_logs a

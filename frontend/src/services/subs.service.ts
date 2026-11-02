@@ -1,5 +1,5 @@
 import { api } from './api';
-import { Plan, UserSubscription, Voucher } from '../types';
+import { AdminUserAccount, Plan, UserSubscription, Voucher } from '../types';
 
 export const subsService = {
   async getPlans(): Promise<Plan[]> {
@@ -9,6 +9,26 @@ export const subsService = {
 
   async getMySubscription(): Promise<UserSubscription> {
     const res = await api.get<UserSubscription>('/subscriptions/me');
+    return res.data;
+  },
+
+  async subscribe(data: {
+    tier: 'free' | 'premium';
+    billingCycle?: 'trial_14d' | 'monthly_1m' | 'quarterly_3m' | 'semiannual_6m' | 'annual_1y' | 'free';
+    durationDays?: number;
+    isTrial?: boolean;
+    provider?: 'yape' | 'plin' | 'culqi' | 'mercadopago' | 'stripe' | 'free_trial' | 'manual';
+  }): Promise<{
+    message: string;
+    tier: string;
+    status: string;
+    billingCycle?: string;
+    durationDays?: number;
+    amountPaidPen?: number;
+    currentPeriodEnd?: string;
+    subscription: any;
+  }> {
+    const res = await api.post('/subscriptions/subscribe', data);
     return res.data;
   },
 
@@ -43,6 +63,30 @@ export const subsService = {
     if (limit) params.append('limit', limit.toString());
 
     const res = await api.get<Voucher[]>(`/subscriptions/vouchers?${params.toString()}`);
+    return res.data;
+  },
+
+  async listAccountsForAdmin(): Promise<AdminUserAccount[]> {
+    const res = await api.get<AdminUserAccount[]>('/subscriptions/admin/accounts');
+    return res.data;
+  },
+
+  async adminGrantSubscription(
+    userId: string,
+    data: {
+      planType: 'free' | 'trial_7d' | 'trial_14d' | 'monthly_1m' | 'quarterly_3m' | 'semiannual_6m' | 'annual_1y' | 'custom';
+      customDays?: number;
+      notes?: string;
+    },
+  ): Promise<{
+    message: string;
+    userId: string;
+    tier: string;
+    status?: string;
+    durationDays?: number;
+    currentPeriodEnd?: string;
+  }> {
+    const res = await api.post(`/subscriptions/admin/accounts/${userId}/grant`, data);
     return res.data;
   },
 };

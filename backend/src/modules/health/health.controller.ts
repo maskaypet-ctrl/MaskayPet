@@ -4,6 +4,7 @@ import {
   Get,
   Ip,
   Param,
+  Patch,
   Post,
   UseGuards,
 } from '@nestjs/common';
@@ -18,6 +19,7 @@ import {
   CreateTreatmentDto,
   CreateVaccinationDto,
   CreateWeightRecordDto,
+  UpdateHealthRecordStatusDto,
 } from './dto/health.dto';
 import { HealthService } from './health.service';
 
@@ -82,6 +84,18 @@ export class HealthController {
     return this.healthService.addTreatment(petId, user.id, dto, ip);
   }
 
+  @Patch('pets/:petId/treatments/:treatmentId/status')
+  @ApiOperation({ summary: 'Actualizar estado de tratamiento médico' })
+  async updateTreatmentStatus(
+    @Param('petId') petId: string,
+    @Param('treatmentId') treatmentId: string,
+    @CurrentUser() user: AuthenticatedUser,
+    @Body() dto: UpdateHealthRecordStatusDto,
+    @Ip() ip: string,
+  ) {
+    return this.healthService.updateTreatmentStatus(petId, treatmentId, user.id, dto.status, ip);
+  }
+
   // Diagnósticos
   @Get('pets/:petId/diagnoses')
   @ApiOperation({ summary: 'Listar diagnósticos clínicos' })
@@ -134,6 +148,18 @@ export class HealthController {
     @Ip() ip: string,
   ) {
     return this.healthService.addAppointment(petId, user.id, dto, ip);
+  }
+
+  @Patch('pets/:petId/appointments/:appointmentId/status')
+  @ApiOperation({ summary: 'Actualizar estado de cita veterinaria' })
+  async updateAppointmentStatus(
+    @Param('petId') petId: string,
+    @Param('appointmentId') appointmentId: string,
+    @CurrentUser() user: AuthenticatedUser,
+    @Body() dto: UpdateHealthRecordStatusDto,
+    @Ip() ip: string,
+  ) {
+    return this.healthService.updateAppointmentStatus(petId, appointmentId, user.id, dto.status, ip);
   }
 
   // Documentos

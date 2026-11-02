@@ -43,6 +43,19 @@ export class QrController {
     return this.qrService.assignTag(user.id, dto, ip);
   }
 
+  @Post('generate/:petId')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Crear o regenerar automáticamente el código QR único de una mascota' })
+  async ensureUniqueQrForPet(
+    @Param('petId') petId: string,
+    @Body() body: { regenerate?: boolean },
+    @CurrentUser() user: AuthenticatedUser,
+    @Ip() ip: string,
+  ) {
+    return this.qrService.ensureUniqueQrForPet(user.id, petId, ip, Boolean(body?.regenerate));
+  }
+
   @Post('unassign')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
@@ -55,9 +68,26 @@ export class QrController {
     return this.qrService.unassignTag(user.id, dto, ip);
   }
 
+  @Get('available')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Listar códigos QR disponibles para vinculación' })
+  async getAvailableTags() {
+    return this.qrService.getAvailableTags();
+  }
+
+  @Get('batches')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('admin', 'production_manager', 'support')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Listar lotes de producción de placas QR y códigos recientes (Admin)' })
+  async getBatches() {
+    return this.qrService.getProductionBatches();
+  }
+
   @Post('batches')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('admin', 'production_manager')
+  @Roles('admin', 'production_manager', 'support')
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Crear lote de producción de tags QR (Admin / Production Manager)' })
   async createBatch(

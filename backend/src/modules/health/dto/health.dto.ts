@@ -200,3 +200,10 @@ export class CreateMedicalDocumentDto {
   @IsNumber()
   fileSizeBytes?: number;
 }
+
+export class UpdateHealthRecordStatusDto {
+  @ApiProperty({ example: 'completed' })
+  @IsString()
+  @IsNotEmpty()
+  status: string;
+}

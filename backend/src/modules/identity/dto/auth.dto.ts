@@ -49,3 +49,44 @@ export class RefreshTokenDto {
   @IsNotEmpty({ message: 'El refresh token es obligatorio' })
   refreshToken: string;
 }
+
+export class ChangePasswordDto {
+  @ApiProperty({ description: 'Contraseña actual del usuario' })
+  @IsString()
+  @IsNotEmpty({ message: 'La contraseña actual es obligatoria' })
+  currentPassword: string;
+
+  @ApiProperty({ description: 'Nueva contraseña (mínimo 8 caracteres)', minLength: 8 })
+  @IsString()
+  @MinLength(8, { message: 'La nueva contraseña debe tener al menos 8 caracteres' })
+  newPassword: string;
+}
+
+export class AdminResetPasswordDto {
+  @ApiProperty({ description: 'Nueva contraseña temporal asignada por el administrador', minLength: 8 })
+  @IsString()
+  @MinLength(8, { message: 'La nueva contraseña debe tener al menos 8 caracteres' })
+  newPassword: string;
+}
+
+export class RequestPasswordCodeDto {
+  @ApiProperty({ example: 'juan.perez@example.com', description: 'Correo electrónico de la cuenta' })
+  @IsEmail({}, { message: 'Ingresa un correo electrónico válido' })
+  email: string;
+}
+
+export class ConfirmPasswordCodeDto {
+  @ApiProperty({ example: 'juan.perez@example.com', description: 'Correo electrónico de la cuenta' })
+  @IsEmail({}, { message: 'Ingresa un correo electrónico válido' })
+  email: string;
+
+  @ApiProperty({ example: '482910', description: 'Código de verificación de 6 dígitos enviado al correo' })
+  @IsString()
+  @IsNotEmpty({ message: 'El código de verificación es obligatorio' })
+  code: string;
+
+  @ApiProperty({ description: 'Nueva contraseña (mínimo 8 caracteres)', minLength: 8 })
+  @IsString()
+  @MinLength(8, { message: 'La nueva contraseña debe tener al menos 8 caracteres' })
+  newPassword: string;
+}

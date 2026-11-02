@@ -13,6 +13,7 @@ import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CurrentUser, AuthenticatedUser } from '../../common/decorators/current-user.decorator';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import {
+  AddCollaboratorDto,
   CreatePetContactDto,
   CreatePetDto,
   UpdatePetDto,
@@ -97,5 +98,37 @@ export class PetsController {
     @Ip() ip: string,
   ) {
     return this.petsService.updatePublicProfile(petId, user.id, dto, ip);
+  }
+
+  @Post(':id/collaborators')
+  @ApiOperation({ summary: 'Agregar un co-cuidador familiar por su correo electrónico' })
+  async addCollaborator(
+    @Param('id') petId: string,
+    @CurrentUser() user: AuthenticatedUser,
+    @Body() dto: AddCollaboratorDto,
+    @Ip() ip: string,
+  ) {
+    return this.petsService.addCollaborator(petId, user.id, dto, ip);
+  }
+
+  @Delete(':id/collaborators/:collaboratorUserId')
+  @ApiOperation({ summary: 'Remover un co-cuidador familiar de la mascota' })
+  async removeCollaborator(
+    @Param('id') petId: string,
+    @Param('collaboratorUserId') collaboratorUserId: string,
+    @CurrentUser() user: AuthenticatedUser,
+    @Ip() ip: string,
+  ) {
+    return this.petsService.removeCollaborator(petId, collaboratorUserId, user.id, ip);
+  }
+
+  @Delete(':id')
+  @ApiOperation({ summary: 'Archivar / eliminar mascota de la cuenta' })
+  async archivePet(
+    @Param('id') petId: string,
+    @CurrentUser() user: AuthenticatedUser,
+    @Ip() ip: string,
+  ) {
+    return this.petsService.archivePet(petId, user.id, ip);
   }
 }

@@ -48,7 +48,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({ onOpenEmergency }) => {
         className={({ isActive }) => `${styles.navItem} ${isActive ? styles.active : ''}`}
       >
         <span className="material-symbols-outlined">manage_accounts</span>
-        <span>Cuenta</span>
+        <span>Mi Perfil</span>
       </NavLink>
     </nav>
   );

@@ -26,12 +26,21 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   });
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
+  const normalizeUser = (u: any): User => ({
+    ...u,
+    firstName: u.firstName || u.first_name || '',
+    lastName: u.lastName || u.last_name || '',
+    avatarStoragePath: u.avatarStoragePath || u.avatar_storage_path || null,
+    roles: Array.isArray(u.roles) ? u.roles : ['customer'],
+  });
+
   const refreshUser = useCallback(async () => {
     try {
       const me = await authService.getMe();
       if (me && me.id) {
-        setUser(me);
-        localStorage.setItem('user', JSON.stringify(me));
+        const normalized = normalizeUser(me);
+        setUser(normalized);
+        localStorage.setItem('user', JSON.stringify(normalized));
       } else {
         throw new Error('Invalid user payload');
       }
@@ -66,8 +75,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       localStorage.setItem('refresh_token', payload.tokens.refreshToken);
     }
     if (payload?.user) {
-      localStorage.setItem('user', JSON.stringify(payload.user));
-      setUser(payload.user);
+      const normalized = normalizeUser(payload.user);
+      localStorage.setItem('user', JSON.stringify(normalized));
+      setUser(normalized);
     }
   };
 

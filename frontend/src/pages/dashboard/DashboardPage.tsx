@@ -256,7 +256,7 @@ export const DashboardPage: React.FC = () => {
                               <span className="material-symbols-outlined" style={{ fontSize: '14px', marginRight: '3px' }}>
                                 qr_code_2
                               </span>
-                              {pet.qr_code}
+                              QR Activo
                             </Badge>
                           </button>
                         ) : (
@@ -272,7 +272,7 @@ export const DashboardPage: React.FC = () => {
                         <span className="material-symbols-outlined">
                           {pet.qr_code ? 'check_circle' : 'help'}
                         </span>
-                        <span>{pet.qr_code ? 'Placa física enlazada' : 'Placa pendiente de enlazar'}</span>
+                        <span>{pet.qr_code ? 'Código QR activo' : 'Sin código QR creado'}</span>
                       </div>
                     </div>
                   </div>
@@ -287,11 +287,43 @@ export const DashboardPage: React.FC = () => {
                     </div>
                     <div className={styles.bioCol}>
                       <span className={styles.bioLbl}>Vacunas</span>
-                      <span className={`${styles.bioVal} ${styles.greenVal}`}>Al día</span>
+                      <span
+                        className={`${styles.bioVal} ${
+                          (pet.overdue_vaccines_count ?? 0) > 0
+                            ? ''
+                            : (pet.vaccines_count ?? 0) > 0
+                            ? styles.greenVal
+                            : ''
+                        }`}
+                        style={
+                          (pet.overdue_vaccines_count ?? 0) > 0
+                            ? { color: 'var(--error)' }
+                            : (pet.vaccines_count ?? 0) === 0
+                            ? { color: 'var(--outline)' }
+                            : undefined
+                        }
+                      >
+                        {(pet.overdue_vaccines_count ?? 0) > 0
+                          ? `${pet.overdue_vaccines_count} por renovar`
+                          : (pet.vaccines_count ?? 0) > 0
+                          ? 'Al día'
+                          : 'Pendiente'}
+                      </span>
                     </div>
                     <div className={styles.bioCol}>
                       <span className={styles.bioLbl}>Estado</span>
-                      <span className={styles.bioVal}>Protegido</span>
+                      <span
+                        className={`${styles.bioVal} ${!pet.is_lost && pet.qr_code ? styles.greenVal : ''}`}
+                        style={
+                          pet.is_lost
+                            ? { color: 'var(--error)', fontWeight: 800 }
+                            : !pet.qr_code
+                            ? { color: 'var(--outline)' }
+                            : undefined
+                        }
+                      >
+                        {pet.is_lost ? 'En Alerta SOS' : pet.qr_code ? 'Protegido' : 'Sin Placa'}
+                      </span>
                     </div>
                   </div>
 
@@ -305,13 +337,21 @@ export const DashboardPage: React.FC = () => {
                     >
                       Ver Ficha & Pasaporte
                     </Button>
-                    {pet.qr_code && (
+                    {pet.qr_code ? (
                       <button
                         className={styles.publicViewBtn}
                         title="Simular cómo ve el rescatista el QR público"
                         onClick={() => window.open(`/qr/${pet.qr_code}`, '_blank')}
                       >
                         <span className="material-symbols-outlined">visibility</span>
+                      </button>
+                    ) : (
+                      <button
+                        className={styles.publicViewBtn}
+                        title="Vincular placa QR a esta mascota"
+                        onClick={() => navigate(`/vincular-qr?petId=${pet.id}`)}
+                      >
+                        <span className="material-symbols-outlined">qr_code_scanner</span>
                       </button>
                     )}
                   </div>
@@ -334,9 +374,20 @@ export const DashboardPage: React.FC = () => {
 
           <div className={styles.remindersList}>
             {reminders.map((rem) => (
-              <Card key={rem.id} padding="sm" className={styles.reminderCard}>
+              <Card
+                key={rem.id}
+                padding="sm"
+                className={styles.reminderCard}
+                onClick={() => rem.pet_id && navigate(`/pets/${rem.pet_id}?tab=passport`)}
+              >
                 <div className={styles.reminderIcon}>
-                  <span className="material-symbols-outlined">event_upcoming</span>
+                  <span className="material-symbols-outlined">
+                    {rem.reminder_type === 'vaccine'
+                      ? 'vaccines'
+                      : rem.reminder_type === 'deworming'
+                      ? 'bug_report'
+                      : 'event_upcoming'}
+                  </span>
                 </div>
                 <div className={styles.reminderInfo}>
                   <h4 className={styles.reminderTitle}>{rem.title}</h4>

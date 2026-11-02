@@ -26,9 +26,47 @@ export const CreatePetModal: React.FC<CreatePetModalProps> = ({
   const [color, setColor] = useState('');
   const [microchipNumber, setMicrochipNumber] = useState('');
   const [isSterilized, setIsSterilized] = useState(false);
+  const [createQr, setCreateQr] = useState(false);
   const [description, setDescription] = useState('');
   const [photoStoragePath, setPhotoStoragePath] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  const handlePhotoFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (!file.type.startsWith('image/')) {
+      error('Por favor selecciona un archivo de imagen válido (JPG, PNG, WEBP)');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const maxDim = 480;
+        let width = img.width;
+        let height = img.height;
+        if (width > height && width > maxDim) {
+          height = Math.round((height * maxDim) / width);
+          width = maxDim;
+        } else if (height > maxDim) {
+          width = Math.round((width * maxDim) / height);
+          height = maxDim;
+        }
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          ctx.drawImage(img, 0, 0, width, height);
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
+          setPhotoStoragePath(dataUrl);
+        }
+      };
+      img.src = ev.target?.result as string;
+    };
+    reader.readAsDataURL(file);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,8 +96,13 @@ export const CreatePetModal: React.FC<CreatePetModalProps> = ({
         isSterilized,
         description: description.trim(),
         photoStoragePath: photoStoragePath.trim() || undefined,
+        createQr,
       });
-      success(`¡${name} ha sido registrado exitosamente!`);
+      success(
+        createQr
+          ? `¡${name} ha sido registrado con su código QR activo!`
+          : `¡${name} ha sido registrado! Puedes crear su QR cuando lo desees.`,
+      );
       // Reset form
       setName('');
       setBreed('');
@@ -67,6 +110,7 @@ export const CreatePetModal: React.FC<CreatePetModalProps> = ({
       setDescription('');
       setPhotoStoragePath('');
       setMicrochipNumber('');
+      setCreateQr(false);
       onCreated();
     } catch (err: any) {
       error(err.response?.data?.message || 'Error al registrar la mascota');
@@ -146,15 +190,61 @@ export const CreatePetModal: React.FC<CreatePetModalProps> = ({
             onChange={(e) => setMicrochipNumber(e.target.value)}
           />
 
-          <Input
-            label="Foto URL (Opcional)"
-            placeholder="https://... o dejar vacío para usar avatar"
-            value={photoStoragePath}
-            onChange={(e) => setPhotoStoragePath(e.target.value)}
-          />
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+            <Input
+              label="Foto de la Mascota (URL o Subir Imagen)"
+              placeholder="https://... o sube una foto abajo"
+              value={photoStoragePath.startsWith('data:image') ? 'Imagen cargada desde dispositivo ✓' : photoStoragePath}
+              onChange={(e) => setPhotoStoragePath(e.target.value)}
+            />
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <label
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  fontSize: '12px',
+                  fontWeight: 600,
+                  color: 'var(--primary)',
+                  background: 'var(--surface-container-low)',
+                  padding: '6px 12px',
+                  borderRadius: '999px',
+                  cursor: 'pointer',
+                  border: '1px solid var(--outline-variant)',
+                }}
+              >
+                <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>
+                  upload_file
+                </span>
+                <span>Subir foto desde mi equipo/móvil</span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handlePhotoFileChange}
+                  style={{ display: 'none' }}
+                />
+              </label>
+              {photoStoragePath && (
+                <button
+                  type="button"
+                  onClick={() => setPhotoStoragePath('')}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: 'var(--error)',
+                    fontSize: '12px',
+                    cursor: 'pointer',
+                    fontWeight: 600,
+                  }}
+                >
+                  Quitar foto
+                </button>
+              )}
+            </div>
+          </div>
         </div>
 
-        <div className={styles.checkboxRow}>
+        <div className={styles.checkboxRow} style={{ flexDirection: 'column', alignItems: 'flex-start', gap: '10px' }}>
           <label className={styles.checkboxLabel}>
             <input
               type="checkbox"
@@ -163,6 +253,30 @@ export const CreatePetModal: React.FC<CreatePetModalProps> = ({
             />
             <span>Mascota esterilizada / castrada</span>
           </label>
+
+          <div
+            style={{
+              width: '100%',
+              background: createQr ? 'var(--primary-fixed)' : 'var(--surface-container-low)',
+              border: createQr ? '1.5px solid var(--primary)' : '1px solid var(--outline-variant)',
+              borderRadius: '12px',
+              padding: '12px 14px',
+            }}
+          >
+            <label className={styles.checkboxLabel} style={{ fontWeight: 700, color: 'var(--on-surface)' }}>
+              <input
+                type="checkbox"
+                checked={createQr}
+                onChange={(e) => setCreateQr(e.target.checked)}
+              />
+              <span>Crear código QR para esta mascota ahora</span>
+            </label>
+            <p style={{ margin: '4px 0 0 24px', fontSize: '12px', color: 'var(--on-surface-variant)' }}>
+              {createQr
+                ? `¿Seguro que deseas crear el QR para ${name || 'esta mascota'}? Se generará automáticamente al guardar.`
+                : 'Puedes registrar hasta 4 mascotas gratis (1 con QR incluido, o QR ilimitados con Plan Mensual).'}
+            </p>
+          </div>
         </div>
 
         <div className={styles.fieldFull}>

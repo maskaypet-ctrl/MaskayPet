@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Ip,
+  Param,
   Post,
   Query,
   UseGuards,
@@ -13,7 +14,7 @@ import { Public } from '../../common/decorators/public.decorator';
 import { Roles } from '../../common/decorators/roles.decorator';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
-import { SubscribeDto } from './dto/subscription.dto';
+import { AdminGrantSubscriptionDto, SubscribeDto } from './dto/subscription.dto';
 import { GenerateVouchersDto, RedeemVoucherDto } from './dto/voucher.dto';
 import { SubscriptionsService } from './subscriptions.service';
 
@@ -86,5 +87,28 @@ export class SubscriptionsController {
     @Query('limit') limit?: number,
   ) {
     return this.subscriptionsService.listVouchers(status, limit ? Number(limit) : 50);
+  }
+
+  @Get('admin/accounts')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('admin', 'support')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Listar todas las cuentas de usuarios y su estado de suscripción / prueba gratis (Admin)' })
+  async listAccountsForAdmin() {
+    return this.subscriptionsService.listAccountsForAdmin();
+  }
+
+  @Post('admin/accounts/:userId/grant')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('admin', 'support')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Asignar o modificar tiempo de suscripción / prueba gratis a una cuenta (Admin)' })
+  async adminGrantSubscription(
+    @Param('userId') targetUserId: string,
+    @CurrentUser() user: AuthenticatedUser,
+    @Body() dto: AdminGrantSubscriptionDto,
+    @Ip() ip: string,
+  ) {
+    return this.subscriptionsService.adminGrantSubscription(user.id, targetUserId, dto, ip);
   }
 }

@@ -12,7 +12,6 @@ import { DashboardPage } from './pages/dashboard/DashboardPage';
 import { PetsListPage } from './pages/pets/PetsListPage';
 import { PetDetailPage } from './pages/pets/PetDetailPage';
 import { LinkQRPage } from './pages/qr-wizard/LinkQRPage';
-import { StorePage } from './pages/store/StorePage';
 import { AccountPage } from './pages/account/AccountPage';
 import { PublicQRScanPage } from './pages/public-scan/PublicQRScanPage';
 import { AdminVouchersPage } from './pages/admin/AdminVouchersPage';
@@ -65,6 +64,7 @@ export const App: React.FC = () => {
           <Routes>
             {/* Public Standalone QR Scan Page (No login required) */}
             <Route path="/qr/:code" element={<PublicQRScanPage />} />
+            <Route path="/p/:code" element={<PublicQRScanPage />} />
             <Route path="/terminos" element={<TermsPage />} />
             <Route path="/privacidad" element={<PrivacyPage />} />
 
@@ -100,6 +100,7 @@ export const App: React.FC = () => {
               <Route path="pets" element={<PetsListPage />} />
               <Route path="pets/:id" element={<PetDetailPage />} />
               <Route path="vincular-qr" element={<LinkQRPage />} />
+              <Route path="tienda" element={<Navigate to="/cuenta" replace />} />
               <Route path="cuenta" element={<AccountPage />} />
               <Route
                 path="admin/vouchers"
